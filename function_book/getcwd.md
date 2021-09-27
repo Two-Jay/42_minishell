@@ -1,6 +1,7 @@
 
 ## getcwd
 
+#include <unistd.h>
 char *getcwd(char *buffer, int maxlen);
 
 현재 디렉토리를 문자열로 리턴한다. 첫번째 인자로는 저장할 버퍼를 받고, 두 번째 인자로는 버퍼의 길이를 받는다.
