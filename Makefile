@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/09/27 14:13:46 by jekim            ###   ########.fr        #
+#    Updated: 2021/09/27 15:32:01 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME		=	minishell
 
 CC			=	gcc
 CCFLAG		=	-Wall -Wextra -Werror
+LIBFLAG		=	-lreadline
 G			=	-g
 INCLUDE		=	-I./includes
 
@@ -29,10 +30,10 @@ all			:	$(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
+	@$(CC) $(G) $(CCFLAG) $(LIBFLAG) $(INCLUDE) $< -c -o $@
 
 $(NAME)		:	$(OBJ)
-	@$(CC) $(G) $(CCFLAG) $(OBJ) $(INCLUDE) -o $@
+	@$(CC) $(G) $(CCFLAG) $(LIBFLAG) $(INCLUDE) -o $@
 	@echo "\033[0;92m* $(NAME) program file was created *\033[0m"
 
 clean		:
