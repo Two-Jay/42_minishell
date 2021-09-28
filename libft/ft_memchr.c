@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/29 02:39:21 by jekim            ###   ########seoul.kr  */
+/*   Created: 2021/01/10 23:40:43 by jekim             #+#    #+#             */
+/*   Updated: 2021/07/28 02:51:02 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "libft.h"
 
-int main(void)
+void	*ft_memchr(const void *src, int c, size_t n)
 {
-	char *str = "Hello, Minishell\n";
-	write(1, str, 17);
+	unsigned char	*s;
+	unsigned char	find;
+
+	if (!src)
+		return (NULL);
+	s = (unsigned char *)src;
+	find = c;
+	while (n--)
+	{
+		if (*s != find)
+			s++;
+		else
+			return (s);
+	}
 	return (0);
 }
