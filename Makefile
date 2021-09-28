@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/09/29 02:41:06 by jekim            ###   ########seoul.kr   #
+#    Updated: 2021/09/29 02:44:08 by jekim            ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,13 @@ $(NAME)		:	$(OBJ)
 
 clean		:
 	@rm -rf $(OBJ_DIR)
+	@$(MAKE) -C ./libft clean
 	@echo "\033[0;91m* $(NAME)'s object files were removed* \033[0m"
 
 
 fclean		:	clean
 	@rm -f $(NAME)
+	@$(MAKE) -C ./libft fclean
 	@echo "\033[0;91m* $(NAME) were removed* \033[0m"
 
 
