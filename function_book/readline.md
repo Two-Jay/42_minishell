@@ -46,4 +46,4 @@ int rl_redisplay(void);
 현재 스크린에 띄워진 것을 rl_line_buffer에 있는 내용으로 바꾼다.
 
 void rl_replace_line(const char *text, int clear_undo);
-rl_line_buffer의 내용을 text로 바꾼다. 매개변수로 넣은 포인터는 가능한 한 보존된다. clear_undo 가 0이 아니면?
+rl_line_buffer의 내용을 text로 바꾼다. 매개변수로 넣은 포인터는 가능한 한 보존된다. clear_undo 가 트루값이면 undo list를 다 정리해줌.
