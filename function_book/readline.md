@@ -9,6 +9,7 @@ char *readline(const char *prompt);
 
 readline은 터미널에서 라인을 읽어와서 이를 리턴한다. 만약 매개변수 prompt에 아무런 변수도 넣어주지 않으면, 프롬프트에 아무런 내용도 띄우지 않고 입력을 받는다. 그러지 않을 경우, 프롬포트에 매개변수로 넣어준 문자열을 프롬프트에 출력하고 난 후에 출력을 받는다. 성공시 읽어온 라인을 리턴한다.
 
+### 예제
 ```c
 #include <stdio.h>
 #include <readline/readline.h>

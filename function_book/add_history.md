@@ -13,6 +13,7 @@ void add_history(const char *string)
 이는 add_history를 이용하여 구현할 수는 없지만, fd 계열 함수를 이용해 임의로 구현이 가능하다.
 (숨김파일에 쓰고, 하나씩 받아온다던가...)
 
+### 예제
 ```c
 #include <stdio.h>
 #include <readline/readline.h>

@@ -11,6 +11,7 @@ pid_t fork(void);
 
 fork 함수는 따로 인자를 받지 않는다. 성공시 부모 프로세스는 자식 프로세스의 pid를, 자식 프로세스에서는 0을 리턴한다. 실패하면 -1을 리턴한다.
 
+### 예제
 ```c
 #include <unistd.h>
 #include <stdio.h> //printf
