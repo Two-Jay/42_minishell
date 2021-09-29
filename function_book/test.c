@@ -6,14 +6,15 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:52:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/29 19:52:38 by jekim            ###   ########.fr       */
+/*   Updated: 2021/09/29 21:32:36 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 int fn_strerr(char *errm, size_t errm_len)
 {
@@ -21,29 +22,26 @@ int fn_strerr(char *errm, size_t errm_len)
 	exit(EXIT_FAILURE);
 }
 
-// 실행하면 현재 dir을 출력하고
-// 현재 dir 스트림을 연 다음에
-// readdir 을 이용해서 현재 디렉토리에 있는 파일 이름을 하나씩 전개한다.
-int main(void)
-{
-	char			*currentdir;
-	DIR				*dirstr;
-	struct dirent	*dir_entry;
+int main(int argc, char *argv[]) {
+    struct stat file_info;
+    char *str;
+    int i;
 
-	currentdir = getcwd(NULL, 0);
-	if (!currentdir)
-		fn_strerr("Error : malloc failed\n", 23);
-	dirstr = opendir(currentdir);
-	if (dirstr != NULL)
+	i = 1;
+	while (i < argc)
 	{
-		dir_entry = readdir(dirstr);
-		while(dir_entry != NULL)
-		{
-			printf("%s\n", dir_entry->d_name);
-			dir_entry = readdir(dirstr);
-		}
-		closedir(dirstr);
-	}
-	free(currentdir);
+        if (lstat(argv[i], &file_info) < 0) {
+            fn_strerr("lstat error\n", 14);
+            continue;
+        }
+        if (S_ISREG(file_info.st_mode))
+            str = "regular file";
+        else if (S_ISDIR(file_info.st_mode))
+            str = "directory";
+        else
+            str = "unknown";
+        printf("name = %s, type = %s\n", argv[i], str);
+		i++;
+    }
 	return (0);
 }
