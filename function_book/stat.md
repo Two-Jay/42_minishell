@@ -41,3 +41,45 @@ struct stat {
 ```
 
 stat 구조체 중 st_mode가 가장 주목할 부분이다. 이 부분에서의 mode_t 변수의 값을 통해서 이 파일이 어떤 파일이며, 권한 설정은 어떻게 되어있는지 알 수 있다.
+
+### 예제코드 - stat 구조체의 st_mode 값의 활용
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+int fn_strerr(char *errm, size_t errm_len)
+{
+	write(2, errm, errm_len);
+	exit(EXIT_FAILURE);
+}
+
+int main(int argc, char *argv[]) {
+    struct stat file_info;
+    char *str;
+    int i;
+
+	i = 1;
+	while (i < argc)
+	{
+        if (lstat(argv[i], &file_info) < 0) {
+            fn_strerr("lstat error\n", 14);
+            continue;
+        }
+        // S_ISREG 과 S_ISDIR 모두 비트맵 연산을 래핑하였으며,
+        // 이러한 연산은 sys/stat.h 에 구현되어 있다.
+        if (S_ISREG(file_info.st_mode))
+            str = "regular file";
+        else if (S_ISDIR(file_info.st_mode))
+            str = "directory";
+        else
+            str = "unknown";
+        printf("name = %s, type = %s\n", argv[i], str);
+		i++;
+    }
+	return (0);
+}
+```
