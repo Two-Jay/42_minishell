@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/29 02:39:21 by jekim            ###   ########seoul.kr  */
+/*   Created: 2020/12/29 19:25:59 by jekim             #+#    #+#             */
+/*   Updated: 2021/07/28 03:01:59 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "libft.h"
 
-int main(void)
+char	*ft_strrchr(const char *src, int c)
 {
-	char *str = "Hello, Minishell\n";
-	write(1, str, 17);
-	return (0);
+	unsigned int	src_l;
+
+	if (!src)
+		return (NULL);
+	src_l = (unsigned int)ft_strlen(src);
+	while (src_l != 0 && src[src_l] != (char)c)
+		src_l--;
+	if (src[src_l] == (char)c)
+		return ((char *)src + src_l);
+	return (NULL);
 }

@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/29 02:39:21 by jekim            ###   ########seoul.kr  */
+/*   Created: 2020/12/29 19:39:21 by jekim             #+#    #+#             */
+/*   Updated: 2021/07/28 03:01:54 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "libft.h"
 
-int main(void)
+char	*ft_strnstr(const char *big, const char *little, size_t n)
 {
-	char *str = "Hello, Minishell\n";
-	write(1, str, 17);
+	size_t	len;
+
+	len = ft_strlen(little);
+	if (!little || !n || n < len)
+		return (0);
+	while (*big && len <= n)
+	{
+		if (!ft_strncmp(big, little, n))
+			return ((char *)big);
+		big++;
+	}
 	return (0);
 }

@@ -1,8 +1,9 @@
-
 ## getenv
 
+```c
 #include <stdlib.h>
 char *getenv(const char *varname);
+```
 
 getenv() 함수는 varname에 해당한 항목에 대한 환경변수의 리스트를 검색합니다. 성공시 varname의 값을 포함하여 문자열 포인터를 리턴합니다. 찾을 수 없는 경우에는 null이 리턴되며, errno가 설정됩니다.
 

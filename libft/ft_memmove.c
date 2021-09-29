@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/29 02:39:21 by jekim            ###   ########seoul.kr  */
+/*   Created: 2020/12/26 03:39:13 by jekim             #+#    #+#             */
+/*   Updated: 2021/07/28 02:51:14 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "libft.h"
 
-int main(void)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	char *str = "Hello, Minishell\n";
-	write(1, str, 17);
-	return (0);
+	unsigned char	*d;
+	unsigned char	*s;
+
+	d = (unsigned char *)dst;
+	s = (unsigned char *)src;
+	if (!dst || !src)
+		return (NULL);
+	if (s < d)
+	{
+		d += n - 1;
+		s += n - 1;
+		while (n--)
+			*(d--) = *(s--);
+	}
+	else
+	{
+		while (n--)
+			*(d++) = *(s++);
+	}
+	return (dst);
 }

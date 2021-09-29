@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_scalloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/29 02:39:21 by jekim            ###   ########seoul.kr  */
+/*   Created: 2021/05/30 03:22:16 by jekim             #+#    #+#             */
+/*   Updated: 2021/07/28 02:52:16 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "libft.h"
 
-int main(void)
+void	*ft_scalloc(size_t count, size_t size)
 {
-	char *str = "Hello, Minishell\n";
-	write(1, str, 17);
-	return (0);
+	void	*ptr;
+
+	ptr = malloc(count * size);
+	if (!ptr)
+		exit(EXIT_FAILURE);
+	ft_bzero(ptr, (count * size));
+	return (ptr);
 }

@@ -1,9 +1,11 @@
 ## add_history
 
+```c
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 void add_history(const char *string)
+```
 
 문자열로 받은 인풋을 히스토리 리스트에 추가한다. stifle_history()를 이용하여 정한 히스토리 엔트리의 최대값을 넘는 경우, 혹은 새로운 히스토리 엔트리가 최대값을 넣는 경우에는, 가장 오래된 히스토리가 사라지게 된다.
 

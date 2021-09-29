@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/29 02:39:21 by jekim            ###   ########seoul.kr  */
+/*   Created: 2020/12/26 01:00:34 by jekim             #+#    #+#             */
+/*   Updated: 2021/07/28 02:49:05 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "libft.h"
 
-int main(void)
+void	ft_bzero(void *dst, size_t n)
 {
-	char *str = "Hello, Minishell\n";
-	write(1, str, 17);
-	return (0);
+	unsigned char	*temp;
+
+	if (!dst)
+		return ;
+	temp = dst;
+	while (n--)
+	{
+		*temp++ = 0;
+	}
 }

@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/29 02:39:21 by jekim            ###   ########seoul.kr  */
+/*   Created: 2020/11/30 16:10:54 by jekim             #+#    #+#             */
+/*   Updated: 2021/07/28 03:01:43 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "libft.h"
 
-int main(void)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char *str = "Hello, Minishell\n";
-	write(1, str, 17);
-	return (0);
+	size_t	i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (s1[i] - s2[i]);
+	while (i < n - 1)
+	{
+		if (s1[i] && s2[i] && s1[i] == s2[i])
+			i++;
+	}
+	return (s1[i] - s2[i]);
 }
