@@ -22,7 +22,6 @@ void add_history(const char *string)
 
 // 컴파일을 할 시에 -lreadline 을 붙여야 한다.
 // GNU readline : 명령줄 인터페이스의 편집 및 입력, 기록, 저장을 위한 라이브러리
-
 int main(void)
 {
 	char *str;

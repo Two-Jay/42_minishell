@@ -6,74 +6,44 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:52:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/29 15:01:11 by jekim            ###   ########.fr       */
+/*   Updated: 2021/09/29 19:52:38 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
+#include <unistd.h>
+#include <dirent.h>
 
-unsigned long fibonacci(int n)
+int fn_strerr(char *errm, size_t errm_len)
 {
-	if (n == 0 || n == 1)
-		return (1);
-	else
-		return (fibonacci(n - 1) + fibonacci(n - 2));
+	write(2, errm, errm_len);
+	exit(EXIT_FAILURE);
 }
 
-int main(int argc, char *argv[])
+// 실행하면 현재 dir을 출력하고
+// 현재 dir 스트림을 연 다음에
+// readdir 을 이용해서 현재 디렉토리에 있는 파일 이름을 하나씩 전개한다.
+int main(void)
 {
-	int		exit_code;
-	int		value;
-	pid_t	pid;
+	char			*currentdir;
+	DIR				*dirstr;
+	struct dirent	*dir_entry;
 
-	// 이런 식으로 fork를 실행하면, 해당 pid가 -1, 0, 0 < pid 인지 체크해서
-	// 각 프로세스 별로 어떻게 동작할 지 구성할 수 있다.
-	if (argc != 2)
-		return (0);
-	value = atoi(argv[1]);
-	if (value > 50)
-		return (0);
-	exit_code = 0;
-	pid = fork();
-	if (pid == -1)
+	currentdir = getcwd(NULL, 0);
+	if (!currentdir)
+		fn_strerr("Error : malloc failed\n", 23);
+	dirstr = opendir(currentdir);
+	if (dirstr != NULL)
 	{
-		// 에러, fork() 실패
-		printf("error!");
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		printf("Child : My pid is %d, and i'm a child of %d\n",
-			(int)getpid(),
-			(int)getppid());
-		if (value > 0)
+		dir_entry = readdir(dirstr);
+		while(dir_entry != NULL)
 		{
-			printf("Child : I told to ma parent that argv is bigger than 0\n");
-			// fibonacci 함수에 4~50 정도 넣으면 무슨 일이 일어날까...?
-			printf("Child : you wish %lu, right?\n", fibonacci(value));
-			exit(EXIT_SUCCESS);
+			printf("%s\n", dir_entry->d_name);
+			dir_entry = readdir(dirstr);
 		}
-		else if (value <= 0)
-		{
-			printf("Child : I told to ma parent that argv is not bigger than 0\n");
-			exit(EXIT_FAILURE);
-		}
-
+		closedir(dirstr);
 	}
-	else
-	{
-		printf("Parent : My pid is %d, and i'm a child of %d\n and My child is %d\n",
-			(int)getpid(),
-			(int)getppid(),
-			(int)pid);
-		waitpid(pid, &exit_code, 0);
-		printf("child %d send me exit_code : %d\n", pid, exit_code);
-		// 자식 프로세스가 종료 상태코드 1로 종료시 부모 프로세스의 waitpid에서 받아내는 종료상태값은 256이 될 것이다. 설명가능?
-	}
-	printf("process end\n");
+	free(currentdir);
 	return (0);
 }
