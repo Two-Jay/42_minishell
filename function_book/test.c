@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:52:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/01 03:30:10 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/01 06:17:07 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <errno.h>
 #include <string.h>
 
-#define BUFF_SIZE 1024
+#define BUFF_SIZE 4096
 
 char	*get_targetpath(const char *file_name)
 {
@@ -71,19 +71,46 @@ int is_txtfile(char *file_name)
 	return (1);
 }
 
-int cat_text(int fd)
+int read_data(int fd, char *buffer, int buf_size)
 {
-	char	buf[BUFF_SIZE + 1];
-	int		checker;
+	int size;
+	int len;
+
+	size = 0;
+	while (1)
+	{
+		len = read(fd, &buffer[size], buf_size - size);
+		if (len > 0)
+		{
+			size += len;
+			if (size == buf_size)
+				return (size);
+		}
+		else if (len == 0)
+			return (size);
+		else
+			return (-1);
+	}
+}
+
+int cat_txtfile(int fd)
+{
+	char	buf[BUFF_SIZE];
+	int check;
 
 	while (1)
 	{
-		checker = read(fd, buf, BUFF_SIZE);
-		if (checker <= 0)
+		check = read_data(fd, buf, BUFF_SIZE);
+		if (check == -1)
+		{
+			printf("Error : read error - %s\n", strerror(errno));
+			return (1);
+		}
+		else if (check == 0)
 			return (0);
-		write(1, buf, checker);
+		else
+			write(1, buf, check);
 	}
-	return (1);
 }
 
 int main(int argc, char *argv[])
@@ -92,7 +119,7 @@ int main(int argc, char *argv[])
 	int		fd;
 
 	target_file = get_targetpath(argv[1]);
-	fd = open(target_file, O_WRONLY, 0);
+	fd = open(target_file, O_RDONLY, 0);
 	if (fd == -1)
 	{
 		printf("Error : %s\n", strerror(errno));
@@ -103,7 +130,7 @@ int main(int argc, char *argv[])
 		printf("Error : this is not txt file.\n");
 		exit(errno);
 	}
-	cat_text(fd);
+	cat_txtfile(fd);
 	close(fd);
 	free(target_file);
 	return (0);
