@@ -6,15 +6,14 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/29 02:39:21 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/01 16:20:04 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../includes/minishell.h"
 
 int main(void)
 {
-	char *str = "Hello, Minishell\n";
-	write(1, str, 17);
+	printf("hi, minishell?\n");
 	return (0);
 }

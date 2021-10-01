@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/09/29 02:44:08 by jekim            ###   ########seoul.kr   #
+#    Updated: 2021/10/01 16:10:31 by jekim            ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,11 @@ CC			=	gcc
 CCFLAG		=	-Wall -Wextra -Werror
 LIBFLAG		=	-L$(LIBFT_DIR) -lft -lreadline 
 G			=	-g
-INCLUDE		=	-I./includes -I$(LIBFT_DIR)
+INCLUDE		=	-I$(INC_DIR) -I$(LIBFT_DIR)
 
 OBJ_DIR		=	./obj/
 SRC_DIR		=	./src/
+INC_DIR		=	./includes/
 LIBFT_DIR	=	./libft/
 
 SRC_FILE		=	minishell.c
@@ -31,7 +32,7 @@ all			:	$(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(G) $(CCFLAG) $(LIBFLAG) $(INCLUDE) $< -c -o $@
+	@$(CC) $(G) $(CCFLAG)$(INCLUDE) $< -c -o $@
 
 $(NAME)		:	$(OBJ)
 	@$(MAKE) -C ./libft

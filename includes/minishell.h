@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/09/30 14:35:29 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/01 16:09:08 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <dirent.h>
+# include <signal.h>
+# include <termios.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>

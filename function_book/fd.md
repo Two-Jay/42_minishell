@@ -40,7 +40,7 @@ mode_t 에서는 파일의 접근 권한을 설정한다.
 	O_NONBLOCK      사용 가능한 시점까지 함수의 동작을 블록시키지 않음
 	O_APPEND        해당 옵션으로 열고 write를 하는 경우 끝에서 내용이 덧붙여지도록 함 (중간 내용 수정 x)
 	O_CREAT         파일이 없을 시 파일 생성
-	O_TRUNC         사이즈 0으로 수정
+	O_TRUNC         이미 파일이 존재한다면 내용을 삭제하여 파일의 사이즈를 0으로 만들어 준다.
 	O_EXCL          O_CREAT 옵션과 함께 사용하는 경우, 경로로 지정한 파일이 존재할 시 에러로 반환
 	O_SHLOCK        atomically obtain a shared lock
 	O_EXLOCK        atomically obtain an exclusive lock
