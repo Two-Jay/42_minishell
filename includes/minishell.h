@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/06 17:15:42 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/07 04:48:31 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,18 @@
 # include "./parser.h"
 
 # define INTRO "Nyamnyam_shell.dev '-'//"
+
+typedef struct s_envlst
+{
+	char				*key;
+	char				*value;
+	struct	t_envlst	*next;
+}	t_envlst;
+
+typedef struct	s_data
+{
+	t_envlst	*envlst;
+	t_token		*input;
+}	t_data;
 
 #endif
