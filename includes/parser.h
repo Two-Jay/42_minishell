@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/06 18:15:15 by jekim            ###   ########seoul.kr  */
+/*   Created: 2021/10/01 17:33:13 by jekim             #+#    #+#             */
+/*   Updated: 2021/10/06 17:53:46 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-int main(void)
+typedef struct s_token
 {
-	char	*input;
+	char	*contents;
+	int		type;
+}	t_token;
 
-	printf("%s\n", INTRO);
-	while (1)
-	{
-		input = readline(NULL);
-		if (input)
-		{
-			parse_input(input);
-		}
-	}
-	return (0);
-}
+int parse_input(const char *input);
+
+#endif
