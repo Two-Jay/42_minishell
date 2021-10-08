@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/01 17:33:13 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 02:46:31 by jekim            ###   ########seoul.kr  */
+/*   Created: 2021/10/09 02:42:40 by jekim             #+#    #+#             */
+/*   Updated: 2021/10/09 02:45:19 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "../../includes/minishell.h"
 
-typedef struct s_token
+int indexOf(const char *str, char target)
 {
-	char	*contents;
-	int		type;
-	struct t_token	*left;
-	struct t_token	*right;
-}	t_token;
+	int ix;
 
-typedef struct s_tree
-{
-	struct t_token	*node;
-	int		depth;
-}	t_tree;
-
-int parse_input(const char *input);
-
-#endif
+	ix = 0;
+	while (str[ix])
+	{
+		if (str[ix] == target)
+			return (ix);
+		ix++;
+	}
+	return (-1);
+}

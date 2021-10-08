@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 09:05:39 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/07 04:50:14 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/09 02:01:37 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,80 @@
 int	is_closed(const char *input)
 {
 	int	ix;
-	int	squote_cnt;
-	int	dquote_cnt;
+	int	flag;
 
-	squote_cnt = 0;
-	dquote_cnt = 0;
-	ix = 0;
-	while (input[ix])
+	flag = 0;
+	ix = -1;
+	while (input[++ix])
 	{
-		if (input[ix] == '\"')
-			dquote_cnt++;
-		if (input[ix] == '\'')
-			squote_cnt++;
-		ix++;
+		if (input[ix] == 39)
+		{
+			if (flag == 0)
+				flag = 1;
+			if (flag == 1)
+				flag = 0;
+		}
+		if (input[ix] == 34)
+		{
+			if (flag == 0)
+				flag = 2;
+			if (flag == 2)
+				flag = 0;
+		}
 	}
-	if (dquote_cnt % 2 == 0 && squote_cnt % 2 == 0)
-		return (0);
-	return (1);
+	printf("%s %d\n", input, flag);
+	if (flag == 0)
+		return (TRUE);
+	return (FALSE);
 }
 
-int	preprocess_quote(const char *input)
+// int check_special_cha(const char *cptr)
+// {
+// 	if (*cptr == '\\')
+// 	{
+// 		if ()
+// 		{
+			
+// 		}
+// 	}
+// 	return (FALSE);
+// }
+
+// int copy_converted_str(const char *input, char *buf)
+// {
+// 	int ix;
+
+// 	ix = 0;
+// 	buf = (char *)malloc(sizeof(char) * (ft_strlen(input) + 1));
+// 	if (!buf)
+// 		return (ERROR_OCCURED);
+// 	while (input[ix])
+// 	{
+		
+// 		ix++;
+// 	}
+// 	return (0);
+// }
+
+int	preprocess_quote(const char *input, char *buf)
 {
+	size_t	len;
+
 	if (is_closed(input))
-		return (1);
+		return (ERROR_OCCURED);
+	len = ft_strlen(input);
+	buf = (char *)ft_calloc(sizeof(char), len);
+	// if (!buf || copy_quotedstr(input, buf))
+	// 	return (ERROR_OCCURED);
 	return (0);
 }
 
 int	parse_input(const char *input)
 {
-	printf("%s\n%d\n", input, is_closed(input));
+	char *buf;
+
+	buf = NULL;
+	if (preprocess_quote(input, buf))
+		return (1);
 	return (0);
 }
