@@ -6,12 +6,14 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 17:33:13 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 02:46:31 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/09 16:53:14 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+# include "./minishell.h"
 
 typedef struct s_token
 {
