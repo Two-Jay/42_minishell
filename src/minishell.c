@@ -6,19 +6,26 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 21:25:49 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/09 21:49:17 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int init_data(t_data *data)
+{
+	data = (t_data *)malloc(sizeof(t_data));
+	return (0);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	char	*input;
-	t_data	data;
+	t_data	*data;
 
-	print_intro(argc, argv);
-	init_env(envp, &data);
+	data = NULL;
+	if (print_intro(argc, argv) || init_data(data) || init_env(envp, data))
+		exit(EXIT_FAILURE);
 	while (1)
 	{
 		input = readline(NULL);

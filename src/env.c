@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 17:30:17 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 21:22:25 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/09 21:48:53 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	set_envfile(char **envp)
 {
-	int ix;
-	int len;
-	int fd;
-	int write_checker;
+	int	ix;
+	int	len;
+	int	fd;
+	int	write_checker;
 
 	ix = -1;
 	len = 0;
@@ -55,27 +55,36 @@ static int	set_envlst(char **envp, int fd, t_data *data)
 
 	ix = -1;
 	nptr = data->envlst;
+	printf("pointer:  %p\n", nptr);
 	if (fd == -1)
-		fd = open("./envrc", O_RDONLY, S_IWUSR | S_IRUSR);		
+		fd = open("./envrc", O_RDONLY, S_IWUSR | S_IRUSR);
 	while (envp[++ix])
 	{
 		ft_strgnl(fd, &buf);
 		nptr = create_node_envlst(buf);
+		printf("pointer:  %p\n", nptr);
 		free(buf);
 		if (envp[ix + 1] != NULL)
 			nptr = nptr->next;
 	}
 	nptr->next = NULL;
+	nptr = data->envlst;
+	printf("pointer:  %p\n", nptr);
+	while (nptr != NULL)
+	{
+		printf("%s=%s\n", nptr->key, nptr->value);
+		nptr = nptr->next;
+	}
 	return (0);
 }
 
-void	init_env(char **envp, t_data *data)
+int	init_env(char **envp, t_data *data)
 {
-	int envfd;
+	int	envfd;
 
-	(void)data;
 	envfd = open("./envrc", O_RDONLY | O_CREAT | O_EXCL, S_IWUSR | S_IRUSR);
 	if (envfd != -1)
 		set_envfile(envp);
 	set_envlst(envp, envfd, data);
+	return (0);
 }
