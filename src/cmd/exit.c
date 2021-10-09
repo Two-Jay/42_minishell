@@ -1,35 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 21:25:49 by jekim            ###   ########.fr       */
+/*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
+/*   Updated: 2021/10/09 21:25:15 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/cmd.h"
 
-int main(int argc, char **argv, char **envp)
+void    exit_minishell_SUCC(void)
 {
-	char	*input;
-	t_data	data;
-
-	print_intro(argc, argv);
-	init_env(envp, &data);
-	while (1)
-	{
-		input = readline(NULL);
-		if (input)
-		{
-			if (ft_strncmp(input, "exit", 4) == 0)
-				exit_minishell_SUCC();
-			parse_input(input);
-			free(input);
-		}
-		add_history(input);
-	}
-	return (0);
+    write(1, "exit\n", 5);
+    exit(EXIT_SUCCESS);
 }

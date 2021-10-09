@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 20:05:46 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/09 21:26:08 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include "./parser.h"
+# include "./cmd.h"
 
 # define INTRO "Nyamnyam_shell.dev '-'//"
 # define TRUE 0
@@ -52,11 +53,13 @@ typedef struct	s_data
 /*
 ** root setting functions
 */
-void init_env(char **envp, t_data *data);
+void	init_env(char **envp, t_data *data);
 
 /*
 ** util functions
 */
-int	indexOf(const char *str, char target);
+void	print_intro(int argc, char **argv);
+int		indexOf_char(const char *str, char target);
+
 
 #endif

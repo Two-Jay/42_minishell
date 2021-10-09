@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 09:05:39 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 02:01:37 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/09 21:21:55 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,6 @@ int	is_closed(const char *input)
 	return (FALSE);
 }
 
-// int check_special_cha(const char *cptr)
-// {
-// 	if (*cptr == '\\')
-// 	{
-// 		if ()
-// 		{
-			
-// 		}
-// 	}
-// 	return (FALSE);
-// }
-
-// int copy_converted_str(const char *input, char *buf)
-// {
-// 	int ix;
-
-// 	ix = 0;
-// 	buf = (char *)malloc(sizeof(char) * (ft_strlen(input) + 1));
-// 	if (!buf)
-// 		return (ERROR_OCCURED);
-// 	while (input[ix])
-// 	{
-		
-// 		ix++;
-// 	}
-// 	return (0);
-// }
-
 int	preprocess_quote(const char *input, char *buf)
 {
 	size_t	len;
@@ -78,8 +50,6 @@ int	preprocess_quote(const char *input, char *buf)
 		return (ERROR_OCCURED);
 	len = ft_strlen(input);
 	buf = (char *)ft_calloc(sizeof(char), len);
-	// if (!buf || copy_quotedstr(input, buf))
-	// 	return (ERROR_OCCURED);
 	return (0);
 }
 

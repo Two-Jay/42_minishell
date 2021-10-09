@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 17:30:17 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 21:06:13 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/09 21:22:25 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ static t_envlst	*create_node_envlst(char *env_line)
 	if (!tmp)
 		exit(EXIT_FAILURE);
 	len = ft_strlen(env_line);
-	equel_idx = indexOf(env_line, '=');
+	equel_idx = indexOf_char(env_line, '=');
 	tmp->key = ft_substr(env_line, 0, equel_idx);
 	tmp->value = ft_substr(env_line, equel_idx + 1, len - equel_idx);
-	printf("%s \\ %s\n", tmp->key, tmp->value);
 	return (tmp);
 }
 

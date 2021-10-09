@@ -6,13 +6,13 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 02:42:40 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 16:54:25 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/09 21:20:24 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int indexOf(const char *str, char target)
+int indexOf_char(const char *str, char target)
 {
 	int ix;
 
@@ -24,4 +24,11 @@ int indexOf(const char *str, char target)
 		ix++;
 	}
 	return (-1);
+}
+
+void print_intro(int argc, char **argv)
+{
+	printf("%s\n", INTRO);
+	(void)argc;
+	(void)argv;
 }

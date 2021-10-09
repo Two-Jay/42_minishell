@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/10/09 17:40:37 by jekim            ###   ########.fr        #
+#    Updated: 2021/10/09 21:29:04 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ OBJ_DIR		=	./obj/
 SRC_DIR		=	./src/
 UTILS_DIR	= 	./src/utils/
 PARSER_DIR	=	./src/parser/
+CMD_DIR		=	./src/cmd/
 INC_DIR		=	./includes/
 LIBFT_DIR	=	./libft/
 
@@ -32,15 +33,22 @@ PARSER_FILE 	=	parser.c
 
 UTILS_FILE		=	utils.c
 
+CMD_FILE		=	exit.c
+
 MAIN_OBJ_FILE	=	$(SRC_FILE:.c=.o)
 PARSER_OBJ_FILE	=	$(PARSER_FILE:.c=.o)
 UTILS_OBJ_FILE	=	$(UTILS_FILE:.c=.o)
+CMD_OBJ_FILE	=	$(CMD_FILE:.c=.o)
 
 MAIN_OBJ		=	$(addprefix $(OBJ_DIR), $(MAIN_OBJ_FILE))
 PARSER_OBJ		=	$(addprefix $(OBJ_DIR), $(PARSER_OBJ_FILE))
 UTILS_OBJ		=	$(addprefix $(OBJ_DIR), $(UTILS_OBJ_FILE))
+CMD_OBJ			=	$(addprefix $(OBJ_DIR), $(CMD_OBJ_FILE))
 
-OBJ				= 	$(MAIN_OBJ)	$(PARSER_OBJ)	$(UTILS_OBJ) 
+OBJ				= 	$(MAIN_OBJ)	\
+					$(PARSER_OBJ)	\
+					$(UTILS_OBJ)	\
+					$(CMD_OBJ)
 
 all			:	$(NAME)
 
@@ -53,6 +61,10 @@ $(OBJ_DIR)%.o : $(PARSER_DIR)%.c
 	$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
 
 $(OBJ_DIR)%.o : $(UTILS_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
+
+$(OBJ_DIR)%.o : $(CMD_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
 
