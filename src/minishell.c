@@ -6,36 +6,22 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 16:53:30 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/09 18:44:37 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// void set_env(char *envp, t_data *data)
-// {
-// 	int			equel_check;
-// 	t_envlst	*ptr;
-
-// 	while (*envp)
-// 	{
-// 		ptr = (t_envlst *)malloc(sizeof(t_envlst));
-// 		equel_check = indexOf(*envp, "=");
-		
-// 		envp++;
-// 	}	
-// }
-
 int main(int argc, char **argv, char **envp)
 {
 	char	*input;
-	// t_data	data;
+	t_data	data;
 
 	printf("%s\n", INTRO);
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	// set_envlst(envp, &data);
+	init_env(envp, &data);
 	while (1)
 	{
 		input = readline(NULL);

@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/10/09 16:54:47 by jekim            ###   ########.fr        #
+#    Updated: 2021/10/09 17:40:37 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ PARSER_DIR	=	./src/parser/
 INC_DIR		=	./includes/
 LIBFT_DIR	=	./libft/
 
-SRC_FILE		=	minishell.c
+SRC_FILE		=	minishell.c \
+					env.c
 
 PARSER_FILE 	=	parser.c
 
@@ -39,7 +40,7 @@ MAIN_OBJ		=	$(addprefix $(OBJ_DIR), $(MAIN_OBJ_FILE))
 PARSER_OBJ		=	$(addprefix $(OBJ_DIR), $(PARSER_OBJ_FILE))
 UTILS_OBJ		=	$(addprefix $(OBJ_DIR), $(UTILS_OBJ_FILE))
 
-OBJ				= $(MAIN_OBJ)	$(PARSER_OBJ)	$(UTILS_OBJ) 
+OBJ				= 	$(MAIN_OBJ)	$(PARSER_OBJ)	$(UTILS_OBJ) 
 
 all			:	$(NAME)
 

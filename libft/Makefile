@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/11 02:25:46 by jseo              #+#    #+#              #
-#    Updated: 2021/07/29 04:52:41 by jekim            ###   ########seoul.kr   #
+#    Updated: 2021/10/09 20:29:31 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ PRINTF_OBJS		= $(PRINTF_SRCS:.c=.o)
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -I.
+CFLAGS			= -Wall -Wextra -Werror -I. -g
 
 NAME			= libft.a
 
