@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 17:30:17 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 21:48:53 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/10 13:13:05 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,34 +47,41 @@ static t_envlst	*create_node_envlst(char *env_line)
 	return (tmp);
 }
 
+static int	get_envlen(char **envp)
+{
+	int ix;
+
+	ix = -1;
+	while (envp[++ix])
+		;
+	return (ix);
+}
+
 static int	set_envlst(char **envp, int fd, t_data *data)
 {
 	int			ix;
+	int			envlen;
 	char		*buf;
 	t_envlst	*nptr;
 
-	ix = -1;
-	nptr = data->envlst;
-	printf("pointer:  %p\n", nptr);
+	ix = 0;
+	nptr = NULL;
+	envlen = get_envlen(envp);
 	if (fd == -1)
 		fd = open("./envrc", O_RDONLY, S_IWUSR | S_IRUSR);
-	while (envp[++ix])
+	ft_strgnl(fd, &buf);
+	data->envlst = create_node_envlst(buf);
+	nptr = data->envlst;
+	free(buf);
+	while (ix < envlen - 1)
 	{
 		ft_strgnl(fd, &buf);
-		nptr = create_node_envlst(buf);
-		printf("pointer:  %p\n", nptr);
+		nptr->next = create_node_envlst(buf);
 		free(buf);
-		if (envp[ix + 1] != NULL)
-			nptr = nptr->next;
+		nptr = nptr->next;
+		ix++;
 	}
 	nptr->next = NULL;
-	nptr = data->envlst;
-	printf("pointer:  %p\n", nptr);
-	while (nptr != NULL)
-	{
-		printf("%s=%s\n", nptr->key, nptr->value);
-		nptr = nptr->next;
-	}
 	return (0);
 }
 

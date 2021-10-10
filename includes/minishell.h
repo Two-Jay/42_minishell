@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/09 21:45:27 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/10 12:32:51 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct	s_data
 	t_envlst	*envlst;
 	t_token		*input;
 }	t_data;
-
 
 /*
 ** root setting functions
