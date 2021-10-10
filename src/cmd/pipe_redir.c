@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 18:45:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/09 17:23:07 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/09 21:50:02 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	**pipe_getpath(char *envp[])
 	return (path);
 }
 
-char	*pipe_getcmd(char *cmd, char *envp[])
+char	**pipe_getcmd(char *cmd, char *flag, char *envp[])
 {
 	int		i;
 	char	**path;
@@ -58,19 +58,63 @@ char	*pipe_getcmd(char *cmd, char *envp[])
 	return (temp_cmd);
 }
 
-int	minishell_pipe(char *cmd[], char *param[], char *envp[])
+int	pipe_child(t_pipe_arr *s_pipe, int fd, int index)
 {
 	char	*cmd_path;
+	char	*exec_argv[3];
 
-	cmd_path = pipe_getcmd(cmd, envp);
-	if (!cmd_path)
+	if (!s_pipe->cmd[index] || !s_pipe->flags[index] || !s_pipe->str[index])
+		exit(1);
+	cmd_path = pipe_getcmd(s_pipe->cmd[index],
+			s_pipe->flags[index], s_pipe->envp);
+	exec_argv[0] = cmd_path;
+	exec_argv[1] = s_pipe->flags[index];
+	exec_argv[2] = s_pipe->str[index];
+	dup2(fd, STDOUT_FILENO);
+	execve(cmd_path, exec_argv, s_pipe->envp);
+}
+
+int	pipe_parent(int fd)
+{
+	dup2(fd, STDIN_FILENO);
+
+}
+
+t_pipe_arr	*pipe_struct(char *cmd[], char *flags[], char *envp[])
+{
+	t_pipe_arr	*struct_pipe;
+
+	struct_pipe = malloc(sizeof(t_pipe_arr));
+	if (!struct_pipe)
+		return (0);
+	struct_pipe->cmd = cmd;
+	struct_pipe->flags = flags;
+	struct_pipe->envp = envp;
+	return (struct_pipe);
+}
+
+int	minishell_pipe(char *cmd[], char *param[], char *envp[])
+{
+	int			pipe_pid;
+	int			stat_loc;
+	t_pipe_arr	*struct_pipe;
+	int			fd[2];
+
+	if (!cmd || !param)
+		return (0);
+	struct_pipe = pipe_struct(cmd, param, envp);
+	if (!struct_pipe || pipe(fd) < 0)
+		return (0);
+	pipe_pid = fork();
+	if (!pipe_pid)
+		pipe_child(struct_pipe, fd[1], 0);
+	else if (pipe_pid > 0)
 	{
-		ft_putstr_fd("Shell: command not found: ", 1);
-		ft_putstr_fd(cmd, 1);
+		wait(&stat_loc);
 	}
 }
 
-/* (테스트용 메인문)
+//테스트용 메인문
 int	main(int argc, char *argv[], char *envp[])
 {
 	pid_t	pid;
@@ -80,13 +124,4 @@ int	main(int argc, char *argv[], char *envp[])
 	path = pipe_getpath(envp);
 	ft_free_char2d(path);
 	system("leaks a.out");
-	// printf("%d\n", getpid());
-	// if (pipe(fd) < 0)
-	// 	return (0);
-	// pid = fork();
-	// if (pid)
-	// 	pipe_parent(fd[0]);
-	// else
-	// 	pipe_child(fd[1]);
 }
-*/
