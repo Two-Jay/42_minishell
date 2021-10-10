@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 09:05:39 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/10 12:30:35 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/10 15:10:32 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,21 @@ int	is_closed(const char *input)
 	ix = -1;
 	while (input[++ix])
 	{
-		if (input[ix] == 39)
+		if (input[ix] == (char)39)
 		{
 			if (flag == 0)
 				flag = 1;
-			if (flag == 1)
+			else if (flag == 1)
 				flag = 0;
 		}
-		if (input[ix] == 34)
+		if (input[ix] == (char)34)
 		{
 			if (flag == 0)
 				flag = 2;
-			if (flag == 2)
+			else if (flag == 2)
 				flag = 0;
 		}
 	}
-	printf("%s %d\n", input, flag);
 	if (flag == 0)
 		return (TRUE);
 	return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/10 12:53:58 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/10 13:21:36 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ int main(int argc, char **argv, char **envp)
 		input = readline(NULL);
 		if (input)
 		{
-			if (ft_strncmp(input, "exit", 4) == 0)
-				exit_minishell_SUCC();
 			parse_input(input);
-			free(input);
+			add_history(input);
 		}
-		add_history(input);
+		free(input);
 	}
 	return (0);
 }
