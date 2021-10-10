@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_redir_utils_1.c                               :+:      :+:    :+:   */
+/*   if_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 11:39:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/10 13:24:07 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/10/10 18:59:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd.h"
 
-void	ft_free_char2d(char **arr)
-{
-	int	index;
-
-	index = 0;
-	while (arr[index])
-		free(arr[index++]);
-	free(arr);
-}
-
-static char	**pipe_getpath(char *envp[])
+static char	**ms_getpath(char *envp[])
 {
 	int		i;
 	char	**path;
@@ -41,7 +31,7 @@ static char	**pipe_getpath(char *envp[])
 	return (path);
 }
 
-char	**pipe_getcmd(char *cmd, char *flag, char *envp[])
+char	**ms_getcmd(char *cmd, char *envp[])
 {
 	int		i;
 	char	**path;
@@ -49,7 +39,7 @@ char	**pipe_getcmd(char *cmd, char *flag, char *envp[])
 	char	*temp_cmd;
 
 	i = -1;
-	path = pipe_getpath(envp);
+	path = ms_getpath(envp);
 	while (path[++i])
 	{
 		temp_slash = ft_strjoin(path[i], "/");
@@ -67,3 +57,4 @@ char	**pipe_getcmd(char *cmd, char *flag, char *envp[])
 	ft_free_char2d(path);
 	return (temp_cmd);
 }
+
