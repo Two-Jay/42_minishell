@@ -6,11 +6,21 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/10 13:21:36 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/11 14:49:07 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	parse_input(const char *input)
+{
+	char *buf;
+
+	buf = NULL;
+	if (preprocess_input(input, buf))
+		return (1);
+	return (0);
+}
 
 int main(int argc, char **argv, char **envp)
 {

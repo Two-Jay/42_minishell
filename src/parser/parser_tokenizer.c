@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   parser_tokenizer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/01 17:33:13 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/11 16:40:49 by jekim            ###   ########.fr       */
+/*   Created: 2021/10/11 14:48:48 by jekim             #+#    #+#             */
+/*   Updated: 2021/10/11 17:46:46 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "../../includes/minishell.h"
 
-# include "./minishell.h"
-
-typedef enum s_state
+int tokenize_input(char *buf, t_data *data)
 {
-	NOT_PARSERED = 0,
-	BUILTIN,
-	REDIRECT,
-	STRING,
-}	t_state;
+	char **splited;
 
-typedef struct s_token
-{
-	char			*contents;
-	int				idx;
-	t_state			type;
-	struct t_token	*prev;
-	struct t_token	*next;
-}	t_token;
-
-int parse_input(const char *input);
-int	preprocess_input(const char *input, char *buf);
-
-#endif
+	if (split_inputbuf(splited, buf) || )
+		return (ERROR_OCCURED);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 02:42:40 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/11 15:30:42 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/11 18:36:09 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,21 @@ int print_intro(int argc, char **argv)
 	return (0);
 }
 
-int is_pipe_redirection(const char *target)
+int is_pipe_redirection(const char *target, int idx)
 {
-	if (ft_strncmp(target, "|", 1) == 0)
+	if (target[idx] == '|')
 		return (1);
-	if (ft_strncmp(target, ">", 1) == 0)
+	if (target[idx] == '>')
+	{
+		if (target[idx + 1] == '>')
+			return (4);
 		return (2);
-	if (ft_strncmp(target, "<", 1) == 0)
+	}
+	if (target[idx] == '<')
+	{
+		if (target[idx + 1] == '<')
+			return (5);
 		return (3);
-	if (ft_strncmp(target, ">>", 2) == 0)
-		return (4);
-	if (ft_strncmp(target, "<<", 2) == 0)
-		return (5);
+	}
 	return (0);
 }

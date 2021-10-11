@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/10 19:08:09 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/10 19:58:03 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ typedef struct s_pipe_arr
 	* Pipelines
 */
 void	ft_free_char2d(char **arr);
-<<<<<<< HEAD
-void    exit_minishell_SUCC(void);
-=======
 char	**pipe_getcmd(char *cmd, char *flag, char *envp[]);
->>>>>>> 4cb456e ([minishell] UPDATE: 파이프 너무헷갈려요 살료~~)
 
 #endif
