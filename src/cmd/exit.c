@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/12 17:10:52 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/12 17:18:06 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,12 @@ void	exit_withargs(char *str)
 		exit_perror(str);
 	else
 	{
-        errno_converted = is_overflow_ll(str);
+		errno_converted = is_overflow_ll(str);
 		if (errno_converted < 0)
 			exit_perror(str);
 		else
-		{
 			write(1, "exit\n", 5);
-		}
 	}
+	errno = errno_converted;
 	exit(errno_converted);
-}
-
-//longlong 체크용~
-int main(void)
-{
-	char *str = "9223372036854775808";
-	exit_withargs(str);
 }
