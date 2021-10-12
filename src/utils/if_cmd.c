@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/10 18:59:45 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/12 11:08:15 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,3 @@ char	**ms_getcmd(char *cmd, char *envp[])
 	ft_free_char2d(path);
 	return (temp_cmd);
 }
-
