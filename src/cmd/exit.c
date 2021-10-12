@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/12 17:19:15 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/12 20:46:49 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
-
-//지우시오!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	length;
-
-	length = 0;
-	while (*s)
-	{
-		s++;
-		length++;
-	}
-	return (length);
-}
-//지우시오!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 void	exit_perror(char *input)
 {
@@ -58,24 +42,25 @@ long long	is_overflow_ll(char *str)
 	return (converted % 256);
 }
 
-static int	is_num(char *str)
-{
-	if (*str == '+' || *str == '-')
-		str++;
-	while (*str)
-	{
-		if (*str > '9' || *str < '0')
-			return (0);
-		str++;
-	}
-	return (1);
-}
+// static int	is_num(char *str)
+// {
+// 	if (*str == '+' || *str == '-')
+// 		str++;
+// 	while (*str)
+// 	{
+// 		if (*str > '9' || *str < '0')
+// 			return (0);
+// 		str++;
+// 	}
+// 	return (1);
+// }
 
 //void	exit_withargs(t_token *tree)
 void	exit_withargs(char *str)
 {
 	long long	errno_converted;
 
+    errno_converted = 0;
 	if ((ft_strlen(str) > 20) || (ft_strlen(str) > 19 && *str != '-'))
 		exit_perror(str);
 	else

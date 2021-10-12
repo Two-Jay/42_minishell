@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/11 18:51:04 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/12 20:45:18 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	parse_input(const char *input)
 	char *buf;
 
 	buf = NULL;
-	if (preprocess_input(input, buf)
-		|| interpret_env_input(buf))
+	if (preprocess_input(input, buf))
 		return (1);
 	return (0);
 }
