@@ -6,13 +6,30 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 11:07:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/12 11:09:52 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/12 13:35:01 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd.h"
+#include "../../includes/cmd2.h"
 
-static int	echo_getenv_len(char *str)
+static int	is_str_valid(char *src, char *dst)
+{
+	int	i;
+	int	len;
+
+	i = -1;
+	len = ft_strlen(src);
+	while (++i < len && src[i])
+	{
+		if (src[i] != dst[i])
+			return (0);
+	}
+	if (!src[i] && dst[i])
+		return (0);
+	return (1);
+}
+
+static int	getenv_len(char *str)
 {
 	int	len;
 
@@ -32,7 +49,7 @@ static int	echo_getenv_len(char *str)
 	return (len);
 }
 
-char	*echo_getenv(char *str)
+char	*get_env(char *str)
 {
 	int		len;
 	int		i;
@@ -40,7 +57,7 @@ char	*echo_getenv(char *str)
 
 	if (!str)
 		return (0);
-	len = echo_getenv_len(str);
+	len = getenv_len(str);
 	env_name = malloc(sizeof(char) * len + 1);
 	if (!env_name)
 		return (0);
@@ -55,4 +72,16 @@ char	*echo_getenv(char *str)
 }
 
 //pseudo-code
-t_envlist ()
+t_envlst	*find_env(char *envname, t_data *data)
+{
+	t_envlst	*node_env;
+
+	node_env = data->envlst;
+	while (node_env)
+	{
+		if (is_str_valid(envname, node_env->key))
+			return (node_env);
+		node_env = node_env->next;
+	}
+	return (0);
+}

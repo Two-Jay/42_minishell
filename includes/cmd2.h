@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cmd2.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/11 15:32:54 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/12 13:35:47 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CMD_H
-# define CMD_H
+#ifndef CMD2_H
+# define CMD2_H
 
 # include "minishell.h"
 
@@ -40,6 +40,13 @@ typedef struct s_pipe_arr
 /*
 	* Pipelines
 */
-void	ft_free_char2d(char **arr);
+void		ft_free_char2d(char **arr);
+
+/*
+	* Environment Variables
+*/
+char		*get_env(char *str);
+t_envlst	*find_env(char *envname, t_data *data);
+
 
 #endif
