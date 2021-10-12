@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/12 17:18:06 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/12 17:19:15 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,5 @@ void	exit_withargs(char *str)
 		else
 			write(1, "exit\n", 5);
 	}
-	errno = errno_converted;
 	exit(errno_converted);
 }
