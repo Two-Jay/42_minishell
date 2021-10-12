@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 11:07:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/12 13:35:01 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/12 19:57:23 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,30 @@ t_envlst	*find_env(char *envname, t_data *data)
 		node_env = node_env->next;
 	}
 	return (0);
+}
+
+char *get_env(char *envname, t_data *data)
+{
+	t_envlst	*node_env;
+	char		*val;
+	int			vallen;
+
+	node_env = data->envlst;
+	while (node_env)
+	{
+		if (is_str_valid(envname, node_env->key))
+			return (node_env);
+		node_env = node_env->next;
+	}
+	if (node_env)
+	{
+		vallen = ft_strlen(node_env->value);
+		val = (char *)malloc(sizeof(char) * (vallen + 1));
+		if (!val)
+			return (NULL);
+		val[vallen] = '\0';
+		ft_memcpy(val, node_env->value, vallen);
+		return (val);
+	}
+	return (NULL);
 }
