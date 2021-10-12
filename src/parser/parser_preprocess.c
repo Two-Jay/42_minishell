@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 09:05:39 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/11 18:42:10 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/12 21:43:09 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,24 @@ void is_quoted(const char cha, int *flag)
 	}
 	else
 		*flag = 0;
+}
+
+void is_inquote(const char cha, int *flag)
+{
+	if (cha == (char)39)
+	{
+		if (*flag == 0)
+			*flag = 1;
+		else if (*flag == 1)
+			*flag = 0;
+	}
+	if (cha == (char)34)
+	{
+		if (*flag == 0)
+			*flag = 2;
+		else if (*flag == 2)
+			*flag = 0;
+	}
 }
 
 // 둘다 되어있다면 0
@@ -147,9 +165,9 @@ int	preprocess_input(const char *input, char *buf)
 	buf = get_buf_considered(input);
 	while (input[ix])
 	{
-		is_quoted(input[ix], &qflag);
+		is_inquote(input[ix], &qflag);
 		is_spaced(input, ix, &sflag);
-		if (sflag)
+		if (sflag && !qflag)
 			insert_space(buf, input[ix], &jx, &sflag);
 		else
 			buf[jx++] = input[ix];
