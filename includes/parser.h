@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 17:33:13 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/11 16:40:49 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/12 13:48:15 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_token
 	struct t_token	*next;
 }	t_token;
 
-int parse_input(const char *input);
+int	parse_input(const char *input);
 int	preprocess_input(const char *input, char *buf);
 
 #endif
