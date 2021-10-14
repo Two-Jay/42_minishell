@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cmd2.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
 /*   Updated: 2021/10/14 21:34:02 by jiychoi          ###   ########.fr       */
@@ -43,7 +43,7 @@ void		ft_free_char2d(char **arr);
 /*
 	* Environment Variables
 */
-char		*get_env(char *envname, t_data *data);
+char		*get_envname(char *str);
 t_envlst	*find_env(char *envname, t_data *data);
 
 /*

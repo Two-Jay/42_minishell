@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 17:30:17 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/10 14:50:46 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 20:44:08 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static void	set_envfile(char **envp)
 
 	ix = -1;
 	len = 0;
-	fd = open("./envrc", O_WRONLY, S_IWUSR | S_IRUSR);
+	fd = open("./envrc", O_RDWR, S_IWUSR | S_IRUSR);
+	if (!fd)
+		return ;
 	while (envp[++ix])
 	{
 		len = ft_strlen(envp[ix]);
@@ -68,7 +70,7 @@ static int	set_envlst(char **envp, int fd, t_data *data)
 	nptr = NULL;
 	envlen = get_envlen(envp);
 	if (fd == -1)
-		fd = open("./envrc", O_RDONLY, S_IWUSR | S_IRUSR);
+		fd = open("./envrc", O_RDWR, S_IWUSR | S_IRUSR);
 	ft_strgnl(fd, &buf);
 	data->envlst = create_node_envlst(buf);
 	nptr = data->envlst;

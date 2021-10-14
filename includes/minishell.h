@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 20:24:13 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 21:10:45 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
-# include "parser.h"
 # include "cmd.h"
 
 # define INTRO "Nyamnyam_shell.dev '-'//"
@@ -94,9 +93,9 @@ char	*get_env(char *envname, t_data *data);
 **		parsing functions
 */
 int		parse_input(const char *input, t_data *data);
-int		preprocess_input(const char *input, char *buf);
-int		tokenize_input(char **ret, char *buf, t_data *data);
-int		replace_env(char *buf, t_data *data);
+char	*preprocess_input(const char *input);
+char	*replace_env(char *buf, t_data *data);
+char	**tokenize_input(char *buf, t_data *data);
 
 /*
 **		parser_utils functions

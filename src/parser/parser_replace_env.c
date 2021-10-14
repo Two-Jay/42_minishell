@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 20:01:43 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 21:36:06 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,68 +20,57 @@ char *parse_envtoken(char *buf)
 
 	ix = 0;
 	tkn_l = 0;
-	while (buf[++ix] && ft_isalpha(buf[ix]) && buf[ix] == '_')
+	while (buf[++ix] && (ft_isalpha(buf[ix]) || buf[ix] == '_'))
 		tkn_l++;
+	tri(tkn_l);
 	if (!tkn_l)
 		return (NULL);
 	tkn = (char *)malloc(sizeof(char) * (tkn_l + 1));
 	if (!tkn)
 		return (NULL);
-	ft_strlcpy(tkn, buf, tkn_l);
-	return (tkn);
+	ix = 0;
+	while (ix <= tkn_l)
+	{
+		tkn[ix] = buf[ix + 1];
+		ix++;
+	}
+	buf[tkn_l] = '\0';
+ 	return (tkn);
 }
 
-int env_replacor(char *buf, char *env_var, int idx)
-{
-	char *new_buf;
-	int oldbuf_len;
-	int envvar_len;
-	int ret;
-
-	ret = 0;
-	oldbuf_len = ft_strlen(buf);
-	envvar_len = ft_strlen(env_var);
-	new_buf = (char *)malloc(sizeof(char) + (oldbuf_len + envvar_len + 1));
-	if (!new_buf)
-		return (0);
-	new_buf[oldbuf_len + envvar_len] = '\0';
-	ft_memcpy(new_buf, buf, idx);
-	ft_memcpy(new_buf + idx, env_var, envvar_len);
-	ft_memcpy(new_buf + idx + envvar_len, buf + idx, oldbuf_len - idx);
-	free(env_var);
-	free(buf);
-	buf = new_buf;
-	return (envvar_len);
-}
-
-int replace_env(char *buf, t_data *data)
+char *replace_env(char *buf, t_data *data)
 {
 	int ix;
 	int qflag;
+	char *new_buf;
 	char *envtoken;
 	char *env_var;
-	
+
 	ix = 0;
 	qflag = 0;
+	new_buf = (char *)malloc(sizeof(char) * (ft_strlen(buf) + 1));
+	if (!new_buf)
+		return (NULL);
 	while (buf[ix])
 	{
-		is_inquote(buf, &qflag);
-		if (buf[ix] == '$' && qflag != 1)
+		is_inquote(buf[ix], &qflag);
+		if (buf[ix] == '$')
 		{
-			envtoken = parse_envtoken(buf);
-			env_var = get_env(envtoken, data);
+			envtoken = parse_envtoken(buf + ix);
 			if (!envtoken)
 				;
-			else if (!env_var)
-				ix += ft_strlen(envtoken);
-			else
-				ix += env_replacor(buf, env_var, ix);
-			if (envtoken)
-				free(envtoken);
+			env_var = get_env(envtoken, data);
+			if (!env_var)
+				;
+			trs(env_var);
+			trs(envtoken);
 		}
+		else
+			new_buf[ix] = buf[ix];
 		ix++;
 	}
-	return (0);
+	trs(new_buf);
+	return (new_buf);
 }
 
 

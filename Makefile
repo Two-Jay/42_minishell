@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/10/14 20:24:51 by jekim            ###   ########.fr        #
+#    Updated: 2021/10/14 20:41:38 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		=	minishell
 CC			=	gcc
 CCFLAG		=	-Wall -Wextra -Werror
 LIBFLAG		=	-L$(LIBFT_DIR) -lft -lreadline 
-G			=	-g
+G			=	-g3
 INCLUDE		=	-I$(INC_DIR) -I$(LIBFT_DIR)
 
 OBJ_DIR		=	./obj/
@@ -30,10 +30,12 @@ SRC_FILE		=	minishell.c \
 					env.c
 
 PARSER_FILE 	=	parser_preprocess.c \
+					parser_replace_env.c \
 					parser_utils.c
 
 UTILS_FILE		=	utils.c \
-					print_error.c
+					print_error.c \
+					find_env.c
 
 CMD_FILE		=	exit.c
 
@@ -74,6 +76,10 @@ $(NAME)		:	$(OBJ)
 	@$(MAKE) -C ./libft
 	$(CC) $(G) $(CCFLAG) $(OBJ) $(LIBFLAG) $(INCLUDE) -o $@
 	@echo "\033[0;92m* $(NAME) program file was created *\033[0m"
+
+debug		:	$(NAME)
+	@$(MAKE) re
+	lldb $(NAME)
 
 clean		:
 	@rm -rf $(OBJ_DIR)
