@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/12 20:46:49 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 20:52:06 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,33 @@ long long	is_overflow_ll(char *str)
 		str++;
 	while (*str <= '9' && *str >= '0')
 		converted = converted * 10 + (*str++ - '0');
-	if (converted > 9223372036854775807 && minus == 1)
+	if (converted > LLMAX && minus == 1)
 		return (-1);
-	if (converted - 1 > 9223372036854775807 && minus == -1)
+	if (converted - 1 > LLMAX && minus == -1)
 		return (-1);
 	return (converted % 256);
 }
 
-// static int	is_num(char *str)
-// {
-// 	if (*str == '+' || *str == '-')
-// 		str++;
-// 	while (*str)
-// 	{
-// 		if (*str > '9' || *str < '0')
-// 			return (0);
-// 		str++;
-// 	}
-// 	return (1);
-// }
+static int	is_num(char *str)
+{
+	if (*str == '+' || *str == '-')
+		str++;
+	while (*str)
+	{
+		if (*str > '9' || *str < '0')
+			return (0);
+		str++;
+	}
+	return (1);
+}
 
-//void	exit_withargs(t_token *tree)
 void	exit_withargs(char *str)
 {
 	long long	errno_converted;
 
-    errno_converted = 0;
-	if ((ft_strlen(str) > 20) || (ft_strlen(str) > 19 && *str != '-'))
+	errno_converted = 0;
+	if (!is_num(str) || (ft_strlen(str) > 20)
+		|| (ft_strlen(str) > 19 && *str != '-'))
 		exit_perror(str);
 	else
 	{
