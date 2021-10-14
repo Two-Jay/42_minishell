@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/12 17:11:31 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/14 17:45:20 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,23 @@
 # define REDIR_SINGLE	1;
 # define REDIR_DOUBLE	2;
 
-typedef struct s_parsed_arr
-{
-	char	**cmd;
-	char	**flags;
-	char	**str;
-	char	**envp;
-}	t_parsed_arr;
-
 typedef struct s_pipe_arr
 {
 	char	**cmd;
 	char	**flags;
 	char	**str;
 	char	**envp;
-	int		index;
-	int		if_redir;
+	int		idx_max;
+	int		fd_tmp;
 }	t_pipe_arr;
+
+# define PIPE_READ 0
+# define PIPE_WRITE 1
 
 /*
 	* Pipelines
 */
+char		*pipe_getcmd(char *cmd, char *envp[]);
 void		ft_free_char2d(char **arr);
 
 /*
@@ -51,6 +47,6 @@ t_envlst	*find_env(char *envname, t_data *data);
 /*
 	* Exit
 */
-void		minishell_perror(char *cmd, int err);
+int			minishell_perror(char *cmd, int err, int exit_status);
 
 #endif
