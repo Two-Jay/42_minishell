@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 17:30:17 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 20:44:08 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 22:52:00 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	init_env(char **envp, t_data *data)
 {
 	int	envfd;
 
-	envfd = open("./envrc", O_RDONLY | O_CREAT | O_EXCL, S_IWUSR | S_IRUSR);
+	envfd = open("./envrc", O_RDONLY | O_CREAT, S_IWUSR | S_IRUSR);
 	if (envfd != -1)
 		set_envfile(envp);
 	set_envlst(envp, envfd, data);

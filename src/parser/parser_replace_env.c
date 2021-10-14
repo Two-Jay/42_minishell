@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 21:36:06 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 22:49:13 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char *replace_env(char *buf, t_data *data)
 
 	ix = 0;
 	qflag = 0;
-	new_buf = (char *)malloc(sizeof(char) * (ft_strlen(buf) + 1));
+	new_buf = (char *)ft_calloc(sizeof(char), (ft_strlen(buf) + 1));
 	if (!new_buf)
 		return (NULL);
 	while (buf[ix])
@@ -57,10 +57,9 @@ char *replace_env(char *buf, t_data *data)
 		if (buf[ix] == '$')
 		{
 			envtoken = parse_envtoken(buf + ix);
-			if (!envtoken)
-				;
-			env_var = get_env(envtoken, data);
-			if (!env_var)
+			if (envtoken)
+				env_var = get_env(envtoken, data);
+			if (env_var)
 				;
 			trs(env_var);
 			trs(envtoken);
