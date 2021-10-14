@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 11:07:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/14 13:06:32 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 13:07:26 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	getenv_len(char *str)
 	return (len);
 }
 
-char	*get_env(char *str)
+char	*get_envname(char *str)
 {
 	int		len;
 	int		i;
