@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/10/11 14:47:00 by jekim            ###   ########.fr        #
+#    Updated: 2021/10/14 12:00:25 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,12 @@ LIBFT_DIR	=	./libft/
 SRC_FILE		=	minishell.c \
 					env.c
 
-PARSER_FILE 	=	parser_preprocess.c
+PARSER_FILE 	=	parser_preprocess.c \
+					parser_tokenizer.c \
+					parser_utils.c \
 
-UTILS_FILE		=	utils.c
+UTILS_FILE		=	utils.c \
+					print_error.c
 
 CMD_FILE		=	exit.c
 

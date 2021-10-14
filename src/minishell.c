@@ -6,19 +6,20 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/12 20:45:18 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 12:33:14 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	parse_input(const char *input)
+int	parse_input(const char *input, t_data *data)
 {
 	char *buf;
 
 	buf = NULL;
-	if (preprocess_input(input, buf))
-		return (1);
+	if (preprocess_input(input, buf)
+		|| tokenize_input(buf, data))
+		return (ERROR_OCCURED);
 	return (0);
 }
 
@@ -31,10 +32,11 @@ int main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	while (1)
 	{
-		input = readline(NULL);
+		input = readline(">> :");
 		if (input)
 		{
-			parse_input(input);
+			trs(input);
+			parse_input(input, &data);
 			add_history(input);
 		}
 		free(input);

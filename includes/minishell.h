@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/11 18:36:28 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 12:21:26 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define FALSE 1
 # define ERROR_OCCURED 1
 
-typedef struct s_envlst
+typedef struct	s_envlst
 {
 	char			*key;
 	char			*value;
