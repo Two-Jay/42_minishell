@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/14 20:09:01 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/14 20:42:52 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,20 @@ t_pipe_arr	*pipe_struct(char *cmd[], char *flags[], char *str[], char *envp[])
 	return (struct_pipe);
 }
 
-void	pipe_child(t_pipe_arr *struct_pipe, int fd_in, int fd_out, int idx)
+void	pipe_child(t_pipe_arr *struct_pipe, int fd[2], int idx)
 {
 	char	*cmd_path;
-	char	*exec_argv[4]; //이거는 나중에 수정하기 !!!!!!!!!!
+	char	*exec_argv[4];
 
-	if (dup2(fd_in, STDIN_FILENO) < 0)
+	if (dup2(struct_pipe->fd_tmp, STDIN_FILENO) < 0)
 		exit(minishell_perror("pipe: ", -1, 1));
 	if (idx + 1 < struct_pipe->idx_max)
-		if (dup2(fd_out, STDOUT_FILENO) < 0)
+		if (dup2(fd[PIPE_WRITE], STDOUT_FILENO) < 0)
 			exit(minishell_perror("pipe: ", -1, 1));
-	close(fd_out);
-	close(fd_in);
+	if (idx + 1 == struct_pipe->idx_max)
+		close(fd[PIPE_WRITE]);
+	close(fd[PIPE_READ]);
+	close(struct_pipe->fd_tmp);
 	cmd_path = pipe_getcmd(struct_pipe->cmd[idx], struct_pipe->envp);
 	if (!cmd_path)
 		exit(minishell_perror("pipe: ", 2, 1));
@@ -76,9 +78,7 @@ int	pipe_makepipe(t_pipe_arr *struct_pipe, int idx)
 			return (-1);
 	pipe_pid = fork();
 	if (!pipe_pid)
-	{
-		pipe_child(struct_pipe, struct_pipe->fd_tmp, fd[PIPE_WRITE], idx);
-	}
+		pipe_child(struct_pipe, fd, idx);
 	else if (pipe_pid < 0)
 		exit(minishell_perror("pipe: ", -1, 1));
 	else
@@ -129,10 +129,10 @@ void	minishell_pipe(char *cmd[], char *flag[], char *str[], char *envp[])
 
 int main(int argc, char *argv[], char *envp[])
 {
-	char *cmd[] = {"ls", "cat", "cat", "cat", "cat", "head", 0};
-	char *flag[] = {"-al", "-e", "-e", "-e", "/dev/urandom", "-10", 0};
+	char *cmd[] = {"ls", "cat", "sleep", "sleep", "cat", "head", 0};
+	char *flag[] = {"-al", "-e", "3", "3", "/dev/urandom", "-10", 0};
 	char *str[] = {0};
 
 	minishell_pipe(cmd, flag, str, envp);
-	//cat -e pipepipe.c | cat -e | cat -e | cat -e | cat -e
+	while (1);
 }

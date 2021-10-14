@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/14 17:45:20 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/14 20:47:16 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		ft_free_char2d(char **arr);
 /*
 	* Environment Variables
 */
-char		*get_env(char *str);
+char		*get_env(char *envname, t_data *data);
 t_envlst	*find_env(char *envname, t_data *data);
 
 /*
