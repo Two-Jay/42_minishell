@@ -3,6 +3,7 @@
 		"libft.h": "c",
 		"errno.h": "c",
 		"stdlib.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"stat.h": "c"
 	}
 }

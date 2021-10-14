@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 20:21:22 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 20:24:13 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
+# include "parser.h"
 # include "cmd.h"
 
 # define INTRO "Nyamnyam_shell.dev '-'//"
@@ -39,6 +40,7 @@
 # define trc(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%c\n", x); }
 # define tri(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%d\n", x); }
 # define trp(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%p\n", x); }
+
 
 typedef enum s_state
 {
@@ -57,6 +59,7 @@ typedef struct s_token
 	struct t_token	*next;
 }	t_token;
 
+
 typedef struct	s_envlst
 {
 	char			*key;
@@ -71,7 +74,6 @@ typedef struct	s_data
 	void		*malloc_queue;
 	char		*homedir;
 }	t_data;
-
 
 
 /*
