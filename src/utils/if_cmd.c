@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/12 11:08:15 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/14 12:49:29 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd.h"
+#include "../../includes/cmd2.h"
 
 static char	**ms_getpath(char *envp[])
 {
