@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/14 20:50:04 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/14 21:34:02 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,16 @@ typedef struct s_pipe_arr
 	char	**envp;
 	int		idx_max;
 	int		fd_tmp;
+	int		redir_flag;
+	int		fildes_opened;
 }	t_pipe_arr;
 
 # define PIPE_READ 0
 # define PIPE_WRITE 1
 # define LLMAX 9223372036854775807
+# define REDIR_NONE 0
+# define REDIR_RIGHT_ONE 1
+# define REDIR_RIGHT_TWO 2
 
 /*
 	* Pipelines

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipepipe.c                                         :+:      :+:    :+:   */
+/*   pipe_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/14 20:42:52 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/14 21:35:10 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	count_cmd(char *cmd[])
 	return (length);
 }
 
-t_pipe_arr	*pipe_struct(char *cmd[], char *flags[], char *str[], char *envp[])
+t_pipe_arr	*pipe_struct(char *cmd[], char *flags[], char *str[], char *envp[], int redir_flag, char *path)
 {
 	t_pipe_arr	*struct_pipe;
 
@@ -35,6 +35,11 @@ t_pipe_arr	*pipe_struct(char *cmd[], char *flags[], char *str[], char *envp[])
 	struct_pipe->envp = envp;
 	struct_pipe->idx_max = count_cmd(cmd);
 	struct_pipe->fd_tmp = STDIN_FILENO;
+	struct_pipe->redir_flag = redir_flag;
+	if (redir_flag == REDIR_RIGHT_ONE)
+		struct_pipe->fildes_opened = open(path, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	else if (redir_flag == REDIR_RIGHT_TWO)
+		struct_pipe->fildes_opened = open(path, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	return (struct_pipe);
 }
 
@@ -50,6 +55,9 @@ void	pipe_child(t_pipe_arr *struct_pipe, int fd[2], int idx)
 			exit(minishell_perror("pipe: ", -1, 1));
 	if (idx + 1 == struct_pipe->idx_max)
 		close(fd[PIPE_WRITE]);
+	if (struct_pipe->redir_flag == REDIR_RIGHT_ONE || struct_pipe->redir_flag == REDIR_RIGHT_TWO)
+		if (dup2(struct_pipe->fildes_opened, STDOUT_FILENO) < 0)
+			exit(minishell_perror("pipe: ", -1, 1));
 	close(fd[PIPE_READ]);
 	close(struct_pipe->fd_tmp);
 	cmd_path = pipe_getcmd(struct_pipe->cmd[idx], struct_pipe->envp);
@@ -91,7 +99,7 @@ int	pipe_makepipe(t_pipe_arr *struct_pipe, int idx)
 	return (pipe_pid);
 }
 
-void	minishell_pipe(char *cmd[], char *flag[], char *str[], char *envp[])
+void	minishell_pipe(char *cmd[], char *flag[], char *str[], char *envp[], int redir_flag)
 {
 	t_pipe_arr	*struct_pipe;
 	int			cmd_len;
@@ -103,7 +111,7 @@ void	minishell_pipe(char *cmd[], char *flag[], char *str[], char *envp[])
 
 	if (!cmd)
 		return ;
-	struct_pipe = pipe_struct(cmd, flag, str, envp);
+	struct_pipe = pipe_struct(cmd, flag, str, envp, redir_flag, "test.txt");
 	if (!struct_pipe)
 		return ;
 	cmd_len = count_cmd(cmd);
@@ -129,10 +137,9 @@ void	minishell_pipe(char *cmd[], char *flag[], char *str[], char *envp[])
 
 int main(int argc, char *argv[], char *envp[])
 {
-	char *cmd[] = {"ls", "cat", "sleep", "sleep", "cat", "head", 0};
-	char *flag[] = {"-al", "-e", "3", "3", "/dev/urandom", "-10", 0};
+	char *cmd[] = {"ls", "cat", "cat", "cat", "cat", "head", 0};
+	char *flag[] = {"-al", "-e", "-e", "-e", "/dev/urandom", "-10", 0};
 	char *str[] = {0};
 
-	minishell_pipe(cmd, flag, str, envp);
-	while (1);
+	minishell_pipe(cmd, flag, str, envp, REDIR_RIGHT_ONE);
 }
