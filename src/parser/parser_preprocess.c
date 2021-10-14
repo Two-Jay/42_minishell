@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 09:05:39 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/12 21:48:32 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 21:11:29 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,16 @@ void insert_space(char *buf, char input, int *buf_idx, int *sflag)
 	}
 }
 
-int	preprocess_input(const char *input, char *buf)
+char *preprocess_input(const char *input)
 {
 	int		ix;
 	int		jx;
 	int		sflag;
 	int		qflag;
+	char 	*buf;
+
 	if (is_closed(input))
-		return (ERROR_OCCURED);
+		return (NULL);
 	ix = 0;
 	jx = 0;
 	buf = get_buf_considered(input);
@@ -104,5 +106,6 @@ int	preprocess_input(const char *input, char *buf)
 	}
 	buf[jx] = '\0';
 	trs(buf);
-	return (0);
+	trp(buf);
+	return (buf);
 }

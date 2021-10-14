@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 20:01:43 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 21:10:53 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int env_replacor(char *buf, char *env_var, int idx)
 	return (envvar_len);
 }
 
-int replace_env(char *buf, t_data *data)
+char *replace_env(char *buf, t_data *data)
 {
 	int ix;
 	int qflag;
@@ -65,7 +65,7 @@ int replace_env(char *buf, t_data *data)
 	qflag = 0;
 	while (buf[ix])
 	{
-		is_inquote(buf, &qflag);
+		is_inquote(buf[ix], &qflag);
 		if (buf[ix] == '$' && qflag != 1)
 		{
 			envtoken = parse_envtoken(buf);

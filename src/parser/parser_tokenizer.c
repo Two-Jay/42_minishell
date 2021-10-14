@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 14:48:48 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 20:21:05 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 20:32:27 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int tokenize_input(char **ret, char *buf, t_data *data)
 	ret = (char **)malloc(sizeof(char *) * (ret_len + 1));
 	while (ix < ret_len)
 	{
-		ret[ix] = get_splited_tokenstr(buf, &idx)
+		ret[ix] = get_splited_tokenstr(buf, &idx);
 		ix++;
 	}
 	return (0);
