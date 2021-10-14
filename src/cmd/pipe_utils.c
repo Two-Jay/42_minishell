@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_redir_utils_1.c                               :+:      :+:    :+:   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:39:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/10 13:24:07 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/14 12:55:50 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	**pipe_getpath(char *envp[])
 	return (path);
 }
 
-char	**pipe_getcmd(char *cmd, char *flag, char *envp[])
+char	*pipe_getcmd(char *cmd, char *envp[])
 {
 	int		i;
 	char	**path;
