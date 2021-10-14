@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 12:21:26 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 17:09:31 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		init_env(char **envp, t_data *data);
 int		print_intro(int argc, char **argv);
 int		indexOf_char(const char *str, char target);
 int		is_pipe_redirection(const char *target, int idx);
+char	*get_env(char *envname, t_data *data);
 
 
 #endif

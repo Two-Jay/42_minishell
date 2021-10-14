@@ -6,28 +6,11 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 11:07:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/14 13:07:26 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 17:07:10 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
-
-static int	is_str_valid(char *src, char *dst)
-{
-	int	i;
-	int	len;
-
-	i = -1;
-	len = ft_strlen(src);
-	while (++i < len && src[i])
-	{
-		if (src[i] != dst[i])
-			return (0);
-	}
-	if (!src[i] && dst[i])
-		return (0);
-	return (1);
-}
 
 static int	getenv_len(char *str)
 {
@@ -79,7 +62,7 @@ t_envlst	*find_env(char *envname, t_data *data)
 	node_env = data->envlst;
 	while (node_env)
 	{
-		if (is_str_valid(envname, node_env->key))
+		if (ft_strequel(envname, node_env->key))
 			return (node_env);
 		node_env = node_env->next;
 	}
@@ -89,25 +72,17 @@ t_envlst	*find_env(char *envname, t_data *data)
 char *get_env(char *envname, t_data *data)
 {
 	t_envlst	*node_env;
-	char		*val;
-	int			vallen;
+	char		*var;
+	int			varlen;
 
-	node_env = data->envlst;
-	while (node_env)
-	{
-		if (is_str_valid(envname, node_env->key))
-			return (node_env);
-		node_env = node_env->next;
-	}
-	if (node_env)
-	{
-		vallen = ft_strlen(node_env->value);
-		val = (char *)malloc(sizeof(char) * (vallen + 1));
-		if (!val)
-			return (NULL);
-		val[vallen] = '\0';
-		ft_memcpy(val, node_env->value, vallen);
-		return (val);
-	}
-	return (NULL);
+	node_env = find_env(envname, data);
+	if (!node_env)
+		return (NULL);
+	varlen = ft_strlen(node_env->value);
+	var = (char *)malloc(sizeof(char) * (varlen + 1));
+	if (!var)
+		return (NULL);
+	var[varlen] = '\0';
+	ft_memcpy(var, node_env->value, varlen);
+	return (var);
 }

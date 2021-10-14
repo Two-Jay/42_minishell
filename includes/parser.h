@@ -6,14 +6,14 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 17:33:13 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 12:34:16 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 19:08:54 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "minishell.h"
+# include "./minishell.h"
 
 typedef enum s_state
 {
