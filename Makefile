@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/10/14 12:00:25 by jekim            ###   ########.fr        #
+#    Updated: 2021/10/14 20:15:29 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC_FILE		=	minishell.c \
 
 PARSER_FILE 	=	parser_preprocess.c \
 					parser_tokenizer.c \
-					parser_utils.c \
+					parser_utils.c
 
 UTILS_FILE		=	utils.c \
 					print_error.c

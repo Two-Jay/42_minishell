@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 19:08:23 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 20:13:36 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 int	parse_input(const char *input, t_data *data)
 {
 	char *buf;
+	char **tokened;
 
 	buf = NULL;
+	tokened = NULL;
 	if (preprocess_input(input, buf)
-		|| tokenize_input(buf, data))
+		|| tokenize_input(tokened, buf, data))
 		return (ERROR_OCCURED);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 17:09:31 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 20:21:22 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,34 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
-# include "./parser.h"
-# include "./cmd.h"
+# include "cmd.h"
+
+# define INTRO "Nyamnyam_shell.dev '-'//"
+# define TRUE 0
+# define FALSE 1
+# define ERROR_OCCURED 1
 
 # define trs(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%s\n", x); }
 # define trc(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%c\n", x); }
 # define tri(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%d\n", x); }
 # define trp(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%p\n", x); }
 
-# define INTRO "Nyamnyam_shell.dev '-'//"
-# define TRUE 0
-# define FALSE 1
-# define ERROR_OCCURED 1
+typedef enum s_state
+{
+	NOT_PARSERED = 0,
+	BUILTIN,
+	REDIRECT,
+	STRING,
+}	t_state;
+
+typedef struct s_token
+{
+	char			*contents;
+	int				idx;
+	t_state			type;
+	struct t_token	*prev;
+	struct t_token	*next;
+}	t_token;
 
 typedef struct	s_envlst
 {
@@ -52,8 +68,11 @@ typedef struct	s_data
 {
 	t_envlst	*envlst;
 	t_token		*input;
+	void		*malloc_queue;
 	char		*homedir;
 }	t_data;
+
+
 
 /*
 ** root setting functions
@@ -68,5 +87,20 @@ int		indexOf_char(const char *str, char target);
 int		is_pipe_redirection(const char *target, int idx);
 char	*get_env(char *envname, t_data *data);
 
+
+/*
+**		parsing functions
+*/
+int		parse_input(const char *input, t_data *data);
+int		preprocess_input(const char *input, char *buf);
+int		tokenize_input(char **ret, char *buf, t_data *data);
+int		replace_env(char *buf, t_data *data);
+
+/*
+**		parser_utils functions
+*/
+int		is_closed(const char *input);
+void	is_quoted(const char cha, int *flag);
+void	is_inquote(const char cha, int *flag);
 
 #endif

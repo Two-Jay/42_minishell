@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 14:48:48 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 12:18:46 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/14 20:21:05 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,24 @@ int get_split_buflen(char *buf, char c)
 	return (ret);
 }
 
-int tokenize_input(char *buf, t_data *data)
+char *get_splited_tokenstr(char *buf)
 {
-	(void)data;
-	tri(get_split_buflen(buf, ' '));
+	
+}
+
+int tokenize_input(char **ret, char *buf, t_data *data)
+{
+	char	**ret;
+	int		ix;
+	int		ret_len;
+	
+	ix = 0;
+	ret_len = get_split_buflen(buf, ' ');
+	ret = (char **)malloc(sizeof(char *) * (ret_len + 1));
+	while (ix < ret_len)
+	{
+		ret[ix] = get_splited_tokenstr(buf, &idx)
+		ix++;
+	}
 	return (0);
 }
