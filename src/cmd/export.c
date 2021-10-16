@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 20:23:56 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 20:27:50 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	export_printerr(char *str)
 	return (-1);
 }
 
-static int	export_no_param(t_data *data)
+int	export_no_param(t_data *data)
 {
 	t_envlst	*node_tmp;
 
@@ -65,7 +65,7 @@ static int	export_save_env(t_data *data, char *env_key, char *env_value)
 	return (0);
 }
 
-static int	export_with_param(t_data *data)
+int	export_with_param(t_data *data)
 {
 	char		*str;
 	char		*ptr_equal;
