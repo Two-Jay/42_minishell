@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 06:02:01 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/17 06:15:30 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*append_env(char *old_buf, t_envlst *env, int *current_idx, int *buf_l)
 				= old_buf[*current_idx + envkey_l + ix + 1];
 	}
 	*buf_l = ft_strlen(ret);
-	*current_idx = *current_idx + (ft_strlen(env->value) + 1);
+	*current_idx = *current_idx + (ft_strlen(env->value));
 	free(old_buf);
 	return (ret);
 }
