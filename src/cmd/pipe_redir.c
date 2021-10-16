@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/14 21:35:10 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/15 14:51:51 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ t_pipe_arr	*pipe_struct(char *cmd[], char *flags[], char *str[], char *envp[], i
 		struct_pipe->fildes_opened = open(path, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else if (redir_flag == REDIR_RIGHT_TWO)
 		struct_pipe->fildes_opened = open(path, O_CREAT | O_APPEND | O_WRONLY, 0644);
+	else
+		struct_pipe->fildes_opened = 0;
+	if ((redir_flag == REDIR_RIGHT_ONE || redir_flag == REDIR_RIGHT_TWO)
+		&& struct_pipe->fildes_opened < 0)
+		exit(minishell_perror("pipe: ", -1, 1));
 	return (struct_pipe);
 }
 
