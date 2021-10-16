@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd2.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/14 21:41:35 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/16 18:12:04 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,10 @@ t_envlst	*find_env(char *envname, t_data *data);
 	* Exit
 */
 int			minishell_perror(char *cmd, int err, int exit_status);
+
+/*
+	* Utilities
+*/
+char		*trim_quote(char *str);
 
 #endif
