@@ -6,8 +6,13 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/12 16:49:40 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 19:25:14 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#
+#include "../../includes/cmd2.h"
+
+void	minishell_cd(t_token *tree, t_token *envp)
+{
+
+}
