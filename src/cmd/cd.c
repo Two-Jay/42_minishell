@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 20:10:47 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 20:14:31 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	cd_move_directory(char *str)
 	return (0);
 }
 
-int	cd_add_oldpwd(t_data *data, t_envlst *node_pwd)
+static int	cd_add_oldpwd(t_data *data, t_envlst *node_pwd)
 {
 	t_envlst	*node_oldpwd;
 	char		*env_key;
@@ -61,7 +61,7 @@ int	cd_add_oldpwd(t_data *data, t_envlst *node_pwd)
 	return (0);
 }
 
-int	cd_add_pwd(t_data *data)
+static int	cd_add_pwd(t_data *data)
 {
 	t_envlst	*node_pwd;
 	char		*env_key;

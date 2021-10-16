@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 20:00:10 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 20:14:13 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ char		*pipe_getcmd(char *cmd, char *envp[]);
 void		ft_free_char2d(char **arr);
 
 /*
-	* cd
+	* cd & pwd
 */
 int			minishell_cd(t_data *data);
+int			minishell_pwd(t_data *data);
+
 /*
 	* Export
 */
