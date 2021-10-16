@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trim_quote.c                                       :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/16 17:57:38 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 18:45:06 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/10/16 18:26:45 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/10/16 18:26:51 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-char	*trim_quote(char *str)
+char	*ft_strndup(char *str, int length)
 {
-	char	quote;
-	int		i;
-	int		length;
-	char	*str_ret;
+	char	*ptr;
+	char	*ptr_backup;
 
-	if (*str == 34 || *str == 39)
-	{
-		length = ft_strlen(str) - 2;
-		str++;
-	}
-	else
-		length = ft_strlen(str);
-	str_ret = malloc(sizeof(char) * (length + 1));
-	if (!str_ret)
-		return (NULL);
-	i = -1;
-	while (++i < length)
-		str_ret[i] = *str++;
-	str_ret[i] = 0;
-	return (str_ret);
+	ptr = (char *)malloc(sizeof(char) * (length + 1));
+	if (!ptr)
+		return (0);
+	ptr_backup = ptr;
+	while (length--)
+		*ptr++ = *str++;
+	*ptr = 0;
+	return (ptr_backup);
 }
