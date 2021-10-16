@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 18:12:04 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 19:27:01 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ char		*get_envname(char *str);
 t_envlst	*find_env(char *envname, t_data *data);
 
 /*
+	* Export
+*/
+# define	EXPORT_ERRID "\': not a valid identifier"
+char		*export_equal_check(char *str);
+int			export_name_check(char *str, char *ptr_equal);
+int			export_printerr(char *str);
+
+/*
 	* Exit
 */
 int			minishell_perror(char *cmd, int err, int exit_status);
@@ -55,5 +63,6 @@ int			minishell_perror(char *cmd, int err, int exit_status);
 	* Utilities
 */
 char		*trim_quote(char *str);
+char		*ft_strndup(char *str, int length);
 
 #endif
