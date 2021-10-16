@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 19:39:33 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 19:40:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void		ft_free_char2d(char **arr);
 */
 # define	EXPORT_ERRID "\': not a valid identifier"
 int			minishell_export(t_data *data);
+int			export_with_param(t_data *data);
+int			export_no_param(t_data *data);
 char		*export_equal_check(char *str);
 int			export_name_check(char *str, char *ptr_equal);
 int			export_printerr(char *str);

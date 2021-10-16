@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/16 19:39:27 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 19:41:20 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	is_num(char *str)
 	return (1);
 }
 
-void	exit_withargs(char *str)
+void	exit_with_param(char *str)
 {
 	long long	errno_converted;
 
@@ -67,7 +67,7 @@ void	exit_withargs(char *str)
 	exit(errno_converted);
 }
 
-void	exit_woargs(void)
+void	exit_no_param(void)
 {
 	exit(0);
 }
@@ -75,7 +75,7 @@ void	exit_woargs(void)
 void	minishell_exit(t_data *data)
 {
 	if (data->input->next)
-		exit_withargs(data->input->next);
+		exit_with_param(data->input->next);
 	else
-		exit_woargs();
+		exit_no_param();
 }
