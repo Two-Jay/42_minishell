@@ -6,18 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 20:52:06 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 19:39:27 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
-
-void	exit_perror(char *input)
-{
-	write(1, "exit: ", 6);
-	write(1, input, ft_strlen(input));
-	write(1, ": numeric argument required\n", 29);
-}
 
 long long	is_overflow_ll(char *str)
 {
@@ -72,4 +65,17 @@ void	exit_withargs(char *str)
 			write(1, "exit\n", 5);
 	}
 	exit(errno_converted);
+}
+
+void	exit_woargs(void)
+{
+	exit(0);
+}
+
+void	minishell_exit(t_data *data)
+{
+	if (data->input->next)
+		exit_withargs(data->input->next);
+	else
+		exit_woargs();
 }
