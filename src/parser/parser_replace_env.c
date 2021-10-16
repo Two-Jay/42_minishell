@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 05:23:41 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/17 05:41:01 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*parse_envtoken(char *buf)
 	return (tkn);
 }
 
-char *append_env(char *old_buf, t_envlst *env, int current_idx, int buf_l)
+char *append_env(char *old_buf, t_envlst *env, int *current_idx, int *buf_l)
 {
 	char *ret;
 	int envvar_l;
@@ -46,15 +46,42 @@ char *append_env(char *old_buf, t_envlst *env, int current_idx, int buf_l)
 	ix = -1;
 	envvar_l = ft_strlen(env->value);
 	envkey_l = ft_strlen(env->key);
-	ret = (char *)ft_calloc(
-			sizeof(char), buf_l + envvar_l + 1);
-	ft_strlcpy(ret, old_buf, current_idx + 1);
-	ft_strlcpy(ret + current_idx, env->value, envvar_l + 1);
-	if (buf_l != (int)ft_strlen(ret))
+	ret = (char *)ft_calloc(sizeof(char), *buf_l + envvar_l + 1);
+	ft_strlcpy(ret, old_buf, *current_idx + 1);
+	ft_strlcpy(ret + *current_idx, env->value, envvar_l + 1);
+	if (*buf_l != (int)ft_strlen(ret))
 	{
-		while (old_buf[current_idx + envkey_l + ++ix])
-			ret[current_idx + envvar_l + ix] = old_buf[current_idx + envkey_l + ix + 1];
+		while (old_buf[*current_idx + envkey_l + ++ix])
+			ret[*current_idx + envvar_l + ix] = old_buf[*current_idx + envkey_l + ix + 1];
 	}
+	free(old_buf);
+	*buf_l = ft_strlen(ret);
+	*current_idx = *current_idx + (ft_strlen(env->value) + 1);
+	return (ret);
+}
+
+char *append_errono(char *old_buf, int *current_idx, int *buf_l)
+{
+	char *ret;
+	char *errno_str;
+	int errno_l;
+	int ix;
+
+	ix = -1;
+	errno_str = ft_itoa(errno);
+	errno_l = ft_strlen(errno_str);
+	tri(errno);
+	ret = (char *)ft_calloc(sizeof(char), *buf_l + errno_l + 1);
+	ft_strlcpy(ret, old_buf, *current_idx + 1);
+	ft_strlcpy(ret + *current_idx, errno_str, errno_l + 1);
+	if (*buf_l != (int)ft_strlen(ret))
+	{
+		while (old_buf[*current_idx + errno_l + ++ix])
+			ret[*current_idx + errno_l + ix] = old_buf[*current_idx + ix + 2];
+	}
+	*buf_l = ft_strlen(ret);
+	*current_idx = *current_idx + (errno_l + 1);
+	free(errno_str);
 	free(old_buf);
 	return (ret);
 }
@@ -74,7 +101,7 @@ char *replace_env(char *buf, t_data *data)
 	{
 		is_inquote(buf[ix], &qflag);
 		if (buf[ix] == '$' && buf[ix + 1] == '?' && qflag != 1)
-			ix++;
+			buf = append_errono(buf, &ix, &buf_l);
 		else if (buf[ix] == '$' && qflag != 1)
 		{
 			env_key = parse_envtoken(buf + ix);
@@ -82,9 +109,7 @@ char *replace_env(char *buf, t_data *data)
 				env = find_env(env_key, data);
 			if (env->value)
 			{
-				buf = append_env(buf, env, ix, buf_l);
-				buf_l = ft_strlen(buf);
-				ix += (ft_strlen(env->value) + 1);
+				buf = append_env(buf, env, &ix, &buf_l);
 				env = NULL;
 			}
 		}

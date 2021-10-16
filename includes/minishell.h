@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 04:45:57 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/17 05:32:04 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct	s_data
 	char		*homedir;
 }	t_data;
 
+extern int errno;
 
 /*
 ** root setting functions
