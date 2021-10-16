@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 11:07:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/14 20:34:33 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/16 13:51:37 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_envlst	*find_env(char *envname, t_data *data)
 	return (0);
 }
 
-char *get_env(char *envname, t_data *data)
+char	*get_env(char *envname, t_data *data)
 {
 	t_envlst	*node_env;
 	char		*var;
