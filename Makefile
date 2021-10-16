@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/10/14 20:41:38 by jekim            ###   ########.fr        #
+#    Updated: 2021/10/17 02:49:02 by jekim            ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ UTILS_FILE		=	utils.c \
 					print_error.c \
 					find_env.c
 
-CMD_FILE		=	exit.c
+CMD_FILE		=	exit.c 	\
+					exit_utils.c 
 
 MAIN_OBJ_FILE	=	$(SRC_FILE:.c=.o)
 PARSER_OBJ_FILE	=	$(PARSER_FILE:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 02:39:48 by jekim             #+#    #+#             */
-/*   Updated: 2021/07/28 02:51:50 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/17 03:22:33 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	*ft_realloc(void *src, size_t size)
 	size_t	srcsize;
 
 	ret = NULL;
-	srcsize = ft_memlen(src);
 	if (!src && !size)
 		return (NULL);
+	srcsize = ft_memlen(src);
 	if (!src && size)
 	{
 		ret = malloc(size);

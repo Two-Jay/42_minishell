@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 09:05:39 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 21:40:53 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/17 01:40:13 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void is_spaced(const char *input, int input_idx, int *flag)
 {
 	int prflag;
-	
+
 	prflag = is_pipe_redirection(input, input_idx);
 	if (prflag > 0 && input_idx == 0)
 	{

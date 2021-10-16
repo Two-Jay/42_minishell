@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/14 21:10:45 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/17 04:45:57 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,19 @@ typedef enum s_state
 	NOT_PARSERED = 0,
 	BUILTIN,
 	REDIRECT,
-	STRING,
+	SQUOTE_STRING,
+	NQUOTE_STRING,
+	NON_QUOTE_STRING,
 }	t_state;
 
 typedef struct s_token
 {
-	char			*contents;
+	char			*content;
 	int				idx;
 	t_state			type;
-	struct t_token	*prev;
-	struct t_token	*next;
+	struct s_token	*prev;
+	struct s_token	*next;
 }	t_token;
-
 
 typedef struct	s_envlst
 {
@@ -87,7 +88,7 @@ int		print_intro(int argc, char **argv);
 int		indexOf_char(const char *str, char target);
 int		is_pipe_redirection(const char *target, int idx);
 char	*get_env(char *envname, t_data *data);
-
+t_envlst	*find_env(char *envname, t_data *data);
 
 /*
 **		parsing functions

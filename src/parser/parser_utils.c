@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 21:47:31 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/12 21:48:38 by jekim            ###   ########.fr       */
+/*   Updated: 2021/10/15 14:53:01 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	is_closed(const char *input)
 
 	flag = 0;
 	ix = -1;
+	if (ft_strlen(input) == 1 && (input[0] == (char)39 || input[0] == (char)34))
+		return (FALSE);
 	while (input[++ix])
 	{
 		if (input[ix] == (char)39)
