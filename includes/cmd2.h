@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 20:14:13 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 20:23:22 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,12 @@ int			export_with_param(t_data *data);
 int			export_no_param(t_data *data);
 char		*export_equal_check(char *str);
 int			export_name_check(char *str, char *ptr_equal);
-int			export_printerr(char *str);
+
+/*
+	* Unset
+*/
+# define	UNSET_ERRID "\': not a valid identifier"
+int			minishell_unset(t_data *data);
 
 /*
 	* Exit

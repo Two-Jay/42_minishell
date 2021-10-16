@@ -6,13 +6,21 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 19:29:41 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 20:23:56 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-int	export_no_param(t_data *data)
+static int	export_printerr(char *str)
+{
+	write(2, "export: `", 9);
+	write(2, str, ft_strlen(str));
+	write(2, EXPORT_ERRID, ft_strlen(EXPORT_ERRID));
+	return (-1);
+}
+
+static int	export_no_param(t_data *data)
 {
 	t_envlst	*node_tmp;
 
@@ -30,7 +38,7 @@ int	export_no_param(t_data *data)
 	return (0);
 }
 
-int	export_save_env(t_data *data, char *env_key, char *env_value)
+static int	export_save_env(t_data *data, char *env_key, char *env_value)
 {
 	t_envlst	*node_found;
 	t_envlst	*node_new;
@@ -57,7 +65,7 @@ int	export_save_env(t_data *data, char *env_key, char *env_value)
 	return (0);
 }
 
-int	export_with_param(t_data *data)
+static int	export_with_param(t_data *data)
 {
 	char		*str;
 	char		*ptr_equal;
@@ -82,7 +90,6 @@ int	export_with_param(t_data *data)
 	return (export_printerr(str));
 }
 
-//void	minishell_export(t_data *data)
 int	minishell_export(t_data *data)
 {
 	if (!data->input->next)

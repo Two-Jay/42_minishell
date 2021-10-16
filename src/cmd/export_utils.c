@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 19:12:04 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 19:27:04 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 20:22:47 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,5 @@ int	export_name_check(char *str, char *ptr_equal)
 			return (0);
 		str++;
 	}
-	return (1);
-}
-
-int	export_printerr(char *str)
-{
-	write(2, "export: \'", 9);
-	write(2, str, ft_strlen(str));
-	write(2, EXPORT_ERRID, ft_strlen(EXPORT_ERRID));
 	return (1);
 }
