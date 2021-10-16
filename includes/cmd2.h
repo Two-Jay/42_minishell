@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 19:40:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 19:51:37 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ char		*pipe_getcmd(char *cmd, char *envp[]);
 void		ft_free_char2d(char **arr);
 
 /*
+	* cd
+*/
+void		minishell_cd(t_data *data);
+
+/*
 	* Export
 */
 # define	EXPORT_ERRID "\': not a valid identifier"
@@ -58,6 +63,7 @@ int			export_printerr(char *str);
 # define	EXIT_ERRNUM ": numeric argument required\n"
 void		minishell_exit(t_data *data);
 void		exit_perror(char *input);
+
 /*
 	* Utilities
 */
