@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 19:51:37 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/16 20:00:10 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void		ft_free_char2d(char **arr);
 /*
 	* cd
 */
-void		minishell_cd(t_data *data);
-
+int			minishell_cd(t_data *data);
 /*
 	* Export
 */
