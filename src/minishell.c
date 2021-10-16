@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/15 19:42:32 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/17 05:53:34 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	parse_input(const char *input, t_data *data)
 	buf = NULL;
 	tokened = NULL;
 	buf = preprocess_input(input);
-	buf = replace_env(buf, data);
+	buf = parse_env(buf, data);
 	trs(buf);
 	trp(buf);
 	// if (preprocess_input(input, buf)

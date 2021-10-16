@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 05:32:04 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/17 05:53:44 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_envlst	*find_env(char *envname, t_data *data);
 */
 int		parse_input(const char *input, t_data *data);
 char	*preprocess_input(const char *input);
-char	*replace_env(char *buf, t_data *data);
+char	*parse_env(char *buf, t_data *data);
 char	**tokenize_input(char *buf, t_data *data);
 
 /*
