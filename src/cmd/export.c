@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/17 18:24:28 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/17 18:31:41 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,21 @@ int	export_no_param(t_data *data)
 		if (node_tmp->env_state == ENV || node_tmp->env_state == EXPORT_ONLY)
 		{
 			write(1, node_tmp->key, ft_strlen(node_tmp->key));
-			write(1, "=\"", 2);
-			write(1, node_tmp->value, ft_strlen(node_tmp->value));
-			write(1, "\"\n", 2);
+			if (node_tmp->env_state == ENV)
+			{
+				write(1, "=\"", 2);
+				ft_putstr_fd(node_tmp->value, 1);
+				write(1, "\"", 1);
+			}
+			write(1, "\n", 2);
 		}
 		node_tmp = node_tmp->next;
 	}
 	return (0);
 }
 
-static int	export_save_env(t_data *data, char *env_key, char *env_value)
+int	export_save_env(
+	t_data *data, char *env_key, char *env_value, t_env_state flag)
 {
 	t_envlst	*node_found;
 	t_envlst	*node_new;
@@ -74,21 +79,25 @@ int	export_with_param(t_data *data)
 	char		*ptr_equal;
 	char		*env_key;
 	char		*env_value;
-	t_envlst	*node_found;
+	t_env_state	flag;
 
-	str = data->input->next->contents;
+	str = data->input->next->content;
 	ptr_equal = export_equal_check(str);
 	env_value = 0;
 	if (export_name_check(str, ptr_equal))
 	{
 		if (!ptr_equal)
+		{
 			env_key = ft_strdup(str);
+			flag = EXPORT_ONLY;
+		}
 		else
 		{
 			env_key = ft_strndup(str, ptr_equal - str);
 			env_value = trim_quote(ptr_equal + 1);
+			flag = ENV;
 		}
-		return (export_save_env(data, env_key, env_value));
+		return (export_save_env(data, env_key, env_value, flag));
 	}
 	return (export_printerr(str));
 }

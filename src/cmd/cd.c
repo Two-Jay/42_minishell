@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 20:14:31 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/17 18:32:21 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	cd_add_oldpwd(t_data *data, t_envlst *node_pwd)
 		if (!env_key)
 			return (-1);
 		env_value = node_pwd->value;
-		if (export_save_env(data, env_key, env_value) < 0)
+		if (export_save_env(data, env_key, env_value, ENV) < 0)
 			return (-1);
 		node_oldpwd = find_env("OLDPWD", data);
 	}
@@ -74,7 +74,7 @@ static int	cd_add_pwd(t_data *data)
 		if (!env_key)
 			return (-1);
 		env_value = getcwd(0, 10);
-		if (export_save_env(data, env_key, env_value) < 0)
+		if (export_save_env(data, env_key, env_value, ENV) < 0)
 			return (-1);
 		node_pwd = find_env("PWD", data);
 	}
