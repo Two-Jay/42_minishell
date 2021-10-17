@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 06:15:30 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/17 12:54:20 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,11 @@ char	*append_env(char *old_buf, t_envlst *env, int *current_idx, int *buf_l)
 	ret = (char *)ft_calloc(sizeof(char), *buf_l + envvar_l + 1);
 	ft_strlcpy(ret, old_buf, *current_idx + 1);
 	ft_strlcpy(ret + *current_idx, env->value, envvar_l + 1);
-	if (*buf_l != (int)ft_strlen(ret))
-	{
-		while (old_buf[*current_idx + envkey_l + ++ix])
-			ret[*current_idx + envvar_l + ix]
-				= old_buf[*current_idx + envkey_l + ix + 1];
-	}
+	while (old_buf[*current_idx + envkey_l + ++ix])
+		ret[*current_idx + envvar_l + ix]
+			= old_buf[*current_idx + envkey_l + ix + 1];
 	*buf_l = ft_strlen(ret);
-	*current_idx = *current_idx + (ft_strlen(env->value));
+	*current_idx = *current_idx + (ft_strlen(env->value) - 1);
 	free(old_buf);
 	return (ret);
 }
@@ -78,7 +75,7 @@ char	*append_errono(char *old_buf, int *current_idx, int *buf_l)
 			ret[*current_idx + errno_l + ix] = old_buf[*current_idx + ix + 2];
 	}
 	*buf_l = ft_strlen(ret);
-	*current_idx = *current_idx + (errno_l + 1);
+	*current_idx = *current_idx + (errno_l);
 	free(errno_str);
 	free(old_buf);
 	return (ret);
@@ -96,8 +93,9 @@ void	replace_env(char **buf, int *ix, int *buf_l, t_data *data)
 		env = find_env(env_key, data);
 		free(env_key);
 	}
-	if (env->value)
+	if (env)
 		*buf = append_env(*buf, env, ix, buf_l);
+	tri(*ix);
 }
 
 char	*parse_env(char *buf, t_data *data)
@@ -106,18 +104,17 @@ char	*parse_env(char *buf, t_data *data)
 	int	buf_l;
 	int	qflag;
 
-	ix = 0;
+	ix = -1;
 	buf_l = ft_strlen(buf);
 	qflag = 0;
-	while (ix < buf_l)
+	while (++ix < buf_l)
 	{
+		trc(buf[ix]);
 		is_inquote(buf[ix], &qflag);
 		if (buf[ix] == '$' && buf[ix + 1] == '?' && qflag != 1)
 			buf = append_errono(buf, &ix, &buf_l);
 		else if (buf[ix] == '$' && qflag != 1)
 			replace_env(&buf, &ix, &buf_l, data);
-		else
-			ix++;
 	}
 	return (buf);
 }
