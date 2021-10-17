@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 20:27:50 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/17 18:24:28 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ int	export_no_param(t_data *data)
 		return (-1);
 	while (node_tmp->next != NULL)
 	{
-		write(1, node_tmp->key, ft_strlen(node_tmp->key));
-		write(1, "=\"", 2);
-		write(1, node_tmp->value, ft_strlen(node_tmp->value));
-		write(1, "\"\n", 2);
+		if (node_tmp->env_state == ENV || node_tmp->env_state == EXPORT_ONLY)
+		{
+			write(1, node_tmp->key, ft_strlen(node_tmp->key));
+			write(1, "=\"", 2);
+			write(1, node_tmp->value, ft_strlen(node_tmp->value));
+			write(1, "\"\n", 2);
+		}
 		node_tmp = node_tmp->next;
 	}
 	return (0);
