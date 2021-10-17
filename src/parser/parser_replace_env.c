@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 12:54:20 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/17 13:14:54 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*parse_envtoken(char *buf)
 
 	ix = 0;
 	tkn_l = 0;
-	while (buf[++ix] && (ft_isalpha(buf[ix]) || buf[ix] == '_'))
+	while (buf[++ix] && (ft_isalpha(buf[ix]) || ft_isalnum(buf[ix]) || buf[ix] == '_'))
 		tkn_l++;
 	if (!tkn_l)
 		return (NULL);
@@ -94,7 +94,9 @@ void	replace_env(char **buf, int *ix, int *buf_l, t_data *data)
 		free(env_key);
 	}
 	if (env)
+	{
 		*buf = append_env(*buf, env, ix, buf_l);
+	}
 	tri(*ix);
 }
 
