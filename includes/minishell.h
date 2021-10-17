@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 05:53:44 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/17 15:02:12 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ char	**tokenize_input(char *buf, t_data *data);
 int		is_closed(const char *input);
 void	is_quoted(const char cha, int *flag);
 void	is_inquote(const char cha, int *flag);
+int		is_envname_charset(char cha);
 
 #endif

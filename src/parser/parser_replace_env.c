@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_replace_env.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 13:14:54 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/17 18:16:06 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*parse_envtoken(char *buf)
 
 	ix = 0;
 	tkn_l = 0;
-	while (buf[++ix] && (ft_isalpha(buf[ix]) || ft_isalnum(buf[ix]) || buf[ix] == '_'))
+	while (buf[++ix] && is_envname_charset(buf[ix]))
 		tkn_l++;
 	if (!tkn_l)
 		return (NULL);
@@ -69,11 +69,8 @@ char	*append_errono(char *old_buf, int *current_idx, int *buf_l)
 	ret = (char *)ft_calloc(sizeof(char), *buf_l + errno_l + 1);
 	ft_strlcpy(ret, old_buf, *current_idx + 1);
 	ft_strlcpy(ret + *current_idx, errno_str, errno_l + 1);
-	if (*buf_l != (int)ft_strlen(ret))
-	{
-		while (old_buf[*current_idx + errno_l + ++ix])
-			ret[*current_idx + errno_l + ix] = old_buf[*current_idx + ix + 2];
-	}
+	while (old_buf[*current_idx + errno_l + ++ix])
+		ret[*current_idx + errno_l + ix] = old_buf[*current_idx + ix + 2];
 	*buf_l = ft_strlen(ret);
 	*current_idx = *current_idx + (errno_l);
 	free(errno_str);
@@ -94,9 +91,7 @@ void	replace_env(char **buf, int *ix, int *buf_l, t_data *data)
 		free(env_key);
 	}
 	if (env)
-	{
 		*buf = append_env(*buf, env, ix, buf_l);
-	}
 	tri(*ix);
 }
 
@@ -111,7 +106,6 @@ char	*parse_env(char *buf, t_data *data)
 	qflag = 0;
 	while (++ix < buf_l)
 	{
-		trc(buf[ix]);
 		is_inquote(buf[ix], &qflag);
 		if (buf[ix] == '$' && buf[ix + 1] == '?' && qflag != 1)
 			buf = append_errono(buf, &ix, &buf_l);
