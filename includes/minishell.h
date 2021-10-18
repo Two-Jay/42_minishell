@@ -51,6 +51,13 @@ typedef enum s_state
 	NON_QUOTE_STRING,
 }	t_state;
 
+typedef enum s_env_state
+{
+	ENV = 0,
+	EXPORT_ONLY,
+	TEMP_ENV,
+}	t_env_state;
+
 typedef struct s_token
 {
 	char			*content;
@@ -64,6 +71,7 @@ typedef struct	s_envlst
 {
 	char			*key;
 	char			*value;
+	t_env_state		env_state;
 	struct s_envlst	*next;
 }	t_envlst;
 

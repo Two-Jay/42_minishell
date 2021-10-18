@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 20:23:22 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/17 18:32:03 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int			minishell_pwd(t_data *data);
 */
 # define	EXPORT_ERRID "\': not a valid identifier"
 int			minishell_export(t_data *data);
+int			export_save_env(
+				t_data *data, char *env_key, char *env_value, t_env_state flag);
 int			export_with_param(t_data *data);
 int			export_no_param(t_data *data);
 char		*export_equal_check(char *str);
