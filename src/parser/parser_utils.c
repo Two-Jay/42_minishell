@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 21:47:31 by jekim             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/18 22:37:06 by jekim            ###   ########seoul.kr  */
+=======
+/*   Updated: 2021/10/18 20:10:42 by jekim            ###   ########.fr       */
+>>>>>>> 84c1396d92e8401d3294a060a6b39d1c9cf0fd89
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +77,26 @@ void is_inquote(const char cha, int *flag)
 		*flag = 0;
 	else if (cha == (char)34 && *flag == 0)
 		*flag = 2;
+}
+
+
+int is_pipe_redirection(const char *target, int idx)
+{
+	if (target[idx] == '|')
+		return (1);
+	if (target[idx] == '>')
+	{
+		if (target[idx + 1] && target[idx + 1] == '>')
+			return (2);
+		return (1);
+	}
+	if (target[idx] == '<')
+	{
+		if (target[idx + 1] && target[idx + 1] == '<')
+			return (2);
+		return (1);
+	}
+	return (0);
 }
 
 int		is_envname_charset(char cha)
