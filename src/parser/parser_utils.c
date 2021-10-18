@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 21:47:31 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 15:01:58 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/18 22:37:06 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,14 @@ void is_quoted(const char cha, int *flag)
 
 void is_inquote(const char cha, int *flag)
 {
-	if (cha == (char)39)
-	{
-		if (*flag == 0)
-			*flag = 1;
-		else if (*flag == 1)
-			*flag = 0;
-	}
-	if (cha == (char)34)
-	{
-		if (*flag == 0)
-			*flag = 2;
-		else if (*flag == 2)
-			*flag = 0;
-	}
+	if (cha == (char)39 & *flag == 0)
+		*flag = 1;
+	else if (cha == (char)39 & *flag == 1)
+		*flag = 0;
+	if (cha == (char)34 && *flag == 2)
+		*flag = 0;
+	else if (cha == (char)34 && *flag == 0)
+		*flag = 2;
 }
 
 int		is_envname_charset(char cha)
