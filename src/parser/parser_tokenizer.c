@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 14:48:48 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/18 00:17:09 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/18 15:40:28 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int get_split_buflen(char *buf)
 			ret++;
 		ix++;
 	}
-	tri(ret);
 	return (ret);
 }
 
@@ -49,16 +48,79 @@ int ft_strlen_til_space(char *buf, int idx)
 		ret++;
 		idx++;
 	}
-	tri(ret);
 	return (ret);
 }
 
-char **tokenize_input(char *buf, t_data *data)
+int free_all(char **bucket, int ix, int error_flag)
 {
-	char	**ret;
+	while (bucket[ix])
+		free(bucket[ix++]);
+	free(bucket);
+	bucket = NULL;
+	return (error_flag);
+}
+
+void fill_splited_token(char **ret, char *buf)
+{
+	int ix;
+	int jx;
+	int tkn_l;
+
+	ix = 0;
+	jx = 0;
+	tkn_l = 0;
+	while (buf[ix])
+	{
+		tkn_l = ft_strlen_til_space(buf, ix);
+		ret[jx] = (char *)ft_calloc(sizeof(char), (tkn_l + 1));
+		if (!ret[jx])
+			free_all(ret, jx, 1);
+		ft_strlcpy(ret[jx], &buf[ix], tkn_l + 1);
+		ret[jx][tkn_l] = '\0';
+		ix += tkn_l + 1;
+		jx++;
+	}
+	ret[jx] = NULL;
+}
+
+void print_ret(char **ret)
+{
+	int ix;
+
+	ix = 0;
+	while (ret[ix])
+		trs(ret[ix++]);
+}
+
+int create_token(char **splited, t_data *data)
+{
+	int ix;
+	int tkn_l;
+	t_state state;
+	t_token *tknp;
+
+	ix = 0;
+	state = NOT_PARSERED;
+	while (ix && splited[ix])
+	{
+		tkn_l = ft_strlen(splited[ix]);
+		tknp = (t_token *)ft_calloc(sizeof(t_token), 1);
+		tknp->content = ft_strdup(splited[ix]);
+		tknp->idx = ix;
+		tknp->type = state;
+		if (ix == 0)
+			data->input = tknp;
+		else
+			tknp = tknp->next;
+	}
+	return (0);
+}
+
+int tokenize_input(char *buf, t_data *data)
+{
+	char	**splited;
 	int		ix;
 	int		jx;
-	int		tkn_l;
 	int		ret_l;
 
 	ix = 0;
@@ -66,22 +128,12 @@ char **tokenize_input(char *buf, t_data *data)
 	(void)data;
 	trs(buf);
 	ret_l = get_split_buflen(buf);
-	ret = (char **)malloc(sizeof(char *) * (ret_l + 1));
-	if (!ret)
-		return (NULL);
-	while (buf[ix])
-	{
-		tkn_l = ft_strlen_til_space(buf, ix);
-		ret[jx] = (char *)ft_calloc(sizeof(char), (tkn_l + 1));
-		ft_strlcpy(ret[jx], &buf[ix], tkn_l + 1);
-		ret[jx][tkn_l] = '\0';
-		ix += tkn_l + 1;
-		jx++;
-		tri(ix);
-	}
-	ret[jx] = NULL;
-	ix = 0;
-	while (ret[ix])
-		trs(ret[ix++]);
-	return (ret);
+	splited = (char **)malloc(sizeof(char *) * (ret_l + 1));
+	if (!splited)
+		return (ERROR_OCCURED);
+	fill_splited_token(splited, buf);
+	print_ret(splited);
+	// if (ft_strequel(splited[0], ""))
+	// 	return (catch_emptystr());
+	return (free_all(splited, jx, 0));
 }

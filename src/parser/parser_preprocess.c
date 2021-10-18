@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_preprocess.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 09:05:39 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 01:40:13 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/18 16:00:17 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,9 @@ char *preprocess_input(const char *input)
 		is_inquote(input[ix], &qflag);
 		is_spaced(input, ix, &sflag);
 		if (sflag && !qflag)
-			insert_space(buf, input[ix], &jx, &sflag);
+			insert_space(buf, input[ix++], &jx, &sflag);
 		else
-			buf[jx++] = input[ix];
-		ix++;
+			buf[jx++] = input[ix++];
 	}
 	buf[jx] = '\0';
 	trs(buf);

@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 15:02:12 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/18 16:00:52 by jekim            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@
 # define tri(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%d\n", x); }
 # define trp(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%p\n", x); }
 
-
 typedef enum s_state
 {
 	NOT_PARSERED = 0,
 	BUILTIN,
+	STR,
 	REDIRECT,
-	SQUOTE_STRING,
+	SQUOTE_STRING, 
 	NQUOTE_STRING,
 	NON_QUOTE_STRING,
 }	t_state;
@@ -71,7 +71,7 @@ typedef struct	s_data
 {
 	t_envlst	*envlst;
 	t_token		*input;
-	void		*malloc_queue;
+	void		**malloc_queue;
 	char		*homedir;
 }	t_data;
 
@@ -97,7 +97,7 @@ t_envlst	*find_env(char *envname, t_data *data);
 int		parse_input(const char *input, t_data *data);
 char	*preprocess_input(const char *input);
 char	*parse_env(char *buf, t_data *data);
-char	**tokenize_input(char *buf, t_data *data);
+int		tokenize_input(char *buf, t_data *data);
 
 /*
 **		parser_utils functions
