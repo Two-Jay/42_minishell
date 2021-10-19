@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd2.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/17 18:32:03 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/19 12:09:32 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int			minishell_pwd(t_data *data);
 # define	EXPORT_ERRID "\': not a valid identifier"
 int			minishell_export(t_data *data);
 int			export_save_env(
-				t_data *data, char *env_key, char *env_value, t_env_state flag);
+				t_data *data,
+				char *env_key,
+				char *env_value,
+				t_env_state flag);
 int			export_with_param(t_data *data);
 int			export_no_param(t_data *data);
 char		*export_equal_check(char *str);
@@ -76,6 +79,7 @@ void		exit_perror(char *input);
 	* Utilities
 */
 char		*trim_quote(char *str);
+char		**trim_quote_and_parse(char *str);
 char		*ft_strndup(char *str, int length);
 char		*get_envname(char *str);
 t_envlst	*find_env(char *envname, t_data *data);

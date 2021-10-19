@@ -6,25 +6,13 @@
 /*   By: jiychoi <jiychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 17:57:38 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/19 10:55:33 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/19 12:10:16 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-size_t	ft_strlen(const char *src)
-{
-	const char	*tmp;
-
-	tmp = src;
-	if (!src)
-		return (0);
-	while (*tmp++)
-		;
-	return ((size_t)(tmp - src - 1));
-}
-
-int	length_before_quote(char *str)
+static int	length_before_quote(char *str)
 {
 	int		length;
 	char	quote;
@@ -49,7 +37,7 @@ int	length_before_quote(char *str)
 	return (length);
 }
 
-int	length_with_quote(char *str)
+static int	length_with_quote(char *str)
 {
 	int		length;
 	char	quote;
@@ -75,7 +63,7 @@ int	length_with_quote(char *str)
 	return (length);
 }
 
-int	count_quote_twin(char *str)
+static int	count_quote_twin(char *str)
 {
 	char	quote;
 	int		count;
@@ -121,14 +109,12 @@ char	*trim_quote(char *str)
 	return (str_ret);
 }
 
-char	**return_token(char *str)
+char	**trim_quote_and_parse(char *str)
 {
 	char	**token_set;
 	int		token_count;
 	int		i;
 
-	printf("%s\n", str);
-	printf("Quote twin count : %d\n", count_quote_twin(str));
 	token_count = count_quote_twin(str);
 	token_set = malloc(sizeof(char *) * (token_count + 1));
 	if (!token_set)
@@ -141,16 +127,4 @@ char	**return_token(char *str)
 	}
 	token_set[i] = 0;
 	return (token_set);
-}
-
-int	main(void)
-{
-	char	**ret_token;
-	char *str = "\"\"\"\"hello\'\'\"wow\"\"\"\"";
-	int	i;
-
-	i = -1;
-	ret_token = return_token(str);
-	while (ret_token[++i])
-		printf("RETURN TOKEN : \t[%s]\n", ret_token[i]);
 }
