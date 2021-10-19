@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_preprocess.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 09:05:39 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/18 16:00:17 by jekim            ###   ########seoul.kr  */
+<<<<<<< HEAD
+/*   Updated: 2021/10/18 22:39:05 by jekim            ###   ########seoul.kr  */
+=======
+/*   Updated: 2021/10/18 20:53:50 by jekim            ###   ########.fr       */
+>>>>>>> 84c1396d92e8401d3294a060a6b39d1c9cf0fd89
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +21,13 @@ void is_spaced(const char *input, int input_idx, int *flag)
 	int prflag;
 
 	prflag = is_pipe_redirection(input, input_idx);
-	if (prflag > 0 && input_idx == 0)
+	if (prflag == 2)
 	{
-		if (input[input_idx + (prflag / 4) + 1] != ' ')
-			*flag = 2;
+		;
 	}
-	else if (prflag > 0)
+	if (prflag == 0)
 	{
-		if (input[input_idx - 1] != ' ')
-			*flag = 1;
-		if (input[input_idx + (prflag / 4) + 1] != ' ')
-			*flag = 2;
-		if (input[input_idx - 1] != ' ' && input[input_idx + (prflag / 4) + 1] != ' ')
-			*flag = 3;
+		;
 	}
 	else
 		*flag = 0;
@@ -40,7 +38,7 @@ char *get_buf_considered(const char *input)
 	int ix;
 	int len;
 	int qflag;
-	int sflag;
+	int prdflag;
 	char *ret;
 
 	ix = 0;
@@ -48,12 +46,14 @@ char *get_buf_considered(const char *input)
 	while (input[ix])
 	{
 		is_quoted(input[ix], &qflag);
-		if (qflag == 0)
+		prdflag = is_pipe_redirection(input, ix);
+		if (!qflag && prdflag == 2)
 		{
-			is_spaced(input, ix, &sflag);
-			if (sflag)
-				len = len + (sflag / 3 + 1);
+			len += 3;
+			ix++;
 		}
+		if (!qflag && prdflag == 1)
+			len += 2;
 		len++;
 		ix++;
 	}
@@ -63,20 +63,21 @@ char *get_buf_considered(const char *input)
 
 void insert_space(char *buf, char input, int *buf_idx, int *sflag)
 {
-	if (*sflag == 3)
-	{
-		buf[(*buf_idx)++] = ' ';
-		buf[(*buf_idx)++] = input;
-		buf[(*buf_idx)++] = ' ';
-	}
+
 	if (*sflag == 1)
 	{
 		buf[(*buf_idx)++] = ' ';
 		buf[(*buf_idx)++] = input;				
 	}
-	else if (*sflag == 2)
+	if (*sflag == 2)
 	{
 		buf[(*buf_idx)++] = input;				
+		buf[(*buf_idx)++] = ' ';
+	}
+	if (*sflag == 3)
+	{
+		buf[(*buf_idx)++] = ' ';
+		buf[(*buf_idx)++] = input;
 		buf[(*buf_idx)++] = ' ';
 	}
 }
@@ -93,6 +94,7 @@ char *preprocess_input(const char *input)
 		return (NULL);
 	ix = 0;
 	jx = 0;
+	qflag = 0;
 	buf = get_buf_considered(input);
 	while (input[ix])
 	{
