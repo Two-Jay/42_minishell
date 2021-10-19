@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 20:13:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 20:24:14 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/19 15:27:18 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,17 @@ static int	unset_printerr(char *str)
 	return (-1);
 }
 
-int	minishell_unset(t_data *data)
+static int	unset_check_all_node(t_data *data, t_token *tree)
 {
 	char		*str;
 	t_envlst	*node_todel;
 	t_envlst	*node_temp;
 
-	str = data->input->next->contents;
-	if (!export_name_check(str, 0))
-		return (unset_printerr(str));
-	if (str)
+	while (tree)
 	{
-		node_todel = find_env(str, data);
+		if (!export_name_check(tree->content, 0))
+			return (unset_printerr(str));
+		node_todel = find_env(tree->content, data);
 		if (node_todel)
 		{
 			node_temp = unset_find_node_before(data, node_todel);
@@ -50,6 +49,12 @@ int	minishell_unset(t_data *data)
 			free(node_todel->value);
 			free(node_todel);
 		}
+		tree = tree->next;
 	}
 	return (0);
+}
+
+int	minishell_unset(t_data *data)
+{
+	return (unset_check_all_node(data, data->input));
 }
