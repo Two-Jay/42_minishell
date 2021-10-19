@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/17 18:31:41 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/19 15:55:16 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	export_save_env(
 			return (-1);
 		node_new->key = env_key;
 		node_new->value = env_value;
+		node_new->env_state = flag;
 		node_new->next = NULL;
 		node_found->next = node_new;
 		return (0);
@@ -73,7 +74,7 @@ int	export_save_env(
 	return (0);
 }
 
-int	export_with_param(t_data *data)
+int	export_with_param(t_data *data, t_token *tree)
 {
 	char		*str;
 	char		*ptr_equal;
@@ -81,7 +82,7 @@ int	export_with_param(t_data *data)
 	char		*env_value;
 	t_env_state	flag;
 
-	str = data->input->next->content;
+	str = tree->content;
 	ptr_equal = export_equal_check(str);
 	env_value = 0;
 	if (export_name_check(str, ptr_equal))
@@ -104,8 +105,20 @@ int	export_with_param(t_data *data)
 
 int	minishell_export(t_data *data)
 {
+	t_token	*tree;
+	int		return_value;
+
 	if (!data->input->next)
 		return (export_no_param(data));
 	else
-		return (export_with_param(data));
+	{
+		tree = data->input->next;
+		while (tree)
+		{
+			return_value = export_with_param(data, tree);
+			if (return_value < 0)
+				return (return_value);
+			tree = tree->next;
+		}
+	}
 }

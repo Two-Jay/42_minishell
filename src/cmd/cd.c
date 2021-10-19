@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/17 18:32:21 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/19 07:46:52 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,16 @@ static int	cd_add_oldpwd(t_data *data, t_envlst *node_pwd)
 		if (export_save_env(data, env_key, env_value, ENV) < 0)
 			return (-1);
 		node_oldpwd = find_env("OLDPWD", data);
+		node_pwd->value = getcwd(0, 10);
+		if (!node_pwd->value)
+			return (-1);
+		return (0);
 	}
-	else
-		free(node_oldpwd->value);
+	free(node_oldpwd->value);
 	node_oldpwd->value = node_pwd->value;
 	node_pwd->value = getcwd(0, 10);
+	if (!node_pwd->value)
+		return (-1);
 	return (0);
 }
 
@@ -74,7 +79,7 @@ static int	cd_add_pwd(t_data *data)
 		if (!env_key)
 			return (-1);
 		env_value = getcwd(0, 10);
-		if (export_save_env(data, env_key, env_value, ENV) < 0)
+		if (!env_value || export_save_env(data, env_key, env_value, ENV) < 0)
 			return (-1);
 		node_pwd = find_env("PWD", data);
 	}
