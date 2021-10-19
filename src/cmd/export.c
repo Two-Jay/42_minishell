@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/17 18:31:41 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/19 07:32:58 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	export_save_env(
 			return (-1);
 		node_new->key = env_key;
 		node_new->value = env_value;
+		node_new->env_state = flag;
 		node_new->next = NULL;
 		node_found->next = node_new;
 		return (0);
