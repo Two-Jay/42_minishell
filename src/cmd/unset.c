@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 20:13:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/19 15:27:18 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/19 15:53:05 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,32 @@ static int	unset_check_all_node(t_data *data, t_token *tree)
 	t_envlst	*node_todel;
 	t_envlst	*node_temp;
 
-	while (tree)
+	if (!export_name_check(tree->content, 0))
+		return (unset_printerr(str));
+	node_todel = find_env(tree->content, data);
+	if (node_todel)
 	{
-		if (!export_name_check(tree->content, 0))
-			return (unset_printerr(str));
-		node_todel = find_env(tree->content, data);
-		if (node_todel)
-		{
-			node_temp = unset_find_node_before(data, node_todel);
-			node_temp->next = node_todel->next;
-			free(node_temp->key);
-			free(node_todel->value);
-			free(node_todel);
-		}
-		tree = tree->next;
+		node_temp = unset_find_node_before(data, node_todel);
+		node_temp->next = node_todel->next;
+		free(node_temp->key);
+		free(node_todel->value);
+		free(node_todel);
 	}
 	return (0);
 }
 
 int	minishell_unset(t_data *data)
 {
-	return (unset_check_all_node(data, data->input));
+	t_token	*tree;
+	int		return_value;
+
+	tree = data->input->next;
+	while (tree)
+	{
+		return_value = unset_check_all_node(data, tree);
+		if (return_value < 0)
+			return (return_value);
+		tree = tree->next;
+	}
+	return (0);
 }
