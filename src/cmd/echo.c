@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/20 22:54:53 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/20 22:56:52 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	echo_noflag(t_token *tree)
 		tree = tree->next;
 	}
 	write(1, "\n", 1);
+	// $? 0으로 세팅
 	return (0);
 }
 
@@ -46,6 +47,7 @@ static int	echo_nflag(t_token *tree)
 		write(1, " ", 1);
 		tree = tree->next;
 	}
+	// $? 0으로 세팅
 	return (0);
 }
 
