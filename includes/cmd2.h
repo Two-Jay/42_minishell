@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/20 11:35:17 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/20 11:41:48 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int			minishell_unset(t_data *data);
 /*
 	* Exit
 */
-# define	EXIT_ERRNUM ": numeric argument required\n"
-# define	EXIT_ERRMANY "too many arguments\n"
+# define	EXIT_ERRNUM ": numeric argument required"
+# define	EXIT_ERRMANY "too many arguments"
 void		minishell_exit(t_data *data);
 void		exit_perror(char *input);
 
