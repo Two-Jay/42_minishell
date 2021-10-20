@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/19 16:44:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/20 22:56:52 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,46 +28,26 @@ static int	echo_if_nnn(char *flag)
 
 static int	echo_noflag(t_token *tree)
 {
-	char	**str_to_print;
-	int		i;
-
-	str_to_print = trim_quote_and_parse(tree->content);
-	if (!str_to_print)
-		return (-1);
-	i = -1;
-	while (str_to_print[++i])
-		ft_putstr_fd(str_to_print[i], 1);
-	ft_free_char2d(str_to_print);
+	while (tree)
+	{
+		ft_putstr_fd(tree->content, 1);
+		write(1, " ", 1);
+		tree = tree->next;
+	}
 	write(1, "\n", 1);
+	// $? 0으로 세팅
 	return (0);
 }
 
 static int	echo_nflag(t_token *tree)
 {
-	char	**str_to_print;
-	int		i;
-
-	str_to_print = trim_quote_and_parse(tree->content);
-	if (!str_to_print)
-		return (-1);
-	i = -1;
-	while (str_to_print[++i])
-		ft_putstr_fd(str_to_print[i], 1);
-	ft_free_char2d(str_to_print);
-	return (0);
-}
-
-int	echo_iterate(t_data *data, t_token *tree, int (*echo_func)(t_token *))
-{
-	int		return_value;
-
 	while (tree)
 	{
-		return_value = echo_func(tree);
-		if (return_value < 0)
-			return (return_value);
+		ft_putstr_fd(tree->content, 1);
+		write(1, " ", 1);
 		tree = tree->next;
 	}
+	// $? 0으로 세팅
 	return (0);
 }
 
@@ -80,8 +60,8 @@ int	minishell_echo(t_data *data)
 	if (echo_if_nnn(tree->content))
 	{
 		tree = tree->next;
-		return (echo_iterate(data, tree, echo_nflag));
+		return (echo_nflag(tree));
 	}
 	else
-		return (echo_iterate(data, tree, echo_noflag));
+		return (echo_noflag(tree));
 }

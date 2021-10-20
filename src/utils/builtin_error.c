@@ -1,43 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   builtin_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:09:26 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 18:38:26 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/20 22:23:43 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-int	minishell_perror(char *cmd, int err, int exit_status)
+int	builtin_error(t_data *data, char *value_str, char *error_str, int dollar_q)
 {
-	char	*str;
-
-	if (err < 0)
-		str = strerror(errno);
-	else
-		str = strerror(err);
-	write(2, cmd, ft_strlen(cmd));
-	write(2, str, ft_strlen(str));
+	ft_putstr_fd(data->input->content, 2);
+	ft_putstr_fd(": ", 2);
+	if (value_str)
+		ft_putstr_fd(value_str, 2);
+	ft_putstr_fd(error_str, 2);
 	write(2, "\n", 1);
-	return (exit_status);
-}
-
-int	minishell_error(char *cmd, char *str, int exit_status)
-{
-	write(2, cmd, ft_strlen(cmd));
-	if (!str)
-	{
-		write(2, "Unknown Error", ft_strlen("Unknown Error"));
-		write(2, "\n", 1);
-	}
-	else
-	{
-		write(2, str, ft_strlen(str));
-		write(2, "\n", 1);
-	}
-	return (exit_status);
+	// dq = dollar_q ($? 세팅)
+	return (-1);
 }

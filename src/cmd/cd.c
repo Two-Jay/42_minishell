@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/19 07:46:52 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/20 22:41:50 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-static int	cd_move_directory(char *str)
+static int	cd_move_directory(t_data *data)
 {
+	char	*str;
 	char	*path_curr;
 	char	*path_temp;
 	char	*path_absol;
 	int		return_value;
 
+	str = data->input->next->content;
 	if (*str == '/')
 		if (chdir(str) < 0)
-			return (minishell_perror("cd: ", -1, 1));
+			return (builtin_error(data, str, CD_ERRNODIR, 1));
 	else
 	{
 		path_curr = getcwd(0, 100);
@@ -30,9 +32,10 @@ static int	cd_move_directory(char *str)
 		return_value = chdir(path_absol);
 		free(path_curr);
 		free(path_temp);
-		free(path_absol);
+		free(str);
+		data->input->next->content = path_absol;
 		if (return_value < 0)
-			return (minishell_perror("cd: ", -1, 1));
+			return (builtin_error(data, path_absol, CD_ERRNODIR, 1));
 	}
 	return (0);
 }
@@ -92,10 +95,13 @@ int	minishell_cd(t_data *data)
 {
 	int			return_value;
 
-	return_value = cd_move_directory(data->input->next->content);
-	if (return_value != 0)
-		return (return_value);
-	if (cd_add_pwd(data) < 0)
-		return_value = -1;
+	if (check_flag(data))
+		builtin_error(data, data->input->next->content, CD_ERROPT, 1);
+	if (cd_move_directory(data) < 0)
+		return (0);
+	return_value = cd_add_pwd(data);
+	if (return_value < 0)
+		return (builtin_error(data, 0, strerror(errno), 1));
+	// $? 세팅: 0
 	return (return_value);
 }

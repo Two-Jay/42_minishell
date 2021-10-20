@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 02:45:38 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/20 22:22:48 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-long long	is_overflow_ll(char *str)
+static long long	is_overflow_ll(char *str)
 {
 	unsigned long long	converted;
 	int					minus;
@@ -32,6 +32,8 @@ long long	is_overflow_ll(char *str)
 		return (-1);
 	if (converted - 1 > LLMAX && minus == -1)
 		return (-1);
+	if (minus == -1)
+		return (256 - (converted % 256));
 	return (converted % 256);
 }
 
@@ -48,34 +50,51 @@ static int	is_num(char *str)
 	return (1);
 }
 
-void	exit_with_param(char *str)
+static void	exit_with_param(t_data *data)
 {
+	char		*str;
 	long long	errno_converted;
 
+	str = data->input->next->content;
 	errno_converted = 0;
+	write(1, "exit\n", 5);
 	if (!is_num(str) || (ft_strlen(str) > 20)
 		|| (ft_strlen(str) > 19 && *str != '-'))
-		exit_perror(str);
+	{
+		builtin_error(data, str, EXIT_ERRNUM, 255);
+		// $? 세팅: 255 (buitin_error 내부에서)
+		exit(255);
+	}
 	else
 	{
 		errno_converted = is_overflow_ll(str);
 		if (errno_converted < 0)
-			exit_perror(str);
-		else
-			write(1, "exit\n", 5);
+		{
+			builtin_error(data, str, EXIT_ERRNUM, 255);
+			//$? 세팅: 255 (buitin_error 내부에서)
+			exit(255);
+		}
 	}
+	//$? 세팅: errno_converted
 	exit(errno_converted);
 }
 
-void	exit_no_param(void)
+static void	exit_no_param(void)
 {
+	//$? 세팅: 0
+	write(1, "exit\n", 5);
 	exit(0);
 }
 
 void	minishell_exit(t_data *data)
 {
 	if (data->input->next)
-		exit_with_param(data->input->next->content);
+	{
+		if (data->input->next->next)
+			builtin_error(data, 0, EXIT_ERRMANY, 1);
+		else
+			exit_with_param(data);
+	}
 	else
 		exit_no_param();
 }
