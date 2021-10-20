@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/20 14:19:02 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/20 23:10:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,13 @@ int			export_with_param(t_data *data);
 int			export_no_param(t_data *data);
 char		*export_equal_check(char *str);
 int			export_name_check(char *str, char *ptr_equal);
+
+/*
+	* Env
+*/
+# define	ENV_ERROPT 0
+# define	ENV_ERRDIR 1
+int			minishell_env(t_data *data);
 
 /*
 	* Unset
