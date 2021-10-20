@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/20 11:41:48 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/20 14:19:02 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,17 @@ void		ft_free_char2d(char **arr);
 /*
 	* cd & pwd
 */
+# define	CD_ERRNODIR "No such file or directory"
+# define	CD_ERROPT "invalid option\ncd : usage: cd [dir]"
 int			minishell_cd(t_data *data);
 int			minishell_pwd(t_data *data);
 
 /*
 	* Export
 */
-# define	EXPORT_ERRID "\': not a valid identifier"
+# define	EXPORT_ERRID "\': not a valid ident\ifier"
+# define	EXPORT_ERROPT "invalid option\
+\nexport: usage: export [name[=value] ...]"
 int			minishell_export(t_data *data);
 int			export_save_env(
 				t_data *data,
@@ -74,7 +78,6 @@ int			minishell_unset(t_data *data);
 # define	EXIT_ERRNUM ": numeric argument required"
 # define	EXIT_ERRMANY "too many arguments"
 void		minishell_exit(t_data *data);
-void		exit_perror(char *input);
 
 /*
 	* Utilities
@@ -89,5 +92,6 @@ int			builtin_error(
 				char *value_str,
 				char *error_str,
 				int dollar_q);
+int			check_flag(t_data *data);
 
 #endif
