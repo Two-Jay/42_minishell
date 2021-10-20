@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/20 13:49:14 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/20 22:41:50 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int	minishell_cd(t_data *data)
 	return_value = cd_add_pwd(data);
 	if (return_value < 0)
 		return (builtin_error(data, 0, strerror(errno), 1));
+	// $? 세팅: 0
 	return (return_value);
 }
