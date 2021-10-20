@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd2.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/19 12:09:32 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/10/20 11:35:17 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int			minishell_unset(t_data *data);
 	* Exit
 */
 # define	EXIT_ERRNUM ": numeric argument required\n"
+# define	EXIT_ERRMANY "too many arguments\n"
 void		minishell_exit(t_data *data);
 void		exit_perror(char *input);
 
@@ -83,7 +84,10 @@ char		**trim_quote_and_parse(char *str);
 char		*ft_strndup(char *str, int length);
 char		*get_envname(char *str);
 t_envlst	*find_env(char *envname, t_data *data);
-int			minishell_perror(char *cmd, int err, int exit_status);
-int			minishell_error(char *cmd, char *str, int exit_status);
+int			builtin_error(
+				t_data *data,
+				char *value_str,
+				char *error_str,
+				int dollar_q);
 
 #endif

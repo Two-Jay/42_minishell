@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/17 02:45:38 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/10/20 11:37:24 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,12 @@ void	exit_no_param(void)
 void	minishell_exit(t_data *data)
 {
 	if (data->input->next)
-		exit_with_param(data->input->next->content);
+	{
+		if (data->input->next->next)
+			builtin_error(data, 0, EXIT_ERRMANY, 1);
+		else
+			exit_with_param(data->input->next->content);
+	}
 	else
 		exit_no_param();
 }
