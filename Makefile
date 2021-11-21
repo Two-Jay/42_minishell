@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/10/17 17:26:48 by jekim            ###   ########seoul.kr   #
+#    Updated: 2021/11/21 16:37:31 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,7 @@ LIBFT_DIR	=	./libft/
 SRC_FILE		=	minishell.c \
 					env.c
 
-PARSER_FILE 	=	parser_preprocess.c \
-					parser_replace_env.c \
-					parser_tokenizer.c \
+PARSER_FILE 	=	parser.c \
 					parser_utils.c
 
 UTILS_FILE		=	utils.c \

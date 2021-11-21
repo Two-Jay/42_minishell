@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/18 16:00:52 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/11/21 17:42:58 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@
 
 typedef enum s_state
 {
-	NOT_PARSERED = 0,
-	BUILTIN,
-	STR,
+	CMD = 0,
+	FLAG,
+	PIPE,
 	REDIRECT,
-	SQUOTE_STRING, 
-	NQUOTE_STRING,
-	NON_QUOTE_STRING,
+	FILEPATH,
+	STR
 }	t_state;
 
 typedef enum s_env_state
@@ -61,7 +60,7 @@ typedef enum s_env_state
 typedef struct s_token
 {
 	char			*content;
-	int				idx;
+	int				ix;
 	t_state			type;
 	struct s_token	*prev;
 	struct s_token	*next;
@@ -102,17 +101,14 @@ t_envlst	*find_env(char *envname, t_data *data);
 /*
 **		parsing functions
 */
-int		parse_input(const char *input, t_data *data);
-char	*preprocess_input(const char *input);
-char	*parse_env(char *buf, t_data *data);
-int		tokenize_input(char *buf, t_data *data);
+int		parse_input_string(const char *str, t_data *data);
 
 /*
 **		parser_utils functions
 */
-int		is_closed(const char *input);
-void	is_quoted(const char cha, int *flag);
-void	is_inquote(const char cha, int *flag);
-int		is_envname_charset(char cha);
+t_token		*it_create(const char *str, int *ix);
+int			it_assign_type(t_token *token);
+char		*ft_strndup(const char *str, size_t n);
+
 
 #endif
