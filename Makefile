@@ -6,7 +6,7 @@
 #    By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/11/23 15:19:45 by jekim            ###   ########.fr        #
+#    Updated: 2021/11/24 08:36:57 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC_FILE		=	minishell.c \
 
 PARSER_FILE 	=	parser.c \
 					parser_isbs.c \
+					parser_split.c	\
 					parser_util.c
 
 UTILS_FILE		=	utils.c \
@@ -58,23 +59,23 @@ all			:	$(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
+	@$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
 
 $(OBJ_DIR)%.o : $(PARSER_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
+	@$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
 
 $(OBJ_DIR)%.o : $(UTILS_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
+	@$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
 
 $(OBJ_DIR)%.o : $(CMD_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
+	@$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
 
 $(NAME)		:	$(OBJ)
 	@$(MAKE) -C ./libft
-	$(CC) $(G) $(CCFLAG) $(OBJ) $(LIBFLAG) $(INCLUDE) -o $@
+	@$(CC) $(G) $(CCFLAG) $(OBJ) $(LIBFLAG) $(INCLUDE) -o $@
 	@echo "\033[0;92m* $(NAME) program file was created *\033[0m"
 
 debug		:	$(NAME)

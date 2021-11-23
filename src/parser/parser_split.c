@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:54:24 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/23 17:40:50 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/24 08:39:24 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,18 @@ int	get_ret_l(const char *str)
 	int quote_flag;
 
 	ix = 0;
+	ret = 0;
 	quote_flag = 0;
 	while (str[ix])
 	{
-		is_inquoted(str[ix], )
+		is_inquoted(str, ix, &quote_flag);
 		if (!quote_flag
-			&& (str[ix] && (str[ix + 1] == ' ' || str[ix + 1] == NULL)))
+			&& (!ft_isspace(str[ix])
+			&& (ft_isspace(str[ix + 1]) || str[ix + 1] == '\0')))
+			ret++;
 		ix++;
 	}
+	return (ret);
 }
 
 int split_by_chunk(const char *str, t_data *data)
@@ -36,5 +40,11 @@ int split_by_chunk(const char *str, t_data *data)
 	char	**ret;
 
 	ix = 0;
+	(void)data;
 	ret_l = get_ret_l(str);
+	ret = (char **)malloc(sizeof(char *) * (ret_l + 1));
+	if (!ret)
+		return (ERROR_OCCURED);
+	tri(ret_l);
+	return (0);
 }
