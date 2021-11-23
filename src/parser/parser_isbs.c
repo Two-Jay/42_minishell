@@ -6,13 +6,13 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 14:21:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/23 17:21:41 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/23 18:45:44 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int count_spclcmd_input(const char *str, int str_l)
+static int count_spclcmd_input(const char *str, int str_l)
 {
 	int ix;
 	int ret;
@@ -24,7 +24,9 @@ int count_spclcmd_input(const char *str, int str_l)
 	quote_flag = 0;
 	while (str[ix])
 	{
-		is_inquoted(str, &quote_flag);
+		is_inquoted(str, ix, &quote_flag);
+		tri(str[ix]);
+		tri(quote_flag);
 		check = is_pipe_redirection(str, ix, str_l);
 		if (!quote_flag && check)
 		{
@@ -38,14 +40,14 @@ int count_spclcmd_input(const char *str, int str_l)
 	return (ret);
 }
 
-void cp_inserted_cmd1(char *dst, const char *str, int *ix, int *jx)
+static void cp_inserted_cmd1(char *dst, const char *str, int *ix, int *jx)
 {
 	dst[(*ix)++] = ' ';
 	dst[(*ix)++] = str[(*jx)++];
 	dst[(*ix)++] = ' ';
 }
 
-void cp_inserted_cmd2(char *dst, const char *str, int *ix, int *jx)
+static void cp_inserted_cmd2(char *dst, const char *str, int *ix, int *jx)
 {
 	dst[(*ix)++] = ' ';
 	dst[(*ix)++] = str[(*jx)++];
@@ -53,7 +55,7 @@ void cp_inserted_cmd2(char *dst, const char *str, int *ix, int *jx)
 	dst[(*ix)++] = ' ';
 }
 
-int do_insert_space(const char *str, t_data *data, int str_l)
+static int do_insert_space(const char *str, t_data *data, int str_l)
 {
 	int ix;
 	int jx;
@@ -66,7 +68,7 @@ int do_insert_space(const char *str, t_data *data, int str_l)
 	quote_flag = 0;
 	while (str[jx])
 	{
-		is_inquoted(str, &quote_flag);
+		is_inquoted(str, jx, &quote_flag);
 		check = is_pipe_redirection(str, jx, str_l);
 		if (check == 0 || quote_flag)
 			data->ip->isbs_ret[ix++] = str[jx++];

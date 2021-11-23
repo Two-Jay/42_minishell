@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:37:34 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/23 17:17:46 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/23 18:52:25 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,29 @@ int is_pipe_redirection(const char *str, int ix, int str_l)
 	return (0);
 }
 
-void is_inquoted(const char *str, int *flag)
+int	is_double_quote(const char *str)
 {
-	if (*str == 34)
-	{
-		if (*flag == 2)
-			*flag = 0;
-		if (*flag == 0)
-			*flag = 2;
-	}
-	if (*str == 39)
-	{
-		if (*flag == 1)
-			*flag = 0;
-		if (*flag == 0)
-			*flag = 1;	
-	}
+	return ((int)*str == 34);
+}
+
+int	is_single_quote(const char *str)
+{
+	return ((int)*str == 39);
+}
+
+void	is_inquoted(const char *str, int ix, int *flag)
+{
+	int double_quote_check;
+	int single_quote_check;
+
+	double_quote_check = is_double_quote(str + ix);
+	single_quote_check = is_single_quote(str + ix);
+	if (double_quote_check && *flag == 2)
+		*flag = 0;
+	if (single_quote_check && *flag == 1)
+		*flag = 0;
+	if (double_quote_check && *flag != 2)
+		*flag = 2;
+	if (single_quote_check && *flag != 1)
+		*flag = 1;
 }

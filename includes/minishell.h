@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/23 17:15:03 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/23 18:48:23 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define TRUE 0
 # define FALSE 1
 # define ERROR_OCCURED 1
+
+# define UNICODE_SINGLE_QUOTE  U+2019
+# define SINGLE_QUOTE  U+0027
 
 # define trs(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%s\n", x); }
 # define trc(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%c\n", x); }
@@ -114,5 +117,5 @@ int		insert_space_beside_spclcmd(const char *str, t_data *data);
 /*
 **		parsing util functions
 */
-void	is_inquoted(const char *str, int *flag);
+void	is_inquoted(const char *str, int ix, int *flag);
 #endif
