@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_tokenizer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 14:48:48 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/18 15:40:28 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/11/23 14:46:23 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,5 @@ int tokenize_input(char *buf, t_data *data)
 		return (ERROR_OCCURED);
 	fill_splited_token(splited, buf);
 	print_ret(splited);
-	// if (ft_strequel(splited[0], ""))
-	// 	return (catch_emptystr());
 	return (free_all(splited, jx, 0));
 }

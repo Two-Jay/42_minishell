@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 17:12:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/21 19:58:15 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/23 11:32:36 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int assign_input_token_type(t_token *token)
     return (0);
 }
 
-t_token *create_input_token(const char *str, int *ix)
+t_token *create_input_token(const char *str, int ix)
 {
     t_token *ret;
 
@@ -40,6 +40,6 @@ t_token *create_input_token(const char *str, int *ix)
     ret->content = NULL;
     if (str && *str)
         ret->content = str;
-    ret->ix = *ix;
+    ret->ix = ix;
     return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/21 17:42:58 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/23 17:15:03 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@ typedef enum s_state
 	STR
 }	t_state;
 
-typedef enum s_env_state
-{
-	ENV = 0,
-	EXPORT_ONLY,
-	TEMP_ENV,
-}	t_env_state;
 
 typedef struct s_token
 {
@@ -66,6 +60,13 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef enum s_env_state
+{
+	ENV = 0,
+	EXPORT_ONLY,
+	TEMP_ENV,
+}	t_env_state;
+
 typedef struct	s_envlst
 {
 	char			*key;
@@ -74,10 +75,16 @@ typedef struct	s_envlst
 	struct s_envlst	*next;
 }	t_envlst;
 
+typedef struct	input_process
+{
+	char *isbs_ret;
+}	t_input_process;
+
 typedef struct	s_data
 {
 	t_envlst	*envlst;
 	t_token		*input;
+	t_input_process *ip;
 	void		**malloc_queue;
 	char		*homedir;
 }	t_data;
@@ -94,7 +101,7 @@ int		init_env(char **envp, t_data *data);
 */
 int		print_intro(int argc, char **argv);
 int		indexOf_char(const char *str, char target);
-int		is_pipe_redirection(const char *target, int idx);
+int		is_pipe_redirection(const char *str, int ix, int str_l);
 char	*get_env(char *envname, t_data *data);
 t_envlst	*find_env(char *envname, t_data *data);
 
@@ -102,13 +109,10 @@ t_envlst	*find_env(char *envname, t_data *data);
 **		parsing functions
 */
 int		parse_input_string(const char *str, t_data *data);
+int		insert_space_beside_spclcmd(const char *str, t_data *data);
 
 /*
-**		parser_utils functions
+**		parsing util functions
 */
-t_token		*it_create(const char *str, int *ix);
-int			it_assign_type(t_token *token);
-char		*ft_strndup(const char *str, size_t n);
-
-
+void	is_inquoted(const char *str, int *flag);
 #endif

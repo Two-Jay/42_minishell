@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
+#    By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/11/21 16:37:31 by jekim            ###   ########.fr        #
+#    Updated: 2021/11/23 15:19:45 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,14 @@ SRC_FILE		=	minishell.c \
 					env.c
 
 PARSER_FILE 	=	parser.c \
-					parser_utils.c
+					parser_isbs.c \
+					parser_util.c
 
 UTILS_FILE		=	utils.c \
-					print_error.c \
+					builtin_error.c \
 					find_env.c
 
 CMD_FILE		=	exit.c 	\
-					exit_utils.c 
 
 MAIN_OBJ_FILE	=	$(SRC_FILE:.c=.o)
 PARSER_OBJ_FILE	=	$(PARSER_FILE:.c=.o)

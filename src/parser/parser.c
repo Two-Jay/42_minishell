@@ -3,18 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/21 17:01:20 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/23 16:22:43 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int set_input_process_struct(t_data *data)
+{
+	data->ip = (t_input_process *)malloc(sizeof(t_input_process));
+	if (!data->ip)
+		return (ERROR_OCCURED);
+	return (0);
+}
+
 int parse_input_string(const char *str, t_data *data)
 {
-    if (split_by_junk(str, data))
-        return (ERROR_OCCURED);
-    return (0);
+	if (set_input_process_struct(data)
+		|| insert_space_beside_spclcmd(str, data))
+		return (ERROR_OCCURED);
+	return (0);
 }

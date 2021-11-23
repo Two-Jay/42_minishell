@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:54:24 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/21 20:05:43 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/23 15:09:58 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,28 @@ int find_split_point(const char *str, char **startp, char **endp)
 	return (0);
 }
 
+int	get_ret_l(const char *str)
+{
+	int ix;
+	int ret;
+	int quote_flag;
+
+	ix = 0;
+	quote_flag = 0;
+	while (str[ix])
+	{
+		
+		if ()
+		ix++;
+	}
+}
+
 int split_by_chunk(const char *str, t_data *data)
 {
 	int		ix;
-	char 	*startp;
-	char 	*endp;
-	t_token	*token;
-	t_token *prev_tmp;
+	int		ret_l;
+	char	**ret;
 
 	ix = 0;
-	prev_tmp = create_input_token(NULL, &ix);
-	data->input = prev_tmp;
-	token = data->input->next;
-	while (*endp != '\0')
-	{
-		ix++;
-		find_split_point(str, startp, endp); // startp, endp 구하는 함수
-		token = create_input_token(ft_strndup(startp, startp - endp), &ix);
-		token->prev = prev_tmp;
-		token = token->next;
-	}
+	ret_l = get_ret_l(str);
 }
