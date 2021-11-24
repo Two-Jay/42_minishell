@@ -6,15 +6,49 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:54:24 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/24 18:18:52 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/24 21:01:49 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 int is_end_quotation(const char *str, int ix, int flag)
-{
+ {
 	return (is_quotation(&str[ix]) && flag == 0);
+}
+
+int check_split_condition(const char *str, int ix, int flag)
+{
+	if (is_end_quotation(str, ix, flag))
+		return (TRUE);
+	if (!ft_isspace(str[ix]) && ft_isspace(str[ix + 1]) && !flag)
+		return (TRUE);
+	if (!ft_isspace(str[ix]) && !str[ix + 1] && !flag)
+		return (TRUE);
+	return (FALSE);
+}
+
+int check_word_condition(const char *str, int ix, int flag)
+{
+	return (!flag && ft_isspace(str[ix]));
+}
+
+int get_word_l(const char *str)
+{
+	int l;
+	int quote_flag;
+	
+	l = 0;
+	quote_flag = 0;
+	trs(str + l);
+	while (str[l])
+	{
+		is_inquoted(str, l, &quote_flag);
+		if (check_word_condition(str, l, quote_flag))
+			break ;
+		l++;
+	}
+	return (l);
 }
 
 int	get_ret_l(const char *str)
@@ -29,30 +63,42 @@ int	get_ret_l(const char *str)
 	while (str[ix])
 	{
 		is_inquoted(str, ix, &quote_flag);
-		if (is_end_quotation(str, ix, quote_flag))
+		if (check_split_condition(str, ix, quote_flag) == TRUE)
 			ret++;
-		else if (!ft_isspace(str[ix]) && ft_isspace(str[ix + 1]) && !quote_flag)
-			ret++;
-		else if (!ft_isspace(str[ix]) && !str[ix + 1] && !quote_flag)
-			ret++;
-		tri(ret);
 		ix++;
 	}
 	return (ret);
+}
+
+char **fill_split_ret(const char *str, int word_cnt)
+{
+	int ix;
+	int len;
+
+	ix = 0;
+	while (ix < word_cnt)
+	{
+		while (ft_isspace(*str))
+			str++;
+		len = get_word_l(str);
+		str += len;
+		ix++;
+	}
+	return (NULL);
 }
 
 int split_by_chunk(const char *str, t_data *data)
 {
 	int		ix;
 	int		ret_l;
-	char	**ret;
 
 	ix = 0;
-	(void)data;
 	ret_l = get_ret_l(str);
-	ret = (char **)malloc(sizeof(char *) * (ret_l + 1));
-	if (!ret)
-		return (ERROR_OCCURED);
 	tri(ret_l);
+	data->ip->split_ret = (char **)malloc(sizeof(char *) * (ret_l + 1));
+	if (!data->ip->split_ret)
+		return (ERROR_OCCURED);
+	data->ip->split_ret[ret_l] = NULL;
+	data->ip->split_ret = fill_split_ret(str, ret_l);
 	return (0);
 }
