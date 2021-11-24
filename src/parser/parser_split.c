@@ -6,74 +6,53 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:54:24 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/21 20:05:43 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/24 18:18:52 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void check_isquoted(const char *str, int *flag)
+int is_end_quotation(const char *str, int ix, int flag)
 {
-	if (*str == 34)
-	{
-		if (*flag == 2)
-			*flag == 0;
-		if (*flag == 0)
-			*flag == 2;
-	}
-	if (*str == 39)
-	{
-		if (*flag == 1)
-			*flag == 0;
-		if (*flag == 0)
-			*flag == 1;	
-	}
+	return (is_quotation(&str[ix]) && flag == 0);
 }
 
-int find_split_point(const char *str, char **startp, char **endp)
+int	get_ret_l(const char *str)
 {
 	int ix;
+	int ret;
 	int quote_flag;
-	int limit;
 
 	ix = 0;
+	ret = 0;
 	quote_flag = 0;
-	limit = ft_strlen(str);
-	if (limit == 0)
-		return (ERROR_OCCURED);
-	while (ft_isspace(str[ix]))
-		ix++;
-	*startp = str + ix;
-	limit = ft_strlen(*startp);
-	while (ix < limit)
+	while (str[ix])
 	{
-		check_isquoted(*startp + ix, &quote_flag);
-		if (!quote_flag && ft_isspace(*startp + ix))\
-			break ;
+		is_inquoted(str, ix, &quote_flag);
+		if (is_end_quotation(str, ix, quote_flag))
+			ret++;
+		else if (!ft_isspace(str[ix]) && ft_isspace(str[ix + 1]) && !quote_flag)
+			ret++;
+		else if (!ft_isspace(str[ix]) && !str[ix + 1] && !quote_flag)
+			ret++;
+		tri(ret);
 		ix++;
 	}
-	*endp = *startp + ix;
-	return (0);
+	return (ret);
 }
 
 int split_by_chunk(const char *str, t_data *data)
 {
 	int		ix;
-	char 	*startp;
-	char 	*endp;
-	t_token	*token;
-	t_token *prev_tmp;
+	int		ret_l;
+	char	**ret;
 
 	ix = 0;
-	prev_tmp = create_input_token(NULL, &ix);
-	data->input = prev_tmp;
-	token = data->input->next;
-	while (*endp != '\0')
-	{
-		ix++;
-		find_split_point(str, startp, endp); // startp, endp 구하는 함수
-		token = create_input_token(ft_strndup(startp, startp - endp), &ix);
-		token->prev = prev_tmp;
-		token = token->next;
-	}
+	(void)data;
+	ret_l = get_ret_l(str);
+	ret = (char **)malloc(sizeof(char *) * (ret_l + 1));
+	if (!ret)
+		return (ERROR_OCCURED);
+	tri(ret_l);
+	return (0);
 }

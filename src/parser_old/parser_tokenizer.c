@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 14:48:48 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/21 20:07:07 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/24 18:13:51 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,5 @@ int tokenize_input(char *buf, t_data *data)
 		return (ERROR_OCCURED);
 	fill_splited_token(splited, buf);
 	print_ret(splited);
-	// if (ft_strequel(splited[0], ""))
-	// 	return (catch_emptystr());
 	return (free_all(splited, jx, 0));
 }
