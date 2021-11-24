@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:54:24 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/24 21:20:22 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/24 21:21:23 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int get_word_l(const char *str)
 	
 	l = 0;
 	quote_flag = 0;
-	trs(str + l);
 	while (str[l])
 	{
 		is_inquoted(str, l, &quote_flag);
@@ -99,9 +98,6 @@ char **fill_split_ret(const char *str, int word_cnt, char **ret)
 		str += len;
 		ix++;
 	}
-	ix = 0;
-	while (ret[ix])
-		trs(ret[ix++]);
 	return (ret);
 }
 

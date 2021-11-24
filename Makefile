@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/11/24 21:17:17 by jekim            ###   ########.fr        #
+#    Updated: 2021/11/24 21:24:02 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_FILE		=	minishell.c \
 PARSER_FILE 	=	parser.c \
 					parser_isbs.c \
 					parser_split.c	\
+					parser_lst.c \
 					parser_util.c
 
 UTILS_FILE		=	utils.c \
