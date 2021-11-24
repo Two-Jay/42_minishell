@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/24 08:00:21 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/24 08:50:09 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,8 @@ int		split_by_chunk(const char *str, t_data *data);
 **		parsing util functions
 */
 void	is_inquoted(const char *str, int ix, int *flag);
+int	is_double_quote(const char *str);
+int	is_single_quote(const char *str);
+int is_quotation(const char *str);
+
 #endif
