@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd2.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/20 23:10:45 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/24 21:08:55 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void		minishell_exit(t_data *data);
 */
 char		*trim_quote(char *str);
 char		**trim_quote_and_parse(char *str);
-char		*ft_strndup(char *str, int length);
 char		*get_envname(char *str);
 t_envlst	*find_env(char *envname, t_data *data);
 int			builtin_error(

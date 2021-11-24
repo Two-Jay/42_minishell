@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+         #
+#    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/11/24 08:36:57 by jekim            ###   ########.fr        #
+#    Updated: 2021/11/24 21:17:17 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ PARSER_FILE 	=	parser.c \
 
 UTILS_FILE		=	utils.c \
 					builtin_error.c \
+					ft_strndup.c \
 					find_env.c
 
 CMD_FILE		=	exit.c 	\

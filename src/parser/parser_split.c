@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:54:24 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/24 21:01:49 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/24 21:20:22 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,19 @@ int	get_ret_l(const char *str)
 	return (ret);
 }
 
-char **fill_split_ret(const char *str, int word_cnt)
+char **handle_error_free_ret(char **ret)
+{
+	int ix;
+	
+	ix = 0;
+	while (ret[ix])
+		free(ret[ix++]);
+	free(ret);
+	ret = NULL;
+	return (NULL);
+}
+
+char **fill_split_ret(const char *str, int word_cnt, char **ret)
 {
 	int ix;
 	int len;
@@ -81,10 +93,16 @@ char **fill_split_ret(const char *str, int word_cnt)
 		while (ft_isspace(*str))
 			str++;
 		len = get_word_l(str);
+		ret[ix] = ft_strndup((char *)str, len);
+		if (!ret[ix])
+			return (handle_error_free_ret(ret));
 		str += len;
 		ix++;
 	}
-	return (NULL);
+	ix = 0;
+	while (ret[ix])
+		trs(ret[ix++]);
+	return (ret);
 }
 
 int split_by_chunk(const char *str, t_data *data)
@@ -99,6 +117,8 @@ int split_by_chunk(const char *str, t_data *data)
 	if (!data->ip->split_ret)
 		return (ERROR_OCCURED);
 	data->ip->split_ret[ret_l] = NULL;
-	data->ip->split_ret = fill_split_ret(str, ret_l);
+	data->ip->split_ret = fill_split_ret(str, ret_l, data->ip->split_ret);
+	if (!data->ip->split_ret)
+		return (ERROR_OCCURED);
 	return (0);
 }

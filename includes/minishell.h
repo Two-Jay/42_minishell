@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/24 19:01:14 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/24 21:16:33 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int		indexOf_char(const char *str, char target);
 int		is_pipe_redirection(const char *str, int ix, int str_l);
 char	*get_env(char *envname, t_data *data);
 t_envlst	*find_env(char *envname, t_data *data);
+char	*ft_strndup(char *str, int length);
 
 /*
 **		parsing functions
