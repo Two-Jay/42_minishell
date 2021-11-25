@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 00:49:08 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 00:58:07 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*append_env(char *src, int *now_ix, t_data *data)
 	ret = fetch_env_in_src(envbucket);
 	if (!ret)
 		return (return_append_env(envbucket, NULL));
-	*now_ix += envbucket->value_l;
+	*now_ix += envbucket->value_l - 1;
 	return (return_append_env(envbucket, ret));
 }
 
@@ -173,6 +173,7 @@ int setup_and_check_env(const char *str, t_data *data)
 	{
 		while (dst[++ix])
 		{
+			trc(dst[ix]);
 			is_inquoted(dst, ix, &quote_flag);
 			// if (is_errnoflag(str, ix, quote_flag))
 			// 	dst = append_errono(dst, &ix, ft_strlen(dst));
