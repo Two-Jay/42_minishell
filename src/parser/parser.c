@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 01:34:01 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 04:01:51 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,42 @@ int free_ip(t_input_process *ip, int errflag)
 	return (0);
 }
 
+char *catch_lst_type(t_state state)
+{
+	if (state == CMD)
+		return ("CMD\n");
+	if (state == FLAG)
+		return ("FLAG\n");
+	if (state == PIPE)
+		return ("PIPE\n");
+	if (state == REDIRECT)
+		return ("REDIRECT\n");
+	if (state == FILEPATH)
+		return ("FILEPATH\n");
+	if (state == STR)
+		return ("STR\n");
+	return ("ERROR\n");
+}
+
+void print_token(t_data *data)
+{
+	int lst_len;
+	t_token *lst;
+
+	lst_len = 1;
+	lst = data->input->next;
+	while (lst)
+	{
+		trs(lst->content);
+		tri(lst->ix);
+		trs(catch_lst_type(lst->type));
+		lst = lst->next;
+		lst_len++;
+	}
+	tri(lst_len);
+}
+
+
 int set_input_process_struct(t_data *data)
 {
 	data->ip = (t_input_process *)malloc(sizeof(t_input_process));
@@ -46,7 +82,9 @@ int parse_input_string(const char *str, t_data *data)
 		|| setup_and_check_env(str, data)
 		|| insert_space_beside_spclcmd(data->ip->scenv_ret, data)
 		|| split_by_chunk(data->ip->isbs_ret, data)
-		|| build_input_token_lst(data->ip->split_ret, data))
+		|| build_input_token_lst(data->ip->split_ret, data)
+		|| assign_type_input_token_lst(data->input->next))
 		return (free_ip(data->ip, ERROR_OCCURED));
+	print_token(data);
 	return (free_ip(data->ip, 0));
 }

@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:37:34 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/25 21:00:57 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 04:06:34 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,3 @@ void	is_inquoted(const char *str, int ix, int *flag)
 			*flag = 1;
 	}
 }
-

@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 01:52:52 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 01:58:54 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,6 @@ int setup_and_check_env(const char *str, t_data *data)
 	{
 		while (dst[++ix])
 		{
-			trc(dst[ix]);
 			is_inquoted(dst, ix, &quote_flag);
 			if (is_errnoflag(dst, ix, quote_flag))
 				dst = append_errono(dst, &ix, data);

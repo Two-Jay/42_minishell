@@ -6,29 +6,11 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 17:12:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/25 20:12:23 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 03:43:08 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int assign_input_token_type(t_token *token)
-{
-	t_state ret;
- 
-	if (token->ix == 1 || (token->ix > 1 && token->prev->type == PIPE))
-		ret = CMD;
-	else if (token->prev->type == CMD && token->content[0] == '-')
-		ret = FLAG;
-	else if (ft_strequel(token->content, "|"))
-		ret = PIPE;
-	else if (is_pipe_redirection(token->content, 0, ft_strlen(token->content)))
-		ret = REDIRECT;
-	else
-		ret = STR;
-	token->type = ret;
-	return (0);
-}
 
 t_token *create_input_token(const char *str, int ix)
 {
@@ -72,14 +54,6 @@ int build_input_token_lst(char **split_ret, t_data *data)
 		tmp->prev = lst;
 		lst->next = tmp;
 		lst = tmp;
-	}
-	ix = 0;
-	lst = data->input->next;
-	while (lst)
-	{
-		trs(lst->content);
-		tri(lst->ix);
-		lst = lst->next;
 	}
 	return (0);
 }
