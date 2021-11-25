@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 01:19:51 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 01:22:39 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ int get_envkey_l(const char *src, int ix)
 	return (ret);
 }
 
+/*
+** do not care about get_env() returns NULL;
+** when get_env() returns NULL, it means that the value was not found
+*/
 int search_and_copy_envval(const char *src, t_eb *eb, t_data *data)
 {
 	eb->key_l = get_envkey_l(src, eb->now_ix + 1);
