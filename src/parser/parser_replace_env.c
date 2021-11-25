@@ -6,94 +6,129 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/25 20:06:54 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 00:49:08 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*parse_envkey_in_src(const char *src, int ix)
+int is_end_envkey(const char *src, int ix)
 {
-	char *ret;
-	int ret_l;
-
-	ret_l = 0;
-	while (!ft_isspace(src[++ix]))
-		ret_l++;
-	ret = ft_strndup((char *)src + ix, ret_l);
-	return (ret);
+	return ((ft_isspace(src[ix])
+			|| is_double_quote(src, ix)
+			|| is_single_quote(src, ix))
+			|| src[ix] == '$');
 }
 
-char	*search_and_copy_envval(const char *src, int ix, t_data *data)
+int get_envkey_l(const char *src, int ix)
 {
-	char *ret;
-	char *parsed_envkey;
+	int ret;
 
-	parsed_envkey = parse_envkey_in_src(src, ix);
-	ret = get_env(parsed_envkey, data);
-	if (!ret)
+	ret = 0;
+	while (src[ix])
 	{
-		free(parsed_envkey);
-		return (NULL);
+		if (is_end_envkey(src, ix))
+			break ;
+		ix++;
+		ret++;
 	}
-	free(parsed_envkey);
 	return (ret);
 }
 
-char	*append_env(char *src, int *now_ix, int src_l, t_data *data)
+int search_and_copy_envval(const char *src, t_eb *eb, t_data *data)
 {
-	char	*ret;
-	char	*old_tmp;
-	char	*envval_copied;
-	int		envval_l;
-	int		ix;
+	eb->key_l = get_envkey_l(src, eb->now_ix + 1);
+	eb->envkey = ft_strndup((char *)(src + eb->now_ix + 1), eb->key_l);
+	eb->envval = get_env(eb->envkey, data);
+	if (!eb->envval)
+		return (ERROR_OCCURED);
+	eb->value_l = ft_strlen(eb->envval);
+	return (0);
+}
 
-	ix = -1;
-	old_tmp = src;
-	trs(src);
-	tri(*now_ix);
-	tri(src_l);
-	envval_copied = search_and_copy_envval(src, *now_ix, data);
-	envval_l = ft_strlen(envval_copied);
-	ret = (char *)ft_calloc(sizeof(char), src_l + envval_l + 1);
+t_eb	*set_envbucket(char *src, int now_ix)
+{
+	t_eb	*ret;
+	
+	ret = (t_eb *)malloc(sizeof(t_eb));
 	if (!ret)
 		return (NULL);
-	ret[src_l + envval_l] = '\0';
-	ft_strncpy(ret, src, *now_ix);
-	if (envval_copied)
-		ft_strncpy(ret + *now_ix, envval_copied, envval_l);
-	ft_strncpy(ret + *now_ix + envval_l, src + *now_ix, src_l - *now_ix);
-	*now_ix += envval_l;
-	free(envval_copied);
-	free(old_tmp);
+	ret->now_ix = now_ix;
+	ret->srcp = src;
+	ret->src_l = ft_strlen(src);
 	return (ret);
 }
 
-char	*append_errono(char *src, int *current_idx, int buf_l)
+char	*return_append_env(t_eb	*eb, char *ret)
 {
-	char	*ret;
-	char	*old_tmp;
-	char	*errno_str;
-	int		errno_l;
-	int		ix;
+	if (eb->srcp)
+		free(eb->srcp);
+	if (eb->envkey)
+		free(eb->envkey);
+	if (eb->envval)
+		free(eb->envval);
+	if (eb)
+		free(eb);
+	return (ret);
+}
 
-	ix = -1;
-	old_tmp = src;
-	errno_str = ft_itoa(errno);
-	errno_l = ft_strlen(errno_str);
-	ret = (char *)ft_calloc(sizeof(char), buf_l + errno_l + 1);
+char	*fetch_env_in_src(t_eb *eb)
+{
+	char *ret;
+
+	ret = (char *)ft_calloc(sizeof(char), eb->src_l + eb->value_l + 1);
 	if (!ret)
 		return (NULL);
-	ret[buf_l + errno_l] = '\0';
-	ft_strncpy(ret, src, *current_idx + 1);
-	ft_strncpy(ret + *current_idx, errno_str, errno_l + 1);
-	ft_strncpy(ret + *current_idx + errno_l,
-		src + *current_idx, buf_l - *current_idx);
-	*current_idx += errno_l;
-	free(errno_str);
-	free(old_tmp);
+	ft_strncpy(ret, eb->srcp, eb->now_ix);
+	ft_strncpy(ret + eb->now_ix, eb->envval, eb->value_l);
+	ft_strncpy(ret + eb->now_ix + eb->value_l,
+				eb->srcp + eb->now_ix + eb->key_l + 1,
+				eb->src_l - eb->now_ix - eb->key_l);
+	ret[eb->src_l + eb->value_l] = '\0';
 	return (ret);
 }
+
+char	*append_env(char *src, int *now_ix, t_data *data)
+{
+	char	*ret;
+	t_eb	*envbucket;
+
+	envbucket = set_envbucket(src, *now_ix);
+	if (!envbucket
+		|| search_and_copy_envval(src, envbucket, data))
+		return (return_append_env(envbucket, NULL));
+	ret = fetch_env_in_src(envbucket);
+	if (!ret)
+		return (return_append_env(envbucket, NULL));
+	*now_ix += envbucket->value_l;
+	return (return_append_env(envbucket, ret));
+}
+
+// char	*append_errono(char *src, int *current_idx, int buf_l)
+// {
+// 	char	*ret;
+// 	char	*old_tmp;
+// 	char	*errno_str;
+// 	int		errno_l;
+// 	int		ix;
+
+// 	ix = -1;
+// 	old_tmp = src;
+// 	errno_str = ft_itoa(errno);
+// 	errno_l = ft_strlen(errno_str);
+// 	ret = (char *)ft_calloc(sizeof(char), buf_l + errno_l + 1);
+// 	if (!ret)
+// 		return (NULL);
+// 	ret[buf_l + errno_l] = '\0';
+// 	ft_strncpy(ret, src, *current_idx + 1);
+// 	ft_strncpy(ret + *current_idx, errno_str, errno_l + 1);
+// 	ft_strncpy(ret + *current_idx + errno_l,
+// 		src + *current_idx, buf_l - *current_idx);
+// 	*current_idx += errno_l;
+// 	free(errno_str);
+// 	free(old_tmp);
+// 	return (ret);
+// }
 
 int is_envflag(const char *str, int ix, int flag)
 {
@@ -138,12 +173,11 @@ int setup_and_check_env(const char *str, t_data *data)
 	{
 		while (dst[++ix])
 		{
-			is_inquoted(str, ix, &quote_flag);
-			trc(dst[ix]);
+			is_inquoted(dst, ix, &quote_flag);
 			// if (is_errnoflag(str, ix, quote_flag))
 			// 	dst = append_errono(dst, &ix, ft_strlen(dst));
-			if (is_envflag(str, ix, quote_flag))
-				dst = append_env(dst, &ix, ft_strlen(dst), data);
+			if (is_envflag(dst, ix, quote_flag))
+				dst = append_env(dst, &ix, data);
 		}
 	}
 	data->ip->scenv_ret = dst;

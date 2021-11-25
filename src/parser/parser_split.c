@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:54:24 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/24 21:21:23 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/25 21:01:36 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int is_end_quotation(const char *str, int ix, int flag)
  {
-	return (is_quotation(&str[ix]) && flag == 0);
+	return (is_quotation(str, ix) && flag == 0);
 }
 
 int check_split_condition(const char *str, int ix, int flag)

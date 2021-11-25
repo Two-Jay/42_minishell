@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/25 19:07:19 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 00:49:32 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,17 @@ typedef struct	s_data
 	char		*homedir;
 }	t_data;
 
+typedef struct	s_parser_env_bucket
+{
+	char	*srcp;
+	int		now_ix;
+	int		src_l;
+	char	*envkey;
+	int		key_l;
+	char	*envval;
+	int		value_l;
+}	t_eb;
+
 extern int errno;
 
 /*
@@ -123,8 +134,8 @@ int		build_input_token_lst(char **split_ret, t_data *data);
 **		parsing util functions
 */
 void	is_inquoted(const char *str, int ix, int *flag);
-int		is_double_quote(const char *str);
-int		is_single_quote(const char *str);
-int		is_quotation(const char *str);
+int		is_double_quote(const char *str, int ix);
+int		is_single_quote(const char *str, int ix);
+int		is_quotation(const char *str, int ix);
 
 #endif

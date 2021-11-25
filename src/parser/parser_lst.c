@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 17:12:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/25 20:08:43 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/25 20:12:23 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int build_input_token_lst(char **split_ret, t_data *data)
 	while (lst)
 	{
 		trs(lst->content);
-		tri((int)lst->type);
+		tri(lst->ix);
 		lst = lst->next;
 	}
 	return (0);
