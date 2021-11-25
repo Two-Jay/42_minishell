@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 14:21:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/25 18:39:41 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 01:01:15 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,5 @@ int insert_space_beside_spclcmd(const char *str, t_data *data)
 			return (ERROR_OCCURED);
 		do_insert_space(str, data, str_l);
 	}
-	trs((char *)str);
-	trp(data->ip->isbs_ret);
-	trs(data->ip->isbs_ret);
-	tri(count_spclcmd);
 	return (0);
 }

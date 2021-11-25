@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 00:58:07 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 01:19:51 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ int search_and_copy_envval(const char *src, t_eb *eb, t_data *data)
 	eb->key_l = get_envkey_l(src, eb->now_ix + 1);
 	eb->envkey = ft_strndup((char *)(src + eb->now_ix + 1), eb->key_l);
 	eb->envval = get_env(eb->envkey, data);
-	if (!eb->envval)
-		return (ERROR_OCCURED);
 	eb->value_l = ft_strlen(eb->envval);
 	return (0);
 }
@@ -80,10 +78,20 @@ char	*fetch_env_in_src(t_eb *eb)
 	if (!ret)
 		return (NULL);
 	ft_strncpy(ret, eb->srcp, eb->now_ix);
-	ft_strncpy(ret + eb->now_ix, eb->envval, eb->value_l);
-	ft_strncpy(ret + eb->now_ix + eb->value_l,
-				eb->srcp + eb->now_ix + eb->key_l + 1,
-				eb->src_l - eb->now_ix - eb->key_l);
+	if (eb->envval)
+	{
+		ft_strncpy(ret + eb->now_ix, eb->envval, eb->value_l);
+		ft_strncpy(ret + eb->now_ix + eb->value_l,
+					eb->srcp + eb->now_ix + eb->key_l + 1,
+					eb->src_l - eb->now_ix - eb->key_l);
+	}
+	else
+	{
+		eb->value_l = 0;
+		ft_strncpy(ret + eb->now_ix,
+					eb->srcp + eb->now_ix + eb->key_l + 1,
+					eb->src_l - eb->now_ix - eb->key_l);	
+	}
 	ret[eb->src_l + eb->value_l] = '\0';
 	return (ret);
 }
@@ -103,6 +111,22 @@ char	*append_env(char *src, int *now_ix, t_data *data)
 	*now_ix += envbucket->value_l - 1;
 	return (return_append_env(envbucket, ret));
 }
+
+// char	*append_errono(char *src, int *now_ix, t_data *data)
+// {
+// 	char	*ret;
+// 	t_eb	*envbucket;
+
+// 	envbucket = set_envbucket(src, *now_ix);
+// 	if (!envbucket
+// 		|| search_and_copy_envval(src, envbucket, data))
+// 		return (return_append_env(envbucket, NULL));
+// 	ret = fetch_env_in_src(envbucket);
+// 	if (!ret)
+// 		return (return_append_env(envbucket, NULL));
+// 	*now_ix += envbucket->value_l - 1;
+// 	return (return_append_env(envbucket, ret));
+// }
 
 // char	*append_errono(char *src, int *current_idx, int buf_l)
 // {
@@ -176,7 +200,7 @@ int setup_and_check_env(const char *str, t_data *data)
 			trc(dst[ix]);
 			is_inquoted(dst, ix, &quote_flag);
 			// if (is_errnoflag(str, ix, quote_flag))
-			// 	dst = append_errono(dst, &ix, ft_strlen(dst));
+			// 	dst = append_errono(dst, &ix, data);
 			if (is_envflag(dst, ix, quote_flag))
 				dst = append_env(dst, &ix, data);
 		}
