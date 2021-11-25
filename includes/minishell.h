@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 00:49:32 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 01:26:08 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ typedef struct	s_parser_env_bucket
 	int		key_l;
 	char	*envval;
 	int		value_l;
+	char	*errno_str;
+	int		errno_l;
 }	t_eb;
 
 extern int errno;

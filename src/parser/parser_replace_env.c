@@ -6,11 +6,15 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 01:22:39 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/26 01:52:52 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/*
+** env part
+*/
 
 int is_end_envkey(const char *src, int ix)
 {
@@ -52,7 +56,7 @@ t_eb	*set_envbucket(char *src, int now_ix)
 {
 	t_eb	*ret;
 	
-	ret = (t_eb *)malloc(sizeof(t_eb));
+	ret = (t_eb *)ft_calloc(sizeof(t_eb), 1);
 	if (!ret)
 		return (NULL);
 	ret->now_ix = now_ix;
@@ -69,6 +73,8 @@ char	*return_append_env(t_eb	*eb, char *ret)
 		free(eb->envkey);
 	if (eb->envval)
 		free(eb->envval);
+	if (eb->errno_str)
+		free(eb->errno_str);
 	if (eb)
 		free(eb);
 	return (ret);
@@ -116,47 +122,52 @@ char	*append_env(char *src, int *now_ix, t_data *data)
 	return (return_append_env(envbucket, ret));
 }
 
-// char	*append_errono(char *src, int *now_ix, t_data *data)
-// {
-// 	char	*ret;
-// 	t_eb	*envbucket;
+/*
+** errno part
+*/
+int search_and_copy_errno(t_eb *eb)
+{
+	eb->errno_str = ft_itoa(errno);
+	eb->errno_l = ft_strlen(eb->errno_str);
+	return (0);
+}
 
-// 	envbucket = set_envbucket(src, *now_ix);
-// 	if (!envbucket
-// 		|| search_and_copy_envval(src, envbucket, data))
-// 		return (return_append_env(envbucket, NULL));
-// 	ret = fetch_env_in_src(envbucket);
-// 	if (!ret)
-// 		return (return_append_env(envbucket, NULL));
-// 	*now_ix += envbucket->value_l - 1;
-// 	return (return_append_env(envbucket, ret));
-// }
+char	*fetch_errno_in_src(t_eb *eb)
+{
+	char *ret;
 
-// char	*append_errono(char *src, int *current_idx, int buf_l)
-// {
-// 	char	*ret;
-// 	char	*old_tmp;
-// 	char	*errno_str;
-// 	int		errno_l;
-// 	int		ix;
+	ret = (char *)ft_calloc(sizeof(char), eb->src_l + eb->errno_l + 1);
+	if (!ret)
+		return (NULL);
+	ft_strncpy(ret, eb->srcp, eb->now_ix);
+	ft_strncpy(ret + eb->now_ix, eb->errno_str, eb->errno_l);
+	ft_strncpy(ret + eb->now_ix + eb->errno_l,
+		eb->srcp + eb->now_ix + eb->errno_l + 1,
+		eb->src_l - eb->now_ix - 1);
+	ret[eb->src_l + eb->errno_l] = '\0';
+	return (ret);
+}
 
-// 	ix = -1;
-// 	old_tmp = src;
-// 	errno_str = ft_itoa(errno);
-// 	errno_l = ft_strlen(errno_str);
-// 	ret = (char *)ft_calloc(sizeof(char), buf_l + errno_l + 1);
-// 	if (!ret)
-// 		return (NULL);
-// 	ret[buf_l + errno_l] = '\0';
-// 	ft_strncpy(ret, src, *current_idx + 1);
-// 	ft_strncpy(ret + *current_idx, errno_str, errno_l + 1);
-// 	ft_strncpy(ret + *current_idx + errno_l,
-// 		src + *current_idx, buf_l - *current_idx);
-// 	*current_idx += errno_l;
-// 	free(errno_str);
-// 	free(old_tmp);
-// 	return (ret);
-// }
+char	*append_errono(char *src, int *now_ix, t_data *data)
+{
+	char	*ret;
+	t_eb	*envbucket;
+
+	(void)data;
+	envbucket = set_envbucket(src, *now_ix);
+	if (!envbucket
+		|| search_and_copy_errno(envbucket))
+		return (return_append_env(envbucket, NULL));
+	ret = fetch_errno_in_src(envbucket);
+	if (!ret)
+		return (return_append_env(envbucket, NULL));
+	*now_ix += envbucket->errno_l - 1;
+	return (return_append_env(envbucket, ret));
+}
+
+/*
+** envflag ($) checker
+*/
 
 int is_envflag(const char *str, int ix, int flag)
 {
@@ -165,7 +176,7 @@ int is_envflag(const char *str, int ix, int flag)
 
 int is_errnoflag(const char *str, int ix, int flag)
 {
-	return (str[ix] == '$' &&  str[ix + 1] == '?' && flag != 1);
+	return (str[ix] == '$' && str[ix + 1] == '?' && flag != 1);
 }
 
 int check_envcnt(const char *str)
@@ -188,6 +199,9 @@ int check_envcnt(const char *str)
 	return (FALSE);
 }
 
+/*
+** main env parsing function
+*/
 int setup_and_check_env(const char *str, t_data *data)
 {
 	int ix;
@@ -203,9 +217,9 @@ int setup_and_check_env(const char *str, t_data *data)
 		{
 			trc(dst[ix]);
 			is_inquoted(dst, ix, &quote_flag);
-			// if (is_errnoflag(str, ix, quote_flag))
-			// 	dst = append_errono(dst, &ix, data);
-			if (is_envflag(dst, ix, quote_flag))
+			if (is_errnoflag(dst, ix, quote_flag))
+				dst = append_errono(dst, &ix, data);
+			else if (is_envflag(dst, ix, quote_flag))
 				dst = append_env(dst, &ix, data);
 		}
 	}
