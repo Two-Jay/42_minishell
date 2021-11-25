@@ -6,11 +6,31 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/24 07:59:58 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/25 20:07:34 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int free_ip(t_input_process *ip, int errflag)
+{
+	int ix;
+
+	ix = -1;
+	if (ip->scenv_ret)
+		free(ip->scenv_ret);
+	if (ip->isbs_ret)
+		free(ip->isbs_ret);
+	if (ip->split_ret)
+	{
+		while (ip->split_ret[++ix])
+			free(ip->split_ret[ix]);
+		free(ip->split_ret);
+	}
+	if (errflag == ERROR_OCCURED)
+		return (ERROR_OCCURED);
+	return (0);
+}
 
 int set_input_process_struct(t_data *data)
 {
@@ -23,8 +43,11 @@ int set_input_process_struct(t_data *data)
 int parse_input_string(const char *str, t_data *data)
 {
 	if (set_input_process_struct(data)
-		|| insert_space_beside_spclcmd(str, data)
-		|| split_by_chunk(data->ip->isbs_ret, data))
-		return (ERROR_OCCURED);
-	return (0);
+		|| setup_and_check_env(str, data)
+		|| insert_space_beside_spclcmd(data->ip->scenv_ret, data)
+		|| split_by_chunk(data->ip->isbs_ret, data)
+		|| build_input_token_lst(data->ip->split_ret, data))
+		return (free_ip(data->ip, ERROR_OCCURED));
+	trs(data->ip->scenv_ret);
+	return (free_ip(data->ip, 0));
 }

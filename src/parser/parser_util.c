@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:37:34 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/24 15:10:21 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/25 12:32:37 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ void	is_inquoted(const char *str, int ix, int *flag)
 	{
 		if (*flag == 2)
 			*flag = 0;
-		else if (*flag != 2)
+		else if (*flag == 0)
 			*flag = 2;
 	}
 	if (is_single_quote(str + ix))
 	{
 		if (*flag == 1)
 			*flag = 0;
-		else if (*flag != 1)
+		else if (*flag == 0)
 			*flag = 1;
 	}
 }
+

@@ -6,7 +6,7 @@
 #    By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/11/24 08:36:57 by jekim            ###   ########.fr        #
+#    Updated: 2021/11/25 18:48:28 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,14 @@ SRC_FILE		=	minishell.c \
 PARSER_FILE 	=	parser.c \
 					parser_isbs.c \
 					parser_split.c	\
+					parser_lst.c \
+					parser_replace_env.c \
 					parser_util.c
 
 UTILS_FILE		=	utils.c \
 					builtin_error.c \
+					ft_strncpy.c \
+					ft_strndup.c \
 					find_env.c
 
 CMD_FILE		=	exit.c 	\
