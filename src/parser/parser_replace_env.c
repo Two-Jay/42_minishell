@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/25 14:38:05 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/25 15:16:39 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 char	*parse_envkey_in_src(const char *src, int ix)
 {
 	char *ret;
+	int ret_l;
 
+	ix++;
+	ret_l = 0;
+	while (!ft_isspace(src[ix]))
+		ret_l++;
+	ret = ft_strndup((char *)src + ix, ret_l);
 	return (ret);
 }
 
@@ -44,23 +50,24 @@ char	*append_env(char *src, int *current_idx, int src_l, t_data *data)
 	int		ix;
 
 	ix = -1;
+	old_tmp = src;
 	envval_copied = search_and_copy_envval(src, *current_idx, data);
 	envval_l = ft_strlen(envval_copied);
 	ret = (char *)ft_calloc(sizeof(char), src_l + envval_l + 1);
 	if (!ret)
-		return (ERROR_OCCURED);
+		return (NULL);
 	ret[src_l + envval_l] = '\0';
-	ft_strncpy(ret, src, current_idx);
+	ft_strncpy(ret, src, *current_idx);
 	ft_strncpy(ret + *current_idx, envval_copied, envval_l);
 	ft_strncpy(ret + *current_idx + envval_l,
 		src + *current_idx, src_l - *current_idx);
 	*current_idx += envval_l;
-	free(*envval_copied);
+	free(envval_copied);
 	free(old_tmp);
 	return (ret);
 }
 
-int append_errono(char *src, int *current_idx, int buf_l)
+char	*append_errono(char *src, int *current_idx, int buf_l)
 {
 	char	*ret;
 	char	*old_tmp;
@@ -74,7 +81,7 @@ int append_errono(char *src, int *current_idx, int buf_l)
 	errno_l = ft_strlen(errno_str);
 	ret = (char *)ft_calloc(sizeof(char), buf_l + errno_l + 1);
 	if (!ret)
-		return (ERROR_OCCURED);
+		return (NULL);
 	ret[buf_l + errno_l] = '\0';
 	ft_strncpy(ret, src, *current_idx + 1);
 	ft_strncpy(ret + *current_idx, errno_str, errno_l + 1);
@@ -83,8 +90,7 @@ int append_errono(char *src, int *current_idx, int buf_l)
 	*current_idx += errno_l;
 	free(errno_str);
 	free(old_tmp);
-	src = ret;
-	return (0);
+	return (ret);
 }
 
 int is_envflag(const char *str, int ix, int flag)
@@ -104,6 +110,7 @@ int check_envcnt(const char *str, char *dst)
 	int quote_flag;
 
 	ix = -1;
+	ret = 0;
 	quote_flag = 0;
 	dst = ft_strdup(str);
 	while (dst[++ix])
@@ -131,9 +138,9 @@ int setup_and_check_env(char *dst, const char *str, t_data *data)
 			is_inquoted(str, ix, &quote_flag);
 			trc(dst[ix]);
 			if (is_errnoflag(str, ix, quote_flag))
-				dst = append_errno(dst, ix, ft_strlen(dst));
+				dst = append_errono(dst, &ix, ft_strlen(dst));
 			else if (is_envflag(str, ix, quote_flag))
-				dst = append_env(dst, ix, ft_strlen(dst), data);
+				dst = append_env(dst, &ix, ft_strlen(dst), data);
 		}
 	}
 	return (0);

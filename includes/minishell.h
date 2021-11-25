@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/25 13:48:12 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/25 15:05:39 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	*ft_strncpy(char *s1, const char *s2, size_t n);
 **		parsing functions
 */
 int		parse_input_string(const char *str, t_data *data);
-int		setup_and_check_env(const char *str);
+int		setup_and_check_env(char *dst, const char *str, t_data *data);
 int		replace_env_in_input(char *dst, const char *str, t_data *data);
 int		insert_space_beside_spclcmd(const char *str, t_data *data);
 int		split_by_chunk(const char *str, t_data *data);

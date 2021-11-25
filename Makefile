@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/11/25 12:38:18 by jekim            ###   ########.fr        #
+#    Updated: 2021/11/25 15:16:58 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ PARSER_FILE 	=	parser.c \
 
 UTILS_FILE		=	utils.c \
 					builtin_error.c \
+					ft_strncpy.c \
 					ft_strndup.c \
 					find_env.c
 
