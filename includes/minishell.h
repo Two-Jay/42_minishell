@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/24 21:23:40 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/25 13:48:12 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct	s_envlst
 
 typedef struct	input_process
 {
+	char *scenv_ret;
 	char *isbs_ret;
 	char **split_ret;
 }	t_input_process;
@@ -106,11 +107,14 @@ int		is_pipe_redirection(const char *str, int ix, int str_l);
 char	*get_env(char *envname, t_data *data);
 t_envlst	*find_env(char *envname, t_data *data);
 char	*ft_strndup(char *str, int length);
+char	*ft_strncpy(char *s1, const char *s2, size_t n);
 
 /*
 **		parsing functions
 */
 int		parse_input_string(const char *str, t_data *data);
+int		setup_and_check_env(const char *str);
+int		replace_env_in_input(char *dst, const char *str, t_data *data);
 int		insert_space_beside_spclcmd(const char *str, t_data *data);
 int		split_by_chunk(const char *str, t_data *data);
 int		build_input_token_lst(char **split_ret, t_data *data);
@@ -119,8 +123,8 @@ int		build_input_token_lst(char **split_ret, t_data *data);
 **		parsing util functions
 */
 void	is_inquoted(const char *str, int ix, int *flag);
-int	is_double_quote(const char *str);
-int	is_single_quote(const char *str);
-int is_quotation(const char *str);
+int		is_double_quote(const char *str);
+int		is_single_quote(const char *str);
+int		is_quotation(const char *str);
 
 #endif
