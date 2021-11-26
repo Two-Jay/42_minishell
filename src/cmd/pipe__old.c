@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/15 14:51:51 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/25 12:09:50 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,6 @@ void	minishell_pipe(char *cmd[], char *flag[], char *str[], char *envp[], int re
 	t_pipe_arr	*struct_pipe;
 	int			cmd_len;
 	int			idx;
-	int			wait_return;
-	int			status;
-	int			status_save;
 	int			last_pid;
 
 	if (!cmd)
