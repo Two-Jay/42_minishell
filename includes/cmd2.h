@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd2.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/24 21:08:55 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/27 01:01:51 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "minishell.h"
 
-typedef struct s_pipe_arr
+/*
+typedef struct s_pipe
 {
 	char	**cmd;
 	char	**flags;
@@ -25,7 +26,18 @@ typedef struct s_pipe_arr
 	int		fd_tmp;
 	int		redir_flag;
 	int		fildes_opened;
-}	t_pipe_arr;
+}	t_pipe;
+*/
+
+typedef struct s_pipe
+{
+	char	**envp;
+	int		index;
+	int		max_index;
+	int		fd_tmp;
+	int		last_pid;
+	int		fildes_opened;
+}	t_pipe;
 
 # define PIPE_READ 0
 # define PIPE_WRITE 1
@@ -35,11 +47,18 @@ typedef struct s_pipe_arr
 # define REDIR_RIGHT_TWO 2
 
 /*
+	* Parser <-> Command connect function
+*/
+# define	CONN_ERRNODIR "No such file or directory"
+# define	CONN_ERRNOCMD "command not found"
+/*
 	* Pipelines
 */
-void		minishell_pipe(char *cmd[], char *flag[], char *str[], char *envp[], int redir_flag);
-char		*pipe_getcmd(char *cmd, char *envp[]);
+# define	PIPE_ERR "failed to make PIPE"
+int			count_cmd(t_token *input);
+t_pipe		*pipe_struct(t_token *input, char *envp[]);
 void		ft_free_char2d(char **arr);
+char		*pipe_getcmd(char *cmd, char *envp[]);
 
 /*
 	* cd & pwd
@@ -97,7 +116,9 @@ int			builtin_error(
 				t_data *data,
 				char *value_str,
 				char *error_str,
-				int dollar_q);
+				int dollar_q
+				);
 int			check_flag(t_data *data);
+int			free_token(t_token *input, int return_status);
 
 #endif
