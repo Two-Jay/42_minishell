@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 00:21:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 11:45:43 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 13:43:54 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static char	**pipe_getpath(char *envp[])
 	char	*temp;
 
 	i = -1;
+	path = NULL;
 	while (envp[++i])
 	{
 		if (ft_strnstr(envp[i], "PATH=", 5))

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 12:17:09 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 13:44:50 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	pipe_child(
 	close(fd[PIPE_READ]);
 	close(struct_pipe->fd_tmp);
 	cmd_path = pipe_getcmd(input->content, struct_pipe->envp);
-	exec_argv = pipe_insert_arr(input, struct_pipe, cmd_path);
+	exec_argv = pipe_insert_arr(input, cmd_path);
 	if (!cmd_path || !exec_argv)
 		exit(builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 2));
 	execve(cmd_path, exec_argv, struct_pipe->envp);
@@ -77,6 +77,8 @@ static void	pipe_wait(t_data *data, t_pipe *struct_pipe)
 	}
 	free_token(data->input, 0);
 	//status 처리
+	(void)status_save;
+	//status 처리
 	return ;
 }
 
@@ -84,7 +86,6 @@ int	minishell_pipe(t_data *data, char *envp[])
 {
 	t_token		*input;
 	t_pipe		*struct_pipe;
-	int			status_save;
 
 	input = data->input;
 	struct_pipe = pipe_struct(input, envp);

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:39:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 11:57:09 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 13:44:31 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_pipe	*pipe_struct(t_token *input, char *envp[])
 	return (struct_pipe);
 }
 
-char	**pipe_insert_arr(t_token *input, t_pipe *struct_pipe, char *cmd_path)
+char	**pipe_insert_arr(t_token *input, char *cmd_path)
 {
 	char	**arr_return;
 	int		index;

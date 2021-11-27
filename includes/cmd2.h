@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 11:43:30 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 13:44:42 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,7 @@ typedef struct s_pipe
 int			minishell_pipe(t_data *data, char *envp[]);
 t_pipe		*pipe_struct(t_token *input, char *envp[]);
 char		*pipe_getcmd(char *cmd, char *envp[]);
-char		**pipe_insert_arr(
-				t_token *input,
-				t_pipe *struct_pipe,
-				char *cmd_path
-				);
+char		**pipe_insert_arr(t_token *input, char *cmd_path);
 
 /*
 	* cd & pwd
