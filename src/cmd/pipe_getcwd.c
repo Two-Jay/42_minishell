@@ -6,21 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 00:21:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 00:23:16 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 11:45:14 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd.h"
-
-void	ft_free_char2d(char **arr)
-{
-	int	index;
-
-	index = 0;
-	while (arr[index])
-		free(arr[index++]);
-	free(arr);
-}
 
 static char	**pipe_getpath(char *envp[])
 {
