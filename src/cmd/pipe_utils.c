@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:39:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 00:58:47 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 11:02:35 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ static int	pipe_count_cmd(t_token *input)
 	return (cmd_len);
 }
 
+static int	pipe_count_param(t_token *input)
+{
+	int	count;
+
+	count = 0;
+	while (input->type != PIPE && input->type != REDIRECT && input)
+	{
+		input = input->next;
+		count++;
+	}
+	return (count);
+}
+
 t_pipe	*pipe_struct(t_token *input, char *envp[])
 {
 	t_pipe	*struct_pipe;
@@ -40,33 +53,22 @@ t_pipe	*pipe_struct(t_token *input, char *envp[])
 	return (struct_pipe);
 }
 
-static int	pipe_count_param(t_token *input)
-{
-	int	count;
-
-	count = 0;
-	while (input->type != PIPE && input->type != REDIRECT && input)
-	{
-		input = input->next;
-		count++;
-	}
-	return (count);
-}
-
-char	**pipe_insert_arr(t_token *input)
+char	**pipe_insert_arr(t_token *input, t_pipe *struct_pipe)
 {
 	char	**arr_return;
 	int		index;
+	int		param_cnt;
 
+	param_cnt = pipe_count_param(input);
+	arr_return = malloc(sizeof(char *) * (param_cnt + 1));
+	if (!arr_return)
+		return (NULL);
 	index = 0;
-	*exec_argv[index++] = input->content;
-	if (input->next->type == FLAG)
-		*exec_argv[index++] = input->next->content;
-	if (input->next->next->)
-	else
+	while (index < param_cnt)
 	{
-		if (input->next->type == STR)
-			*exec_argv[1] == input->next->next->content;
-
+		arr_return[index++] = input->content;
+		input = input->next;
 	}
+	arr_return[index] = 0;
+	return (arr_return);
 }

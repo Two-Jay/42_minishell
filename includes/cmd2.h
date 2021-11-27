@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 01:01:51 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 11:03:04 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,16 @@ typedef struct s_pipe
 */
 # define	CONN_ERRNODIR "No such file or directory"
 # define	CONN_ERRNOCMD "command not found"
+
 /*
 	* Pipelines
 */
 # define	PIPE_ERR "failed to make PIPE"
-int			count_cmd(t_token *input);
+int			minishell_pipe(t_data *data, char *envp[]);
 t_pipe		*pipe_struct(t_token *input, char *envp[]);
-void		ft_free_char2d(char **arr);
 char		*pipe_getcmd(char *cmd, char *envp[]);
+char		**pipe_insert_arr(t_token *input, t_pipe *struct_pipe);
+void		ft_free_char2d(char **arr);
 
 /*
 	* cd & pwd
