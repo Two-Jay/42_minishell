@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:39:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 11:02:35 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 11:15:53 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_pipe	*pipe_struct(t_token *input, char *envp[])
 	return (struct_pipe);
 }
 
-char	**pipe_insert_arr(t_token *input, t_pipe *struct_pipe)
+char	**pipe_insert_arr(t_token *input, t_pipe *struct_pipe, char *cmd_path)
 {
 	char	**arr_return;
 	int		index;
@@ -69,6 +69,7 @@ char	**pipe_insert_arr(t_token *input, t_pipe *struct_pipe)
 		arr_return[index++] = input->content;
 		input = input->next;
 	}
+	arr_return[0] = cmd_path;
 	arr_return[index] = 0;
 	return (arr_return);
 }

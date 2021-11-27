@@ -6,13 +6,13 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 11:07:12 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 11:42:34 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-void	pipe_child(t_data *data, t_token *input, t_pipe *struct_pipe, int fd[2])
+static void	pipe_child(t_data *data, t_token *input, t_pipe *struct_pipe, int fd[2])
 {
 	char	*cmd_path;
 	char	**exec_argv;
@@ -28,7 +28,7 @@ void	pipe_child(t_data *data, t_token *input, t_pipe *struct_pipe, int fd[2])
 	close(fd[PIPE_READ]);
 	close(struct_pipe->fd_tmp);
 	cmd_path = pipe_getcmd(input->content, struct_pipe->envp);
-	exec_argv = pipe_insert_arr(input, struct_pipe);
+	exec_argv = pipe_insert_arr(input, struct_pipe, cmd_path);
 	if (!cmd_path || !exec_argv)
 		exit(builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 2));
 	execve(cmd_path, exec_argv, struct_pipe->envp);
@@ -36,7 +36,7 @@ void	pipe_child(t_data *data, t_token *input, t_pipe *struct_pipe, int fd[2])
 	exit(builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 1));
 }
 
-int	pipe_makepipe(t_data *data, t_token *input, t_pipe *struct_pipe)
+static int	pipe_makepipe(t_data *data, t_token *input, t_pipe *struct_pipe)
 {
 	int	fd[2];
 	int	pipe_pid;
@@ -56,10 +56,11 @@ int	pipe_makepipe(t_data *data, t_token *input, t_pipe *struct_pipe)
 		struct_pipe->fd_tmp = fd[PIPE_READ];
 		close(fd[PIPE_WRITE]);
 	}
+	struct_pipe->last_pid = pipe_pid;
 	return (struct_pipe->last_pid);
 }
 
-int	pipe_wait(t_data *data, t_pipe *struct_pipe)
+static void	pipe_wait(t_data *data, t_pipe *struct_pipe)
 {
 	int	status;
 	int	status_save;
@@ -71,9 +72,10 @@ int	pipe_wait(t_data *data, t_pipe *struct_pipe)
 		if (wait_return_pid == struct_pipe->last_pid)
 			status_save = status;
 		if (wait_return_pid < 0)
-			return (builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 1));
+			return ;
 	}
-	return (free_token(data->input, 0));
+	free_token(data->input, 0);
+	return ;
 }
 
 int	minishell_pipe(t_data *data, char *envp[])
@@ -86,15 +88,17 @@ int	minishell_pipe(t_data *data, char *envp[])
 	struct_pipe = pipe_struct(input, envp);
 	if (!struct_pipe)
 		return (builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 1));
-	while (input)
+	while (struct_pipe->index < struct_pipe->max_index)
 	{
-		while (input->type != CMD)
+		while (input->type != CMD && input)
 			input = input->next;
 		if (pipe_makepipe(data, input, struct_pipe) < 0)
 			return (builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 1));
+		input = input->next;
 		struct_pipe->index++;
 	}
-	return (pipe_wait(data, struct_pipe));
+	pipe_wait(data, struct_pipe);
+	return (0);
 }
 
 // Test Code for Pipe
@@ -103,6 +107,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_data	*data;
 	t_token	*input[10];
 
+	printf("this process: %d\n", getpid());
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (0);
