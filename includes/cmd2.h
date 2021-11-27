@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 13:44:42 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 22:15:07 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ typedef struct s_pipe
 # define REDIR_RIGHT_TWO 2
 
 /*
-	* Parser <-> Command connect function
+	* Minishell Executor
 */
-# define	CONN_ERRNODIR "No such file or directory"
-# define	CONN_ERRNOCMD "command not found"
+# define	EXEC_ERRNODIR ": No such file or directory"
+# define	EXEC_ERRNOCMD ": command not found"
+# define	EXEC_ERRPARSE ": failed to parse arguments"
+int			executor(t_token *input, char *envp[]);
 
 /*
 	* Pipelines
@@ -58,14 +60,13 @@ typedef struct s_pipe
 # define	PIPE_ERR "failed to make PIPE"
 int			minishell_pipe(t_data *data, char *envp[]);
 t_pipe		*pipe_struct(t_token *input, char *envp[]);
-char		*pipe_getcmd(char *cmd, char *envp[]);
 char		**pipe_insert_arr(t_token *input, char *cmd_path);
 
 /*
 	* cd & pwd
 */
-# define	CD_ERRNODIR "No such file or directory"
-# define	CD_ERROPT "invalid option\ncd : usage: cd [dir]"
+# define	CD_ERRNODIR ": No such file or directory"
+# define	CD_ERROPT ": invalid option\ncd : usage: cd [dir]"
 int			minishell_cd(t_data *data);
 int			minishell_pwd(t_data *data);
 
@@ -76,11 +77,6 @@ int			minishell_pwd(t_data *data);
 # define	EXPORT_ERROPT "invalid option\
 \nexport: usage: export [name[=value] ...]"
 int			minishell_export(t_data *data);
-int			export_save_env(
-				t_data *data,
-				char *env_key,
-				char *env_value,
-				t_env_state flag);
 int			export_with_param(t_data *data);
 int			export_no_param(t_data *data);
 char		*export_equal_check(char *str);
@@ -113,12 +109,13 @@ char		*trim_quote(char *str);
 char		**trim_quote_and_parse(char *str);
 char		*get_envname(char *str);
 t_envlst	*find_env(char *envname, t_data *data);
-int			builtin_error(
+char		*getcmd(char *cmd, char *envp[]);
+int			builtin_error(char *cmd, char *error_str, int dollar_q);
+int			save_env(
 				t_data *data,
-				char *value_str,
-				char *error_str,
-				int dollar_q
-				);
+				char *env_key,
+				char *env_value,
+				t_env_state flag);
 int			check_flag(t_data *data);
 int			free_token(t_token *input, int return_status);
 void		ft_free_char2d(char **arr);
