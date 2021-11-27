@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:16:36 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 12:16:53 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 13:42:11 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(int argc, char *argv[], char *envp[])
 	t_data	*data;
 	t_token	*input[10];
 
+	(void)argc;
+	(void)argv;
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (0);
