@@ -6,35 +6,39 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/11/27 13:45:30 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/11/27 22:15:53 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror
 SRCS_PIPE		=	test_pipe.c\
-					../cmd/pipe.c ../cmd/pipe_getcwd.c ../cmd/pipe_utils.c\
-					../utils/builtin_error.c ../utils/free_token.c ../utils/ft_free_char2d.c
-#SRCS_CD		=
+					../cmd/pipe.c ../utils/getcmd.c ../cmd/pipe_utils.c\
+					../utils/builtin_error.c ../utils/free_token.c ../utils/ft_free_char2d.c\
+					../cmd/executor.c
+SRCS_CD			=	test_cd.c\
+					../cmd/cd.c\
+					../utils/builtin_error.c ../utils/find_env.c ../utils/check_flag.c\
+					../utils/save_env.c ../utils/free_token.c ../../libft/ft_strequel.c
 #SRCS_ECHO		=
 #SRCS_ENV		=
 #SRCS_EXIT		=
 #SRCS_EXPORT	=
 #SRCS_PWD		=
 #SRCS_UNSET		=
-#SRCS_CONNECT	=
+#SRCS_EXEC	=
 #SRCS			=
 
 OBJS_PIPE		=	$(SRCS_PIPE:.c=.o)
-#OBJS_CD		=	$(SRCS_CD:.c=.o)
-#OBJS_ECHO		=	$(SRCS_ECHO:.c=.o)
-#OBJS_ENV		=	$(SRCS_ENV:.c=.o)
-#OBJS_EXIT		=	$(SRCS_EXIT:.c=.o)
-#OBJS_EXPORT	=	$(SRCS_EXPORT:.c=.o)
-#OBJS_PWD		=	$(SRCS_PWD:.c=.o)
-#OBJS_UNSET		=	$(SRCS_UNSET:.c=.o)
-#OBJS_CONNECT	=	$(SRCS_CONNECT:.c=.o)
-#OBJS			=	$(SRCS:.c=.o)
+OBJS_CD			=	$(SRCS_CD:.c=.o)
+OBJS_ECHO		=	$(SRCS_ECHO:.c=.o)
+OBJS_ENV		=	$(SRCS_ENV:.c=.o)
+OBJS_EXIT		=	$(SRCS_EXIT:.c=.o)
+OBJS_EXPORT		=	$(SRCS_EXPORT:.c=.o)
+OBJS_PWD		=	$(SRCS_PWD:.c=.o)
+OBJS_UNSET		=	$(SRCS_UNSET:.c=.o)
+OBJS_EXEC	=	$(SRCS_EXEC:.c=.o)
+OBJS			=	$(SRCS:.c=.o)
 
 TARGET			=	a.out
 
@@ -62,9 +66,9 @@ else ifdef IF_PWD
 else ifdef IF_UNSET
 	OBJECTS	=	$(OBJS_UNSET)
 	PRINT	=	"$(LF)Testing Command: UNSET...\n"
-else ifdef IF_CONNECT
-	OBJECTS	=	$(OBJS_CONNECT)
-	PRINT	=	"$(LF)Testing Parser <-> builtin connection function\n"
+else ifdef IF_EXEC
+	OBJECTS	=	$(OBJS_EXEC)
+	PRINT	=	"$(LF)Testing execution function\n"
 else ifdef IF_PIPE_D
 	OBJECTS	=	$(OBJS_PIPE)
 	PRINT	=	"$(LF)Testing Pipe...\n"
@@ -97,9 +101,9 @@ else ifdef IF_UNSET_D
 	OBJECTS	=	$(OBJS_UNSET)
 	PRINT	=	"$(LF)Testing Command: UNSET...(debug mode)\n"
 	DFLAGS	=	-g3 -fsanitize=address
-else ifdef IF_CONNECT_D
-	OBJECTS	=	$(OBJS_CONNECT)
-	PRINT	=	"$(LF)Testing Parser <-> builtin connection function (debug mode)\n"
+else ifdef IF_EXEC_D
+	OBJECTS	=	$(OBJS_EXEC)
+	PRINT	=	"$(LF)Testing execution function (debug mode)\n"
 	DFLAGS	=	-g3 -fsanitize=address
 else ifndef	IF_DEBUG
 	OBJECTS	=	$(OBJS)
@@ -164,11 +168,11 @@ unset :
 debug-unset :
 	@$(MAKE) IF_UNSET_D=1 all
 
-connect :
-	@$(MAKE) IF_CONNECT=1 all
+exec :
+	@$(MAKE) IF_EXEC=1 all
 
-debug-connect :
-	@$(MAKE) IF_CONNECT_D=1 all
+debug-exec :
+	@$(MAKE) IF_EXEC_D=1 all
 
 %.o : %.c
 	@$(CC) $(CFLAGS) $(DFLAGS) -c -o $@ $< -I ./
@@ -176,7 +180,7 @@ debug-connect :
 clean :
 	@printf "$(LF)Deleting files...\n"
 	@rm -rf $(OBJS_PIPE) $(OBJS_CD) $(OBJS_ECHO) $(OBJS_ENV) $(OBJS_EXIT)
-	@rm -rf $(OBJS_PWD) $(OBJS_UNSET) $(OBJS_CONNECT) $(OBJS_EXPORT)
+	@rm -rf $(OBJS_PWD) $(OBJS_UNSET) $(OBJS_EXEC) $(OBJS_EXPORT)
 
 fclean : clean
 	@rm -rf a.out
