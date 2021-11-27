@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 00:21:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 11:45:14 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 11:45:43 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd.h"
+#include "../../includes/cmd2.h"
 
 static char	**pipe_getpath(char *envp[])
 {
