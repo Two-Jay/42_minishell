@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:39:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 11:15:53 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 11:57:09 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	pipe_count_param(t_token *input)
 	int	count;
 
 	count = 0;
-	while (input->type != PIPE && input->type != REDIRECT && input)
+	while (input && input->type != PIPE && input->type != REDIRECT)
 	{
 		input = input->next;
 		count++;

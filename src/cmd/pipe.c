@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 11:42:34 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 11:57:21 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	pipe_makepipe(t_data *data, t_token *input, t_pipe *struct_pipe)
 	if (!pipe_pid)
 		pipe_child(data, input, struct_pipe, fd);
 	else if (pipe_pid < 0)
-		exit(builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 1));
+		return (-1);
 	else
 	{
 		if (struct_pipe->fd_tmp != STDIN_FILENO)
@@ -75,6 +75,7 @@ static void	pipe_wait(t_data *data, t_pipe *struct_pipe)
 			return ;
 	}
 	free_token(data->input, 0);
+	//status 처리
 	return ;
 }
 
@@ -107,7 +108,6 @@ int	main(int argc, char *argv[], char *envp[])
 	t_data	*data;
 	t_token	*input[10];
 
-	printf("this process: %d\n", getpid());
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (0);
@@ -155,5 +155,5 @@ int	main(int argc, char *argv[], char *envp[])
 		free(input[i]->content);
 		free(input[i]);
 	}
-
+	//system("leaks a.out");
 }
