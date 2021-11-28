@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/28 16:08:41 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/28 18:22:16 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void	pipe_child(
 	if (struct_pipe->index + 1 < struct_pipe->max_index)
 		if (dup2(fd[PIPE_WRITE], STDOUT_FILENO) < 0)
 			exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
-	//fd 관련 의문점 생기는 부분 (노션에 정리)
-	if (struct_pipe->index + 1 == struct_pipe->max_index)
-		close(fd[PIPE_WRITE];
+	if (struct_pipe->index + 1 < struct_pipe->max_index)
+	{
+		close(fd[PIPE_WRITE]);
+		if (close(struct_pipe->fd_tmp);
+	}
 	//redirection needed
 	close(fd[PIPE_READ]);
-	close(struct_pipe->fd_tmp);
-	//fd 관련 의문점 생기는 부분 (노션에 정리)
 	if (exec_builtin(data, input) == EXEC_NOTBUILTIN)
 		exec_program(input, struct_pipe->envp);
 }
@@ -93,6 +93,7 @@ int	minishell_pipe(t_data *data, char *envp[])
 		input = input->next;
 		struct_pipe->index++;
 	}
+	while(1);
 	pipe_wait(struct_pipe);
 	free(struct_pipe);
 	return (0);
