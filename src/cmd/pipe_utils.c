@@ -6,64 +6,70 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:39:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/14 12:55:50 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/27 13:44:31 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd.h"
+#include "../../includes/cmd2.h"
 
-void	ft_free_char2d(char **arr)
+static int	pipe_count_cmd(t_token *input)
 {
-	int	index;
+	int	cmd_len;
 
+	cmd_len = 0;
+	while (input)
+	{
+		if (input->type == CMD)
+			cmd_len++;
+		input = input->next;
+	}
+	return (cmd_len);
+}
+
+static int	pipe_count_param(t_token *input)
+{
+	int	count;
+
+	count = 0;
+	while (input && input->type != PIPE && input->type != REDIRECT)
+	{
+		input = input->next;
+		count++;
+	}
+	return (count);
+}
+
+t_pipe	*pipe_struct(t_token *input, char *envp[])
+{
+	t_pipe	*struct_pipe;
+
+	struct_pipe = malloc(sizeof(t_pipe));
+	if (!struct_pipe)
+		return (NULL);
+	struct_pipe->index = 0;
+	struct_pipe->max_index = pipe_count_cmd(input);
+	struct_pipe->fd_tmp = STDIN_FILENO;
+	struct_pipe->envp = envp;
+	return (struct_pipe);
+}
+
+char	**pipe_insert_arr(t_token *input, char *cmd_path)
+{
+	char	**arr_return;
+	int		index;
+	int		param_cnt;
+
+	param_cnt = pipe_count_param(input);
+	arr_return = malloc(sizeof(char *) * (param_cnt + 1));
+	if (!arr_return)
+		return (NULL);
 	index = 0;
-	while (arr[index])
-		free(arr[index++]);
-	free(arr);
-}
-
-static char	**pipe_getpath(char *envp[])
-{
-	int		i;
-	char	**path;
-	char	*temp;
-
-	i = -1;
-	while (envp[++i])
+	while (index < param_cnt)
 	{
-		if (ft_strnstr(envp[i], "PATH=", 5))
-		{
-			temp = envp[i] + 5;
-			path = ft_split(temp, ':');
-			break ;
-		}
+		arr_return[index++] = input->content;
+		input = input->next;
 	}
-	return (path);
-}
-
-char	*pipe_getcmd(char *cmd, char *envp[])
-{
-	int		i;
-	char	**path;
-	char	*temp_slash;
-	char	*temp_cmd;
-
-	i = -1;
-	path = pipe_getpath(envp);
-	while (path[++i])
-	{
-		temp_slash = ft_strjoin(path[i], "/");
-		if (!temp_slash)
-			return (0);
-		temp_cmd = ft_strjoin(temp_slash, cmd);
-		if (!temp_cmd)
-			return (0);
-		free(temp_slash);
-		if (!access(temp_cmd, 0))
-			break ;
-	}
-	if (!path[i])
-		return (0);
-	ft_free_char2d(path);
-	return (temp_cmd);
+	arr_return[0] = cmd_path;
+	arr_return[index] = 0;
+	return (arr_return);
 }

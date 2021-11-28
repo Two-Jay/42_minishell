@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_free_char2d.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 22:48:45 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/11/27 11:44:15 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/11/27 11:44:25 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-int	minishell_cd(t_data *data, )
+void	ft_free_char2d(char **arr)
 {
-	int	return_value;
+	int	index;
 
-	if (check_flag(data))
-		return (builtin_error())
+	index = 0;
+	while (arr[index])
+		free(arr[index++]);
+	free(arr);
 }
