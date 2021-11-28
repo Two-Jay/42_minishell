@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/28 19:21:17 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/28 19:32:03 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	pipe_child(
 		t_data *data, t_token *input, t_pipe *struct_pipe, int fd[2])
 {
-	dprintf(2, "index: %d, pid: %d, fd_tmp: %d\n", struct_pipe->index, getpid(), struct_pipe->fd_tmp);
 	if (dup2(struct_pipe->fd_tmp, STDIN_FILENO) < 0)
 		exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 	if (struct_pipe->index + 1 < struct_pipe->max_index)
@@ -93,7 +92,7 @@ int	minishell_pipe(t_data *data, char *envp[])
 		input = input->next;
 		struct_pipe->index++;
 	}
-	//while(1);
+	while(1);
 	pipe_wait(struct_pipe);
 	free(struct_pipe);
 	return (0);
