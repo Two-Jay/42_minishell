@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:16:36 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/28 16:02:17 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/28 18:54:33 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	input[9]->next = NULL;
 	input[0]->prev = NULL;
+	/*
 	input[0]->content = ft_strdup("cat");
 	input[0]->type = CMD;
 	input[1]->content = ft_strdup("/dev/urandom");
@@ -54,6 +55,14 @@ int	main(int argc, char *argv[], char *envp[])
 	input[7]->content = ft_strdup("wc");
 	input[7]->type = CMD;
 	input[7]->next = NULL;
+	*/
+	input[0]->content = ft_strdup("cat");
+	input[0]->type = CMD;
+	input[1]->content = ft_strdup("|");
+	input[1]->type = PIPE;
+	input[2]->content = ft_strdup("ls");
+	input[2]->type = CMD;
+	input[2]->next = NULL;
 	data->input = input[0];
 	// Test
 	//printf("%d\n", pipe_count_cmd(input[0])); //check if pipe_count_cmd works
