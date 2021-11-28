@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/10/20 22:22:48 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/28 13:50:56 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	exit_no_param(void)
 	exit(0);
 }
 
-void	minishell_exit(t_data *data)
+int	minishell_exit(t_data *data)
 {
 	if (data->input->next)
 	{
@@ -97,4 +97,5 @@ void	minishell_exit(t_data *data)
 	}
 	else
 		exit_no_param();
+	return (0);
 }

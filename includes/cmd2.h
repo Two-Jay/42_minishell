@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 22:15:07 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/28 15:15:16 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ typedef struct s_pipe
 # define	EXEC_ERRNODIR ": No such file or directory"
 # define	EXEC_ERRNOCMD ": command not found"
 # define	EXEC_ERRPARSE ": failed to parse arguments"
-int			executor(t_token *input, char *envp[]);
+# define	EXEC_BUILTIN	424242
+# define	EXEC_NOTBUILTIN -424242
+int			exec_builtin(t_data *data, t_token *input);
+int			exec_program(t_token *input, char *envp[]);
 
 /*
 	* Pipelines
@@ -100,7 +103,7 @@ int			minishell_unset(t_data *data);
 */
 # define	EXIT_ERRNUM ": numeric argument required"
 # define	EXIT_ERRMANY "too many arguments"
-void		minishell_exit(t_data *data);
+int			minishell_exit(t_data *data);
 
 /*
 	* Utilities

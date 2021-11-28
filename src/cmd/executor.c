@@ -6,12 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 22:16:42 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/28 15:17:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
-
 /*
 static int	exec_if_pipe(t_data *data)
 {
@@ -26,18 +25,33 @@ static int	exec_if_pipe(t_data *data)
 	}
 	return (0);
 }
-int	exec_builtin(t_data *data)
-{
-
-}
-
-int	exec_program(t_data *data)
-{
-
-}
 */
+int	exec_builtin(t_data *data, t_token *input)
+{
+	/*
+	if (ft_strequel(input->content, "cd"))
+		return (minishell_cd(data));
+	else if (ft_strequel(input->content, "echo"))
+		return (minishell_echo(data));
+	else if (ft_strequel(input->content, "env"))
+		return (minishell_env(data));
+	else if (ft_strequel(input->content, "exit"))
+		return (minishell_exit(data));
+	else if (ft_strequel(input->content, "export"))
+		return (minishell_export(data));
+	else if (ft_strequel(input->content, "unset"))
+		return (minishell_unset(data));
+	else if (ft_strequel(input->content, "pwd"))
+		return (minishell_pwd(data));
+	else
+		return (EXEC_NOTBUILTIN);
+	*/
+	(void)data;
+	(void)input;
+	return (EXEC_NOTBUILTIN);
+}
 
-int	executor(t_token *input, char *envp[])
+int	exec_program(t_token *input, char *envp[])
 {
 	char	*cmd_path;
 	char	**exec_argv;
@@ -55,10 +69,15 @@ int	executor(t_token *input, char *envp[])
 	free(cmd_path);
 	exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 }
-
 /*
-void	exec_pipe(t_data *data, char *envp[])
+int	executor(t_data *data, char *envp[])
 {
+	t_token	*input;
+
+	input = data->input;
+	if (exec_if_pipe(data))
+		minishell_pipe(data, envp);
+	else if (exec_builtin(data, input) == EXEC_NOTBUILTIN))
 
 }
 */
