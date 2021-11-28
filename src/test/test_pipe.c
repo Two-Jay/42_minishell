@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:16:36 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 22:21:30 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/28 16:02:17 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,23 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	input[9]->next = NULL;
 	input[0]->prev = NULL;
-	input[0]->content = ft_strdup("ls");
+	input[0]->content = ft_strdup("cat");
 	input[0]->type = CMD;
-	input[1]->content = ft_strdup("|");
-	input[1]->type = PIPE;
-	input[2]->content = ft_strdup("cat");
-	input[2]->type = CMD;
-	input[3]->content = ft_strdup("-e");
-	input[3]->type = FLAG;
-	input[4]->content = ft_strdup("|");
-	input[4]->type = PIPE;
-	input[5]->content = ft_strdup("cat");
-	input[5]->type = CMD;
-	input[6]->content = ft_strdup("-e");
-	input[6]->type = FLAG;
-	input[7]->content = ft_strdup("|");
-	input[7]->type = PIPE;
-	input[8]->content = ft_strdup("cat");
-	input[8]->type = CMD;
-	input[9]->content = ft_strdup("-e");
-	input[9]->type = FLAG;
+	input[1]->content = ft_strdup("/dev/urandom");
+	input[1]->type = STR;
+	input[2]->content = ft_strdup("|");
+	input[2]->type = PIPE;
+	input[3]->content = ft_strdup("head");
+	input[3]->type = CMD;
+	input[4]->content = ft_strdup("-n");
+	input[4]->type = FLAG;
+	input[5]->content = ft_strdup("1000");
+	input[5]->type = STR;
+	input[6]->content = ft_strdup("|");
+	input[6]->type = PIPE;
+	input[7]->content = ft_strdup("wc");
+	input[7]->type = CMD;
+	input[7]->next = NULL;
 	data->input = input[0];
 	// Test
 	//printf("%d\n", pipe_count_cmd(input[0])); //check if pipe_count_cmd works
