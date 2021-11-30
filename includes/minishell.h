@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 03:54:00 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/30 16:57:36 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char	*ft_strncpy(char *s1, const char *s2, size_t n);
 /*
 **		parsing functions
 */
+int		is_closed(const char *input);
 int		parse_input_string(const char *str, t_data *data);
 int		setup_and_check_env(const char *str, t_data *data);
 int		replace_env_in_input(char *dst, const char *str, t_data *data);
@@ -133,6 +134,7 @@ int		split_by_chunk(const char *str, t_data *data);
 int		build_input_token_lst(char **split_ret, t_data *data);
 int		assign_type_input_token_lst(t_token *token);
 
+
 /*
 **		parsing util functions
 */
@@ -140,5 +142,6 @@ void	is_inquoted(const char *str, int ix, int *flag);
 int		is_double_quote(const char *str, int ix);
 int		is_single_quote(const char *str, int ix);
 int		is_quotation(const char *str, int ix);
+int		ft_putstr_fd_error(char *str, int fd, int error_code)
 
 #endif

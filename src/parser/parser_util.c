@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:37:34 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 04:06:34 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/30 16:57:23 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,14 @@ void	is_inquoted(const char *str, int ix, int *flag)
 		else if (*flag == 0)
 			*flag = 1;
 	}
+}
+
+int ft_putstr_fd_error(char *str, int fd, int error_code)
+{
+	int len;
+
+	len = ft_strlen(str);
+	if (str && fd)
+		write(fd, str, len);
+	return (error_code);
 }
