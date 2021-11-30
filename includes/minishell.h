@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/30 16:57:36 by jekim            ###   ########.fr       */
+/*   Updated: 2021/11/30 18:09:30 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct	s_envlst
 typedef struct	input_process
 {
 	char *scenv_ret;
+	char *qtrim_ret;
 	char *isbs_ret;
 	char **split_ret;
 }	t_input_process;
