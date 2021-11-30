@@ -5,12 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/27 00:21:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 21:46:36 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/11/30 19:14:27 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
+
+static int	cmd_access(char *path, char *cmd)
+{
+	struct stat	*buf;
+	int			acc_return;
+
+	buf = malloc(sizeof(stat));
+	acc_return = 0;
+	if (!buf || stat(path, buf) < 0)
+	{
+		acc_return = builtin_error(
+				"shell", ft_strjoin(cmd, EXEC_ERRNODIR), 127);
+		free(buf);
+	}
+	if (S_ISREG(buf->st_mode))
+		acc_return = 0;
+	else if (S_ISDIR(buf->st_mode))
+	{
+		acc_return = builtin_error("shell", ft_strjoin(cmd, EXEC_ERRDIR), 126);
+		free(buf);
+	}
+	return (acc_return);
+}
 
 static char	**getpath(char *envp[])
 {
@@ -38,7 +61,7 @@ static char	*if_relative(char *cmd)
 	char	*temp_slash;
 	char	*temp_cmd;
 
-	if (!access(cmd, 0))
+	if (!cmd_access(cmd, cmd))
 		return (cmd);
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
@@ -50,7 +73,7 @@ static char	*if_relative(char *cmd)
 	if (!temp_cmd)
 		return (NULL);
 	free(temp_slash);
-	if (!access(temp_cmd, 0))
+	if (!cmd_access(temp_cmd, cmd))
 		return (temp_cmd);
 	return (NULL);
 }
@@ -75,7 +98,7 @@ char	*getcmd(char *cmd, char *envp[])
 		if (!temp_cmd)
 			return (0);
 		free(temp_slash);
-		if (!access(temp_cmd, 0))
+		if (!cmd_access(temp_cmd, cmd))
 			break ;
 	}
 	if (!path[i])
