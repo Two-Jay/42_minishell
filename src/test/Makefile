@@ -6,7 +6,7 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/11/27 22:15:53 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/01 18:55:37 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CFLAGS			=	-Wall -Wextra -Werror
 SRCS_PIPE		=	test_pipe.c\
 					../cmd/pipe.c ../utils/getcmd.c ../cmd/pipe_utils.c\
 					../utils/builtin_error.c ../utils/free_token.c ../utils/ft_free_char2d.c\
-					../cmd/executor.c
+					../executor/executor.c
 SRCS_CD			=	test_cd.c\
 					../cmd/cd.c\
 					../utils/builtin_error.c ../utils/find_env.c ../utils/check_flag.c\
