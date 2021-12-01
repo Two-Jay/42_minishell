@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/30 19:43:10 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/01 12:58:43 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int	cmd_if_dir(char *path, char *cmd)
 		builtin_error(cmd, ft_strjoin(cmd, EXEC_ERRDIR), 126);
 		return (-1);
 	}
+	free(buf);
 	return (0);
 }
 
@@ -45,6 +46,7 @@ static int	cmd_access(char *path)
 		free(buf);
 		return (-1);
 	}
+	free(buf);
 	return (0);
 }
 
