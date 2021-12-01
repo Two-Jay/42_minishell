@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/01 21:12:49 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/01 21:51:49 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,14 @@ int	executor(t_data *data, char *envp[])
 		if (!exec_pid)
 			exec_program(input, envp);
 		else if (exec_pid < 0)
-			return (builtin_error("shell", ft_strdup(EXEC_ERRFORK), 1));
+			return (free_token(input,
+					builtin_error("shell", ft_strdup(EXEC_ERRFORK), 1)));
 		else
 		{
 			waitpid(exec_pid, &status, 0);
 			//status 처리
 		}
-		return (0);
+		return (free_token(input, 0));
 	}
 	return (builtin_return);
 }
