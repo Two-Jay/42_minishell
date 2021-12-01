@@ -6,12 +6,12 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/28 15:17:45 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/11/30 19:43:51 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
-/*
+
 static int	exec_if_pipe(t_data *data)
 {
 	t_token	*input;
@@ -25,7 +25,7 @@ static int	exec_if_pipe(t_data *data)
 	}
 	return (0);
 }
-*/
+
 int	exec_builtin(t_data *data, t_token *input)
 {
 	/*
@@ -69,15 +69,31 @@ int	exec_program(t_token *input, char *envp[])
 	free(cmd_path);
 	exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 }
-/*
+
 int	executor(t_data *data, char *envp[])
 {
 	t_token	*input;
+	int		builtin_return;
+	int		exec_pid;
+	int		status;
 
 	input = data->input;
 	if (exec_if_pipe(data))
-		minishell_pipe(data, envp);
-	else if (exec_builtin(data, input) == EXEC_NOTBUILTIN))
-
+		return (minishell_pipe(data, envp));
+	builtin_return = exec_builtin(data, input);
+	if (builtin_return == EXEC_NOTBUILTIN)
+	{
+		exec_pid = fork();
+		if (!exec_pid)
+			exec_program(input, envp);
+		else if (exec_pid < 0)
+			return (builtin_error("shell", ft_strdup(EXEC_ERRFORK), 1));
+		else
+		{
+			waitpid(exec_pid, &status, 0);
+			//status 처리
+		}
+		return (0);
+	}
+	return (builtin_return);
 }
-*/

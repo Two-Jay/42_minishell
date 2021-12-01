@@ -5,12 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/27 00:21:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 21:46:36 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/12/01 12:58:43 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
+
+static int	cmd_if_dir(char *path, char *cmd)
+{
+	struct stat	*buf;
+
+	buf = malloc(sizeof(struct stat));
+	if (!buf)
+		return (-1);
+	if (stat(path, buf) < 0)
+	{
+		free(buf);
+		return (-1);
+	}
+	else if (S_ISDIR(buf->st_mode))
+	{
+		free(buf);
+		builtin_error(cmd, ft_strjoin(cmd, EXEC_ERRDIR), 126);
+		return (-1);
+	}
+	free(buf);
+	return (0);
+}
+
+static int	cmd_access(char *path)
+{
+	struct stat	*buf;
+
+	buf = malloc(sizeof(struct stat));
+	if (!buf)
+		return (-1);
+	if (stat(path, buf) < 0 || !S_ISREG(buf->st_mode))
+	{
+		free(buf);
+		return (-1);
+	}
+	free(buf);
+	return (0);
+}
 
 static char	**getpath(char *envp[])
 {
@@ -38,8 +76,10 @@ static char	*if_relative(char *cmd)
 	char	*temp_slash;
 	char	*temp_cmd;
 
-	if (!access(cmd, 0))
+	if (!cmd_access(cmd))
 		return (cmd);
+	if (cmd_if_dir(cmd, cmd))
+		return (NULL);
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (NULL);
@@ -50,8 +90,10 @@ static char	*if_relative(char *cmd)
 	if (!temp_cmd)
 		return (NULL);
 	free(temp_slash);
-	if (!access(temp_cmd, 0))
+	if (!cmd_access(temp_cmd))
 		return (temp_cmd);
+	if (cmd_if_dir(temp_cmd, cmd))
+		return (NULL);
 	return (NULL);
 }
 
@@ -75,7 +117,7 @@ char	*getcmd(char *cmd, char *envp[])
 		if (!temp_cmd)
 			return (0);
 		free(temp_slash);
-		if (!access(temp_cmd, 0))
+		if (!cmd_access(temp_cmd))
 			break ;
 	}
 	if (!path[i])
