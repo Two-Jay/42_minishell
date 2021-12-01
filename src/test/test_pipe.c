@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:16:36 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/30 19:46:12 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/01 21:13:08 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	input[7]->next = NULL;
 	input[0]->prev = NULL;
-	input[0]->content = ft_strdup("a");
+	input[0]->content = ft_strdup("cat");
 	input[0]->type = CMD;
 	input[1]->content = ft_strdup("/dev/urandom");
 	input[1]->type = STR;
