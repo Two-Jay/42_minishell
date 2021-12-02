@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/20 22:56:52 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 18:44:40 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int	echo_noflag(t_token *tree)
 		tree = tree->next;
 	}
 	write(1, "\n", 1);
-	// $? 0으로 세팅
 	return (0);
 }
 
@@ -47,17 +46,15 @@ static int	echo_nflag(t_token *tree)
 		write(1, " ", 1);
 		tree = tree->next;
 	}
-	// $? 0으로 세팅
 	return (0);
 }
 
 int	minishell_echo(t_data *data)
 {
 	t_token	*tree;
-	int		return_value;
 
 	tree = data->input->next;
-	if (echo_if_nnn(tree->content))
+	if (tree->type == FLAG && echo_if_nnn(tree->content))
 	{
 		tree = tree->next;
 		return (echo_nflag(tree));
