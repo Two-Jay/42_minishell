@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 17:36:22 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 18:41:48 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,28 @@ static int	exec_if_pipe(t_data *data)
 
 int	exec_builtin(t_data *data, t_token *input)
 {
+	int	builtin_return;
+
+	builtin_return = 0;
 	if (ft_strequel(input->content, "cd"))
-		return (minishell_cd(data));
+		builtin_return = minishell_cd(data);
 	else if (ft_strequel(input->content, "echo"))
-		return (minishell_echo(data));
+		builtin_return = minishell_echo(data);
 	else if (ft_strequel(input->content, "pwd"))
-		return (minishell_pwd(data));
+		builtin_return = minishell_pwd(data);
 	/*
 	else if (ft_strequel(input->content, "env"))
-		return (minishell_env(data));
+		builtin_return = minishell_env(data);
 	else if (ft_strequel(input->content, "exit"))
-		return (minishell_exit(data));
+		builtin_return = minishell_exit(data);
 	else if (ft_strequel(input->content, "export"))
-		return (minishell_export(data));
+		builtin_return = minishell_export(data);
 	else if (ft_strequel(input->content, "unset"))
-		return (minishell_unset(data));
+		builtin_return = minishell_unset(data);
 	else
-		return (EXEC_NOTBUILTIN);
+		builtin_return = EXEC_NOTBUILTIN;
 	*/
-	(void)data;
-	(void)input;
+	data->dq = builtin_return;
 	return (EXEC_NOTBUILTIN);
 }
 
