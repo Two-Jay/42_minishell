@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 23:52:03 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/03 00:11:58 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	minishell_echo(t_token *input)
 
 	tree = input->next;
 	fd = get_redir_fd(input);
+	if (fd < 0)
+		return (1);
 	if (tree->type == FLAG && echo_if_nnn(tree->content))
 	{
 		tree = tree->next;
