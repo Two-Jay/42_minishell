@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 14:32:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 17:00:35 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 19:02:41 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(void)
 	data->envlst = env1;
 	getcwd(buf, 100);
 	printf("before cd : %s\n", buf);
-	minishell_cd(data);
+	minishell_cd(data, data->input);
 	getcwd(buf, 100);
 	printf("after cd : %s\n", buf);
 	printf("env 1 -> %s : %s\n", env1->key, env1->value);

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 17:29:26 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 19:00:47 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,10 @@ static int	cd_add_pwd(t_data *data)
 	return (save_env(data, ft_strdup("PWD"), env_value, ENV));
 }
 
-int	minishell_cd(t_data *data)
+int	minishell_cd(t_data *data, t_token *input)
 {
-	t_token	*input;
 	int		result_movedir;
 
-	input = data->input;
 	if (!input->next)
 		return (0);
 	if (check_flag(input))
