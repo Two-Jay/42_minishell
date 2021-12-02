@@ -6,7 +6,7 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/12/02 18:42:21 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/02 23:49:24 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS_CD			=	test_cd.c\
 					../utils/builtin_error.c ../utils/find_env.c ../utils/check_flag.c\
 					../utils/save_env.c ../utils/free_token.c ../../libft/ft_strequel.c
 SRCS_ECHO		=	test_echo.c\
-					../cmd/echo.c
+					../cmd/echo.c ../utils/get_redir_fd.c ../../libft/ft_strequel.c
 #SRCS_ENV		=
 #SRCS_EXIT		=
 #SRCS_EXPORT	=
