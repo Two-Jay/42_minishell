@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 19:03:57 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 23:46:02 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int			minishell_exit(t_data *data);
 char		*trim_quote(char *str);
 char		**trim_quote_and_parse(char *str);
 char		*get_envname(char *str);
+int			get_redir_fd(t_token *input);
 t_envlst	*find_env(char *envname, t_data *data);
 int			builtin_error(
 				t_data *data, char *cmd, char *error_str, int dollar_q);
