@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 14:38:26 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 17:32:53 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ typedef struct s_pipe
 # define	EXEC_ISFILE 0
 # define	EXEC_NOTFILE -1
 int			exec_builtin(t_data *data, t_token *input);
-int			exec_program(t_token *input, char *envp[]);
-char		*exec_getcmd(char *cmd, char *envp[]);
+int			exec_program(t_data *data, t_token *input, char *envp[]);
+char		*exec_getcmd(t_data *data, char *cmd, char *envp[]);
 char		*if_file(char *cmd);
 int			cmd_access(char *path);
 
@@ -125,8 +125,9 @@ char		*trim_quote(char *str);
 char		**trim_quote_and_parse(char *str);
 char		*get_envname(char *str);
 t_envlst	*find_env(char *envname, t_data *data);
-int			builtin_error(char *cmd, char *error_str, int dollar_q);
-int			child_error(char *cmd, char *error_str, int dollar_q);
+int			builtin_error(
+				t_data *data, char *cmd, char *error_str, int dollar_q);
+int			child_error(t_data *data, char *cmd, char *error_str, int dollar_q);
 int			save_env(
 				t_data *data,
 				char *env_key,
