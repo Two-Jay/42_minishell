@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 18:44:40 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 19:03:39 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	echo_if_nnn(char *flag)
 
 static int	echo_noflag(t_token *tree)
 {
-	while (tree)
+	while (tree && tree->type != PIPE && tree->type != REDIRECT)
 	{
 		ft_putstr_fd(tree->content, 1);
 		write(1, " ", 1);
@@ -40,7 +40,7 @@ static int	echo_noflag(t_token *tree)
 
 static int	echo_nflag(t_token *tree)
 {
-	while (tree)
+	while (tree && tree->type != PIPE && tree->type != REDIRECT)
 	{
 		ft_putstr_fd(tree->content, 1);
 		write(1, " ", 1);
@@ -49,11 +49,11 @@ static int	echo_nflag(t_token *tree)
 	return (0);
 }
 
-int	minishell_echo(t_data *data)
+int	minishell_echo(t_token *input)
 {
 	t_token	*tree;
 
-	tree = data->input->next;
+	tree = input->next;
 	if (tree->type == FLAG && echo_if_nnn(tree->content))
 	{
 		tree = tree->next;

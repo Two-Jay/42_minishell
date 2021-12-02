@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:11:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 18:46:50 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 19:04:14 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	main(void)
 	input[2]->type = STR;
 	input[3]->content = ft_strdup("asdasd");
 	input[3]->type = STR;
-	input[4]->content = ft_strdup("haha\nhaha");
-	input[4]->type = STR;
+	input[4]->content = ft_strdup("|");
+	input[4]->type = REDIRECT;
 	data->input = input[0];
-	minishell_echo(data);
+	minishell_echo(data->input);
 	for (int i = 0; i < 4; i++)
 	{
 		free(input[i]->content);
