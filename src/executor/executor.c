@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/01 21:51:49 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 17:10:58 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ static int	exec_if_pipe(t_data *data)
 
 int	exec_builtin(t_data *data, t_token *input)
 {
-	/*
 	if (ft_strequel(input->content, "cd"))
 		return (minishell_cd(data));
 	else if (ft_strequel(input->content, "echo"))
 		return (minishell_echo(data));
+	else if (ft_strequel(input->content, "pwd"))
+		return (minishell_pwd(data));
+	/*
 	else if (ft_strequel(input->content, "env"))
 		return (minishell_env(data));
 	else if (ft_strequel(input->content, "exit"))
@@ -41,8 +43,6 @@ int	exec_builtin(t_data *data, t_token *input)
 		return (minishell_export(data));
 	else if (ft_strequel(input->content, "unset"))
 		return (minishell_unset(data));
-	else if (ft_strequel(input->content, "pwd"))
-		return (minishell_pwd(data));
 	else
 		return (EXEC_NOTBUILTIN);
 	*/
