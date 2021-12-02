@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 11:07:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 14:54:55 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 16:51:13 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,10 @@ char	*get_env(char *envname, t_data *data)
 {
 	t_envlst	*node_env;
 	char		*var;
-	int			varlen;
 
 	node_env = find_env(envname, data);
 	if (!node_env)
 		return (NULL);
-	varlen = ft_strlen(node_env->value);
-	var = (char *)malloc(sizeof(char) * (varlen + 1));
-	if (!var)
-		return (NULL);
-	var[varlen] = '\0';
-	ft_memcpy(var, node_env->value, varlen);
+	var = ft_strdup(node_env->value);
 	return (var);
 }
