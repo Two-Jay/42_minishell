@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 15:00:59 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 15:37:17 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 16:49:31 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	save_env(
 	t_data *data, char *env_key, char *env_value, t_env_state flag)
 {
 	t_envlst	*node_found;
-	t_envlst	*node_new;
 
 	node_found = find_env(env_key, data);
 	if (!node_found)
