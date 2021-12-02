@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_flag.c                                       :+:      :+:    :+:   */
+/*   test_getcmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/20 13:06:34 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/01 21:56:45 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/12/01 17:28:21 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/12/01 20:01:53 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-int	check_flag(t_token *input)
+int	main(int argc, char *argv[], char *envp[])
 {
-	if (!input->next)
+	char	*directory;
+
+	if (argc != 2)
 		return (0);
-	if (input->next->type == FLAG)
-		return (1);
-	return (0);
+	directory = exec_getcmd(argv[1], envp);
+	if (directory)
+		printf("%s directory: %s\n", argv[1], directory);
+	free(directory);
 }

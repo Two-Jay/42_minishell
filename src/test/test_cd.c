@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 14:32:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 18:34:20 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 17:00:35 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 int	main(void)
 {
 	t_data		*data;
-	t_envlst	*env;
+	t_envlst	*env1;
+	t_envlst	*env2;
 	t_token		*input[3];
 	char		buf[100];
 
 	data = malloc(sizeof(t_data));
-	env = malloc(sizeof(t_envlst));
-	if (!data || !env)
+	env1 = malloc(sizeof(t_envlst));
+	env2 = malloc(sizeof(t_envlst));
+	if (!data || !env1 || !env2)
 		return (0);
 	for (int i = 0; i < 3; i++)
 	{
@@ -35,30 +37,42 @@ int	main(void)
 			input[i]->prev = input[i - 1];
 		}
 	}
-	env->key = ft_strdup("PWD");
-	env->value = ft_strdup("/");
+	chdir("/Users/chichoon/Documents/minishell/");
+	env1->key = ft_strdup("PWD");
+	env1->value = ft_strdup("/Users/chichoon/Documents/minishell/");
+	env1->next = env2;
+	env2->key = ft_strdup("OLDPWD");
+	env2->value = ft_strdup("/Users/chichoon/Documents/minishell/src/test");
+	env2->next = NULL;
 	input[2]->next = NULL;
 	input[0]->prev = NULL;
-	input[0]->content = ft_strdup("cd");
-	data->input = input[0];
-	data->envlst = env;
 	//test
-	input[1]->content = ft_strdup("a");
-	input[1]->next = 0;
+	input[0]->content = ft_strdup("cd");
+	input[1]->content = ft_strdup("-n");
+	input[1]->type = FLAG;
+	input[2]->content = ft_strdup("src");
+	input[2]->type = STR;
+	data->input = input[0];
+	data->envlst = env1;
 	getcwd(buf, 100);
 	printf("before cd : %s\n", buf);
 	minishell_cd(data);
 	getcwd(buf, 100);
 	printf("after cd : %s\n", buf);
-	printf("env 1 -> %s : %s\n", env->key, env->value);
-	printf("env 2 -> %s : %s\n", env->next->key, env->next->value);
-/*
-	for (int i = 0; i < 10; i++)
-	{
-		free(input[i]->content);
-		free(input[i]);
-	}
-*/
+	printf("env 1 -> %s : %s\n", env1->key, env1->value);
+	printf("env 2 -> %s : %s\n", env1->next->key, env1->next->value);
+
+	//free
+	free(input[0]->content);
+	free(input[0]);
+	free(input[1]->content);
+	free(input[1]);
+	free(input[2]->content);
+	free(input[2]);
+	free(env1->key);
+	free(env1->value);
+	free(env2->key);
+	free(env2->value);
 	free(data);
 	system("leaks a.out");
 }

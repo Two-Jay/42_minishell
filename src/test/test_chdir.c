@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_flag.c                                       :+:      :+:    :+:   */
+/*   test_chdir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/20 13:06:34 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/01 21:56:45 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/12/01 22:02:20 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/12/02 16:08:06 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd2.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-int	check_flag(t_token *input)
+int	main(void)
 {
-	if (!input->next)
-		return (0);
-	if (input->next->type == FLAG)
-		return (1);
-	return (0);
+	char	*def;
+	char	*cwd;
+
+	def = getcwd(0, 100);
+	printf("default directory: %s\n", def);
+	chdir("test");
+	cwd = getcwd(0, 100);
+	printf("now: %s\n", cwd);
+	free(cwd);
 }
