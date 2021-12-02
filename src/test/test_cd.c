@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 14:32:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 16:42:29 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/02 17:00:35 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ int	main(void)
 	input[0]->prev = NULL;
 	//test
 	input[0]->content = ft_strdup("cd");
-	input[1]->content = ft_strdup("src");
-	input[1]->next = 0;
+	input[1]->content = ft_strdup("-n");
+	input[1]->type = FLAG;
+	input[2]->content = ft_strdup("src");
+	input[2]->type = STR;
 	data->input = input[0];
 	data->envlst = env1;
 	getcwd(buf, 100);
@@ -60,11 +62,13 @@ int	main(void)
 	printf("env 1 -> %s : %s\n", env1->key, env1->value);
 	printf("env 2 -> %s : %s\n", env1->next->key, env1->next->value);
 
-	for (int i = 0; i < 3; i++)
-	{
-		free(input[i]->content);
-		free(input[i]);
-	}
+	//free
+	free(input[0]->content);
+	free(input[0]);
+	free(input[1]->content);
+	free(input[1]);
+	free(input[2]->content);
+	free(input[2]);
 	free(env1->key);
 	free(env1->value);
 	free(env2->key);
