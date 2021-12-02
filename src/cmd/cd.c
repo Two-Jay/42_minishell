@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 19:00:47 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/03 00:17:40 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,19 @@ int	minishell_cd(t_data *data, t_token *input)
 	if (!input->next)
 		return (0);
 	if (check_flag(input))
-		return (builtin_error(data, "cd",
-				ft_strjoin(input->next->content, CD_ERROPT), 1));
+		return (builtin_error(
+				"cd", ft_strjoin(input->next->content, CD_ERROPT), 1));
 	if (input->next->type == PIPE || input->next->type == REDIRECT)
 		return (0);
 	result_movedir = cd_move_directory(data);
 	if (result_movedir == CD_PWDNOTSET)
-		return (builtin_error(data, "cd", ft_strdup(CD_ERROLD), 1));
+		return (builtin_error("cd", ft_strdup(CD_ERROLD), 1));
 	if (result_movedir == CD_HOMENOTSET)
-		return (builtin_error(data, "cd", ft_strdup(CD_ERRHOME), 1));
+		return (builtin_error("cd", ft_strdup(CD_ERRHOME), 1));
 	if (result_movedir == CD_FAILED)
-		return (builtin_error(data, "cd",
+		return (builtin_error("cd",
 				ft_strjoin(input->next->content, CD_ERRNODIR), 1));
 	if (cd_add_pwd(data) < 0)
-		return (builtin_error(data, "cd",
-				ft_strdup(strerror(errno)), 1));
+		return (builtin_error("cd", ft_strdup(strerror(errno)), 1));
 	return (0);
 }
