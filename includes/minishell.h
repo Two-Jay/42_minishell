@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/30 18:09:30 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/02 17:25:59 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct	s_data
 	t_envlst	*envlst;
 	t_token		*input;
 	t_input_process *ip;
+	int			dq;
 	void		**malloc_queue;
 	char		*homedir;
 }	t_data;
@@ -143,6 +144,6 @@ void	is_inquoted(const char *str, int ix, int *flag);
 int		is_double_quote(const char *str, int ix);
 int		is_single_quote(const char *str, int ix);
 int		is_quotation(const char *str, int ix);
-int		ft_putstr_fd_error(char *str, int fd, int error_code)
+int		ft_putstr_fd_error(char *str, int fd, int error_code);
 
 #endif
