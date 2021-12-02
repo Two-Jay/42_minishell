@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 23:55:19 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/03 00:14:48 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,8 @@ char		**trim_quote_and_parse(char *str);
 char		*get_envname(char *str);
 int			get_redir_fd(t_token *input);
 t_envlst	*find_env(char *envname, t_data *data);
-int			builtin_error(
-				t_data *data, char *cmd, char *error_str, int dollar_q);
-int			child_error(t_data *data, char *cmd, char *error_str, int dollar_q);
+int			builtin_error(char *cmd, char *error_str, int dollar_q);
+int			child_error(char *cmd, char *error_str, int dollar_q);
 int			save_env(
 				t_data *data,
 				char *env_key,
