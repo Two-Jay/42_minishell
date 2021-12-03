@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/28 13:50:56 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/03 16:04:50 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,18 @@ static int	is_num(char *str)
 	return (1);
 }
 
-static void	exit_with_param(t_data *data)
+static void	exit_with_param(t_token *input)
 {
 	char		*str;
 	long long	errno_converted;
 
-	str = data->input->next->content;
+	str = input->next->content;
 	errno_converted = 0;
 	write(1, "exit\n", 5);
 	if (!is_num(str) || (ft_strlen(str) > 20)
 		|| (ft_strlen(str) > 19 && *str != '-'))
 	{
-		builtin_error(data, str, EXIT_ERRNUM, 255);
-		// $? 세팅: 255 (buitin_error 내부에서)
+		builtin_error("bash: exit: ", ft_strjoin(str, EXIT_ERRNUM), 255);
 		exit(255);
 	}
 	else
@@ -70,30 +69,30 @@ static void	exit_with_param(t_data *data)
 		errno_converted = is_overflow_ll(str);
 		if (errno_converted < 0)
 		{
-			builtin_error(data, str, EXIT_ERRNUM, 255);
-			//$? 세팅: 255 (buitin_error 내부에서)
+			builtin_error("bash: exit: ", ft_strjoin(str, EXIT_ERRNUM), 255);
 			exit(255);
 		}
 	}
-	//$? 세팅: errno_converted
 	exit(errno_converted);
 }
 
 static void	exit_no_param(void)
 {
-	//$? 세팅: 0
 	write(1, "exit\n", 5);
 	exit(0);
 }
 
-int	minishell_exit(t_data *data)
+int	minishell_exit(t_data *data, t_token *input)
 {
 	if (data->input->next)
 	{
 		if (data->input->next->next)
-			builtin_error(data, 0, EXIT_ERRMANY, 1);
+		{
+			builtin_error("shell", ft_strjoin("exit: ", EXIT_ERRMANY), 1);
+			data->dq = 1;
+		}
 		else
-			exit_with_param(data);
+			exit_with_param(input);
 	}
 	else
 		exit_no_param();
