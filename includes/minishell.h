@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/02 18:56:10 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/03 22:41:02 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,11 @@ typedef struct	s_envlst
 
 typedef struct	input_process
 {
-	char *scenv_ret;
-	char *qtrim_ret;
-	char *isbs_ret;
-	char **split_ret;
+	char 	*scenv_ret;
+	int		*qtrim_checker;
+	char 	*qtrim_ret;
+	char 	*isbs_ret;
+	char 	**split_ret;
 }	t_input_process;
 
 typedef struct	s_data
@@ -127,10 +128,10 @@ char	*ft_strncpy(char *s1, const char *s2, size_t n);
 /*
 **		parsing functions
 */
-int		is_closed(const char *input);
+int		check_isclosed(const char *input);
 int		parse_input_string(const char *str, t_data *data);
 int		setup_and_check_env(const char *str, t_data *data);
-int quote_trim(char *str, t_data *data);
+int 	quote_trim(char *str, t_data *data);
 int		replace_env_in_input(char *dst, const char *str, t_data *data);
 int		insert_space_beside_spclcmd(const char *str, t_data *data);
 int		split_by_chunk(const char *str, t_data *data);

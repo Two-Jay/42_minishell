@@ -6,7 +6,7 @@
 #    By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/02 22:33:05 by jekim            ###   ########.fr        #
+#    Updated: 2021/12/03 19:15:10 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ PARSER_FILE 	=	parser.c \
 					parser_isbs.c \
 					parser_split.c	\
 					parser_lst.c \
+					parser_close_checker.c \
 					parser_quotetrim.c \
 					parser_replace_env.c \
 					parser_type.c \

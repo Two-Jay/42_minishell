@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 03:42:40 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 04:15:56 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/03 23:39:55 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ t_state define_type_input_token(t_token *token)
 {
 	t_state ret;
  
+	else if (is_pipe_redirection(token->content, 0, ft_strlen(token->content)))
+		ret = REDIRECT;
 	if (is_CMD(token))
 		ret = CMD;
 	else if (is_flag(token))
 		ret = FLAG;
 	else if (!ft_strncmp(token->content, "|", 1))
 		ret = PIPE;
-	else if (is_pipe_redirection(token->content, 0, ft_strlen(token->content)))
-		ret = REDIRECT;
+
 	else if (is_filepath(token))
 		ret = FILEPATH;
 	else
