@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:05:22 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 16:09:22 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/03 16:12:02 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ int	main(void)
 	input[0]->prev = NULL;
 	input[0]->content = ft_strdup("exit");
 	input[0]->type = CMD;
-	input[1]->content = ft_strdup("150");
-	input[1]->type = FLAG;
+	input[1]->content = ft_strdup("-123");
+	input[1]->type = STR;
+	input[1]->next = NULL;
 	input[2]->content = ft_strdup("150");
 	input[2]->type = STR;
 	data->input = input[0];
 	minishell_exit(data, data->input);
+	printf("$? : %d\n", data->dq);
 }
