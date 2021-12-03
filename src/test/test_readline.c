@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   test_readline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/16 19:59:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 00:16:23 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/12/02 18:54:21 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/12/02 18:58:54 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd2.h"
+#include <readline/readline.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-int	minishell_pwd(t_data *data, t_token *input)
+int	main(void)
 {
-	char	*pwd;
-	int		fd;
+	char	*input;
+	int		i;
 
-	fd = get_redir_fd(input);
-	if (fd < 0)
-		return (1);
-	pwd = getcwd(0, 10);
-	if (!pwd)
-		return (builtin_error("pwd", ft_strdup(PWD_ERRFAIL), 1));
-	ft_putstr_fd(pwd, fd);
-	write(fd, "\n", 1);
-	free(pwd);
+	input = readline(">> :");
+	i = -1;
+	while (input[++i])
+	{
+		printf("%d: %c (%d)\n", i, input[i], input[i]);
+	}
+	free(input);
 	return (0);
 }

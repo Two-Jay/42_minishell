@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/20 22:56:52 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/03 00:11:58 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,42 +26,45 @@ static int	echo_if_nnn(char *flag)
 	return (1);
 }
 
-static int	echo_noflag(t_token *tree)
+static int	echo_noflag(t_token *tree, int fd)
 {
-	while (tree)
+	while (tree && tree->type != PIPE && tree->type != REDIRECT)
 	{
-		ft_putstr_fd(tree->content, 1);
-		write(1, " ", 1);
+		ft_putstr_fd(tree->content, fd);
+		write(fd, " ", 1);
 		tree = tree->next;
 	}
-	write(1, "\n", 1);
-	// $? 0으로 세팅
+	write(fd, "\n", 1);
+	close(fd);
 	return (0);
 }
 
-static int	echo_nflag(t_token *tree)
+static int	echo_nflag(t_token *tree, int fd)
 {
-	while (tree)
+	while (tree && tree->type != PIPE && tree->type != REDIRECT)
 	{
-		ft_putstr_fd(tree->content, 1);
-		write(1, " ", 1);
+		ft_putstr_fd(tree->content, fd);
+		write(fd, " ", 1);
 		tree = tree->next;
 	}
-	// $? 0으로 세팅
+	close(fd);
 	return (0);
 }
 
-int	minishell_echo(t_data *data)
+int	minishell_echo(t_token *input)
 {
 	t_token	*tree;
-	int		return_value;
+	int		fd;
 
-	tree = data->input->next;
-	if (echo_if_nnn(tree->content))
+	tree = input->next;
+	fd = get_redir_fd(input);
+	if (fd < 0)
+		return (1);
+	if (tree->type == FLAG && echo_if_nnn(tree->content))
 	{
 		tree = tree->next;
-		return (echo_nflag(tree));
+		return (echo_nflag(tree, fd));
 	}
 	else
-		return (echo_noflag(tree));
+		return (echo_noflag(tree, fd));
 }
