@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 16:07:09 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/03 16:52:28 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int			minishell_export(t_data *data);
 int			export_with_param(t_data *data);
 int			export_no_param(t_data *data);
 char		*export_equal_check(char *str);
-int			export_name_check(char *str, char *ptr_equal);
 
 /*
 	* Env
@@ -115,7 +114,9 @@ int			minishell_env(t_data *data);
 	* Unset
 */
 # define	UNSET_ERRID "\': not a valid identifier"
-int			minishell_unset(t_data *data);
+# define	UNSET_ERRFLAG "invalid option\n\
+							unset: usage: unset [-f] [-v] [name ...]"
+int			minishell_unset(t_data *data, t_token *input);
 
 /*
 	* Exit
@@ -142,5 +143,6 @@ int			save_env(
 int			check_flag(t_token *input);
 int			free_token(t_token *input, int return_status);
 void		ft_free_char2d(char **arr);
+int			env_name_check(char *str, char *ptr_equal);
 
 #endif
