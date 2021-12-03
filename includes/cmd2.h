@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 16:52:28 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/03 17:26:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int			minishell_env(t_data *data);
 /*
 	* Unset
 */
-# define	UNSET_ERRID "\': not a valid identifier"
+# define	UNSET_ERRID ": not a valid identifier"
 # define	UNSET_ERRFLAG "invalid option\n\
 							unset: usage: unset [-f] [-v] [name ...]"
 int			minishell_unset(t_data *data, t_token *input);
