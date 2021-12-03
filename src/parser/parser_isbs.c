@@ -6,13 +6,13 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 14:21:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 01:01:15 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/03 23:49:03 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int count_spclcmd_input(const char *str, int str_l)
+static int count_spclcmd_input(const char *str)
 {
 	int ix;
 	int ret;
@@ -25,7 +25,7 @@ static int count_spclcmd_input(const char *str, int str_l)
 	while (str[ix])
 	{
 		is_inquoted(str, ix, &quote_flag);
-		check = is_pipe_redirection(str, ix, str_l);
+		check = is_pipe_redirection(str, ix);
 		if (!quote_flag && check)
 		{
 			if (check != 0)
@@ -53,7 +53,7 @@ static void cp_inserted_cmd2(char *dst, const char *str, int *ix, int *jx)
 	dst[(*ix)++] = ' ';
 }
 
-static int do_insert_space(const char *str, t_data *data, int str_l)
+static int do_insert_space(const char *str, t_data *data)
 {
 	int ix;
 	int jx;
@@ -67,7 +67,7 @@ static int do_insert_space(const char *str, t_data *data, int str_l)
 	while (str[jx])
 	{
 		is_inquoted(str, jx, &quote_flag);
-		check = is_pipe_redirection(str, jx, str_l);
+		check = is_pipe_redirection(str, jx);
 		if (check == 0 || quote_flag)
 			data->ip->isbs_ret[ix++] = str[jx++];
 		else if (check == 1)
@@ -85,7 +85,7 @@ int insert_space_beside_spclcmd(const char *str, t_data *data)
 
 	(void)data;
 	str_l = ft_strlen(str);
-	count_spclcmd = count_spclcmd_input(str, str_l);
+	count_spclcmd = count_spclcmd_input(str);
 	if (count_spclcmd == 0)
 		data->ip->isbs_ret = ft_strdup(str);
 	else if (count_spclcmd)
@@ -93,7 +93,7 @@ int insert_space_beside_spclcmd(const char *str, t_data *data)
 		data->ip->isbs_ret = (char *)malloc(sizeof(char) * (str_l + (count_spclcmd * 2) + 1));
 		if (!data->ip->isbs_ret)
 			return (ERROR_OCCURED);
-		do_insert_space(str, data, str_l);
+		do_insert_space(str, data);
 	}
 	return (0);
 }

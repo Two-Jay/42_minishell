@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:06:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/03 22:40:17 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/03 23:49:45 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char *flag_clicker(char *ret, int ix, int *flag, int base)
 		*flag = base;
 	if (*flag == base || *flag == 0)
 		return (ret + ix);
+	return (NULL);
 }
 
 char *search_quote(char *ret, int *flag)
