@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/30 17:09:14 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/03 09:42:05 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int free_ip(t_input_process *ip, int errflag)
 	ix = -1;
 	if (ip->scenv_ret)
 		free(ip->scenv_ret);
+	if (ip->qtrim_ret)
+		free(ip->qtrim_ret);
 	if (ip->isbs_ret)
 		free(ip->isbs_ret);
 	if (ip->split_ret)
@@ -66,7 +68,6 @@ void print_token(t_data *data)
 	}
 	tri(lst_len);
 }
-
 
 int set_input_process_struct(t_data *data)
 {

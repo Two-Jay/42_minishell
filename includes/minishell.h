@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/02 17:25:59 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/02 18:56:10 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ char	*ft_strncpy(char *s1, const char *s2, size_t n);
 int		is_closed(const char *input);
 int		parse_input_string(const char *str, t_data *data);
 int		setup_and_check_env(const char *str, t_data *data);
+int quote_trim(char *str, t_data *data);
 int		replace_env_in_input(char *dst, const char *str, t_data *data);
 int		insert_space_beside_spclcmd(const char *str, t_data *data);
 int		split_by_chunk(const char *str, t_data *data);

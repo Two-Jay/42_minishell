@@ -6,7 +6,7 @@
 #    By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/11/26 03:53:20 by jekim            ###   ########.fr        #
+#    Updated: 2021/12/02 22:33:05 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,17 +33,17 @@ PARSER_FILE 	=	parser.c \
 					parser_isbs.c \
 					parser_split.c	\
 					parser_lst.c \
+					parser_quotetrim.c \
 					parser_replace_env.c \
 					parser_type.c \
 					parser_util.c
 
 UTILS_FILE		=	utils.c \
-					builtin_error.c \
 					ft_strncpy.c \
 					ft_strndup.c \
 					find_env.c
 
-CMD_FILE		=	exit.c 	\
+CMD_FILE		=	\
 
 MAIN_OBJ_FILE	=	$(SRC_FILE:.c=.o)
 PARSER_OBJ_FILE	=	$(PARSER_FILE:.c=.o)
