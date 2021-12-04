@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 13:10:20 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:13:11 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,8 @@ int			minishell_export(t_data *data, t_token *input);
 /*
 	* Env
 */
-# define	ENV_ERROPT 0
-# define	ENV_ERRDIR 1
-int			minishell_env(t_data *data);
+# define	ENV_ERROPT ": illegal option\nusage: env"
+int			minishell_env(t_data *data, t_token *input);
 
 /*
 	* Unset
