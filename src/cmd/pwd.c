@@ -6,21 +6,17 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 19:59:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 14:55:15 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 15:00:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-int	minishell_pwd(t_token *input)
+int	pwd_getpwd(t_token *input)
 {
 	char	*pwd;
 	int		fd;
 
-	if (input->next
-		&& (input->next->type != REDIRECT && input->next->type != PIPE))
-		return (builtin_error("shell: pwd",
-				ft_strjoin(input->next->content, PWD_ERROPT), 1));
 	fd = get_redir_fd(input);
 	if (fd < 0)
 		return (1);
@@ -30,5 +26,16 @@ int	minishell_pwd(t_token *input)
 	ft_putstr_fd(pwd, fd);
 	write(fd, "\n", 1);
 	free(pwd);
+	if (fd != STDOUT_FILENO)
+		close(fd);
 	return (0);
+}
+
+int	minishell_pwd(t_token *input)
+{
+	if (input->next
+		&& (input->next->type != REDIRECT && input->next->type != PIPE))
+		return (builtin_error("shell: pwd",
+				ft_strjoin(input->next->content, PWD_ERROPT), 1));
+	return (pwd_getpwd(input->next));
 }
