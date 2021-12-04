@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 06:10:58 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 07:18:20 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int parse_input_string(const char *str, t_data *data)
 		|| insert_space_beside_spclcmd(data->ip->scenv_ret, data)
 		|| split_by_chunk(data->ip->isbs_ret, data)
 		|| build_input_token_lst(data->ip->split_ret, data)
+		|| delete_nullish_token(data->input->next)
 		|| assign_type_input_token_lst(data->input->next))
 		return (free_ip(data->ip, ERROR_OCCURED));
 	print_token(data);
