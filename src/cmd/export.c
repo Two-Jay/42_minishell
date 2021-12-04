@@ -6,13 +6,13 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 13:06:31 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:05:10 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-int	export_no_param(t_data *data, t_token *input)
+static int	export_no_param(t_data *data, t_token *input)
 {
 	t_envlst	*node_tmp;
 	int			fd;
@@ -40,7 +40,7 @@ int	export_no_param(t_data *data, t_token *input)
 	return (0);
 }
 
-int	export_traverse(t_data *data, t_token *input)
+static int	export_traverse(t_data *data, t_token *input)
 {
 	char		*ptr_equal;
 	char		*env_key;
