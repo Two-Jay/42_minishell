@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 14:05:10 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:15:46 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,19 @@ static int	export_traverse(t_data *data, t_token *input)
 
 int	minishell_export(t_data *data, t_token *input)
 {
-	t_token	*tree;
 	int		return_value;
 
 	if (check_flag(input))
 		return (builtin_error("shell: export",
 				ft_strjoin(input->next->content, EXPORT_ERROPT), 2));
 	return_value = 0;
-	tree = input->next;
-	if (!tree || tree->type != STR)
-		return (export_no_param(data, tree));
-	while (tree && tree->type == STR)
+	input = input->next;
+	if (!input || input->type != STR)
+		return (export_no_param(data, input));
+	while (input && input->type == STR)
 	{
-		return_value = export_traverse(data, tree);
-		tree = tree->next;
+		return_value = export_traverse(data, input);
+		input = input->next;
 	}
 	return (return_value);
 }
