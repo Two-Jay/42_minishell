@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:54:24 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 02:00:49 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 05:56:56 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int split_by_chunk(const char *str, t_data *data)
 
 	ix = 0;
 	ret_l = get_ret_l(str);
+	trs(str);
 	data->ip->split_ret = (char **)malloc(sizeof(char *) * (ret_l + 1));
 	if (!data->ip->split_ret)
 		return (ERROR_OCCURED);

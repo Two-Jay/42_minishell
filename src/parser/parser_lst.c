@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 17:12:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 03:43:08 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 06:18:33 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,21 @@ int set_dummy_head_lst(t_data *data)
 
 int build_input_token_lst(char **split_ret, t_data *data)
 {
-	int ix;
+	int		ix;
+	char	*token_value;
 	t_token	*lst;
 	t_token	*tmp;
 
 	ix = -1;
+	token_value = NULL;
 	if (set_dummy_head_lst(data))
 		return (ERROR_OCCURED);
 	lst = data->input;
+
 	while (split_ret[++ix])
-	{
-		tmp = create_input_token(split_ret[ix], ix + 1);
-		// assign_input_token_type(tmp);
+	{ 
+		token_value = quote_trim(split_ret[ix], data);
+		tmp = create_input_token(token_value, ix + 1);
 		tmp->prev = lst;
 		lst->next = tmp;
 		lst = tmp;

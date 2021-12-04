@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 03:42:40 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/03 23:59:05 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 06:13:19 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_state define_type_input_token(t_token *token)
 {
 	t_state ret;
  
+	trs(token->content);
 	if (is_redirection(token->content, 0))
 		ret = REDIRECT;
 	else if (is_CMD(token))
