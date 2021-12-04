@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 14:55:59 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 17:33:19 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,11 @@ int			minishell_exit(t_data *data, t_token *input);
 # define	SHELL_ERRALLOC "failed to allocate memory"
 char		*trim_quote(char *str);
 char		**trim_quote_and_parse(char *str);
-char		*get_envname(char *str);
 int			get_redir_fd(t_token *input);
-t_envlst	*find_env(char *envname, t_data *data);
 int			builtin_error(char *cmd, char *error_str, int dollar_q);
 int			child_error(char *cmd, char *error_str, int dollar_q);
+t_envlst	*find_env(char *envname, t_data *data);
+char		*get_env(char *envname, t_data *data);
 int			env_name_check(char *str, char *ptr_equal);
 char		*env_equal_check(char *str);
 int			save_env(
