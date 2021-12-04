@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:06:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 06:12:12 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 08:45:48 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,5 @@ char *quote_trim(char *str, t_data *data)
 	ret = strdup_as_checked(str, data);
 	if (!ret)
 		return (free_checker(data), NULL);
-	;
 	return (free_checker(data), ret);
 }
