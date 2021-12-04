@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:06:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/04 16:45:37 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/04 16:50:11 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ int get_ret_buf_length(t_data *data)
 		if (data->ip->qtrim_checker[ix] == 0)
 			ret++;
 	}
-	tri(ret);
 	return (ret);
 }
 
@@ -178,7 +177,5 @@ int quote_trim(char *str, t_data *data)
 		|| strdup_as_checked(str, data))
 		return (ERROR_OCCURED);
 	trs(data->ip->qtrim_ret);
-	trp(data->ip->qtrim_ret);
-	print_condition(data->ip->qtrim_checker);
 	return (0);
 }
