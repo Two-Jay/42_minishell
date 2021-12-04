@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/03 23:48:11 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/03 23:58:42 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,5 +147,7 @@ int		is_double_quote(const char *str, int ix);
 int		is_single_quote(const char *str, int ix);
 int		is_quotation(const char *str, int ix);
 int		ft_putstr_fd_error(char *str, int fd, int error_code);
+int		is_redirection(const char *str, int ix);
+int 	is_pipe(const char *str, int ix);
 
 #endif
