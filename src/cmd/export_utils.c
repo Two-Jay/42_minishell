@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 19:12:04 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 20:22:47 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 12:23:54 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*export_equal_check(char *str)
 		ptr_equal++;
 	}
 	if (!*ptr_equal)
-		return (0);
+		return (NULL);
 	return (ptr_equal);
 }
 
