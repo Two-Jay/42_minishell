@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 00:11:58 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 12:08:58 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static int	echo_noflag(t_token *tree, int fd)
 		tree = tree->next;
 	}
 	write(fd, "\n", 1);
-	close(fd);
+	if (fd != STDOUT_FILENO)
+		close(fd);
 	return (0);
 }
 
@@ -47,7 +48,8 @@ static int	echo_nflag(t_token *tree, int fd)
 		write(fd, " ", 1);
 		tree = tree->next;
 	}
-	close(fd);
+	if (fd != STDOUT_FILENO)
+		close(fd);
 	return (0);
 }
 
