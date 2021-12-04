@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 17:26:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 12:38:35 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,10 @@ int			minishell_echo(t_token *input);
 /*
 	* Export
 */
-# define	EXPORT_ERRID "\': not a valid ident\ifier"
-# define	EXPORT_ERROPT "invalid option\
-\nexport: usage: export [name[=value] ...]"
-int			minishell_export(t_data *data);
-int			export_with_param(t_data *data);
-int			export_no_param(t_data *data);
-char		*export_equal_check(char *str);
+# define	EXPORT_ERRID ": not a valid identifier"
+# define	EXPORT_ERROPT ": invalid option\n\
+							export: usage: export [name[=value] ...]"
+int			minishell_export(t_data *data, t_token *input);
 
 /*
 	* Env
@@ -114,8 +111,8 @@ int			minishell_env(t_data *data);
 	* Unset
 */
 # define	UNSET_ERRID ": not a valid identifier"
-# define	UNSET_ERRFLAG "invalid option\n\
-							unset: usage: unset [-f] [-v] [name ...]"
+# define	UNSET_ERROPT ": invalid option\n\
+							unset: usage: unset [name ...]"
 int			minishell_unset(t_data *data, t_token *input);
 
 /*
@@ -128,6 +125,7 @@ int			minishell_exit(t_data *data, t_token *input);
 /*
 	* Utilities
 */
+# define	SHELL_ERRALLOC "failed to allocate memory"
 char		*trim_quote(char *str);
 char		**trim_quote_and_parse(char *str);
 char		*get_envname(char *str);
@@ -135,6 +133,8 @@ int			get_redir_fd(t_token *input);
 t_envlst	*find_env(char *envname, t_data *data);
 int			builtin_error(char *cmd, char *error_str, int dollar_q);
 int			child_error(char *cmd, char *error_str, int dollar_q);
+int			env_name_check(char *str, char *ptr_equal);
+char		*env_equal_check(char *str);
 int			save_env(
 				t_data *data,
 				char *env_key,
@@ -143,6 +143,5 @@ int			save_env(
 int			check_flag(t_token *input);
 int			free_token(t_token *input, int return_status);
 void		ft_free_char2d(char **arr);
-int			env_name_check(char *str, char *ptr_equal);
 
 #endif

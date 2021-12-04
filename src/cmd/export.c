@@ -6,90 +6,82 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/11/27 15:02:09 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 12:37:01 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-static int	export_printerr(char *str)
-{
-	write(2, "export: `", 9);
-	write(2, str, ft_strlen(str));
-	write(2, EXPORT_ERRID, ft_strlen(EXPORT_ERRID));
-	return (-1);
-}
-
-int	export_no_param(t_data *data)
+int	export_no_param(t_data *data, t_token *input)
 {
 	t_envlst	*node_tmp;
+	int			fd;
 
 	node_tmp = data->envlst;
-	if (!node_tmp)
-		return (-1);
-	while (node_tmp->next != NULL)
+	fd = get_redir_fd(input);
+	while (node_tmp)
 	{
 		if (node_tmp->env_state == ENV || node_tmp->env_state == EXPORT_ONLY)
 		{
-			write(1, node_tmp->key, ft_strlen(node_tmp->key));
+			ft_putstr_fd("declare -x", fd);
+			ft_putstr_fd(node_tmp->key, fd);
 			if (node_tmp->env_state == ENV)
 			{
-				write(1, "=\"", 2);
-				ft_putstr_fd(node_tmp->value, 1);
-				write(1, "\"", 1);
+				ft_putstr_fd("=\"", fd);
+				ft_putstr_fd(node_tmp->value, fd);
+				ft_putstr_fd("\"", fd);
 			}
-			write(1, "\n", 2);
+			ft_putstr_fd("\n", fd);
 		}
 		node_tmp = node_tmp->next;
 	}
+	if (fd != STDOUT_FILENO)
+		close(fd);
 	return (0);
 }
 
-int	export_with_param(t_data *data, t_token *tree)
+int	export_traverse(t_data *data, t_token *input)
 {
-	char		*str;
 	char		*ptr_equal;
 	char		*env_key;
 	char		*env_value;
 	t_env_state	flag;
 
-	str = tree->content;
-	ptr_equal = export_equal_check(str);
-	env_value = 0;
-	if (export_name_check(str, ptr_equal))
+	ptr_equal = export_equal_check(input->content);
+	env_value = NULL;
+	if (!env_name_check(input->content, ptr_equal))
+		return (builtin_error(
+				"shell: export", ft_strjoin(input->content, EXPORT_ERRID), 1));
+	if (!ptr_equal)
 	{
-		if (!ptr_equal)
-		{
-			env_key = ft_strdup(str);
-			flag = EXPORT_ONLY;
-		}
-		else
-		{
-			env_key = ft_strndup(str, ptr_equal - str);
-			env_value = trim_quote(ptr_equal + 1);
-			flag = ENV;
-		}
-		return (save_env(data, env_key, env_value, flag));
+		env_key = ft_strdup(input->content);
+		flag = EXPORT_ONLY;
 	}
-	return (export_printerr(str));
+	else
+	{
+		env_key = ft_strndup(input->content, ptr_equal - input->content);
+		env_value = ft_strdup(ptr_equal + 1);
+		flag = ENV;
+	}
+	return (save_env(data, env_key, env_value, flag));
 }
 
-int	minishell_export(t_data *data)
+int	minishell_export(t_data *data, t_token *input)
 {
 	t_token	*tree;
 	int		return_value;
 
-	if (!data->input->next)
-		return (export_no_param(data));
-	else
+	return_value = 0;
+	tree = input->next;
+	if (check_flag(input))
+		return (builtin_error("shell: export",
+				ft_strjoin(tree->next->content, EXPORT_ERROPT), 2));
+	if (!input->next)
+		return (export_no_param(data, input));
+	while (tree && tree->type == STR)
 	{
-		tree = data->input->next;
-		while (tree)
-		{
-			return_value = export_with_param(data, tree);
-			if (return_value < 0)
-				return (return_value);
-			tree = tree->next;
-		}
+		return_value = export_traverse(data, tree);
+		tree = tree->next;
 	}
+	return (return_value);
 }
