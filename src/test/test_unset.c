@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:13:29 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 17:27:04 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 12:49:32 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(void)
 	input[0]->prev = NULL;
 	//test
 	input[0]->content = ft_strdup("unset");
-	input[1]->type = CMD;
+	input[0]->type = CMD;
 	input[1]->content = ft_strdup("a");
 	input[1]->type = STR;
 	input[2]->content = ft_strdup("1231241");
