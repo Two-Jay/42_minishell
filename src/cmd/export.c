@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 12:37:01 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 13:06:31 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	export_no_param(t_data *data, t_token *input)
 	{
 		if (node_tmp->env_state == ENV || node_tmp->env_state == EXPORT_ONLY)
 		{
-			ft_putstr_fd("declare -x", fd);
+			ft_putstr_fd("declare -x ", fd);
 			ft_putstr_fd(node_tmp->key, fd);
 			if (node_tmp->env_state == ENV)
 			{
@@ -47,7 +47,7 @@ int	export_traverse(t_data *data, t_token *input)
 	char		*env_value;
 	t_env_state	flag;
 
-	ptr_equal = export_equal_check(input->content);
+	ptr_equal = env_equal_check(input->content);
 	env_value = NULL;
 	if (!env_name_check(input->content, ptr_equal))
 		return (builtin_error(
@@ -71,13 +71,13 @@ int	minishell_export(t_data *data, t_token *input)
 	t_token	*tree;
 	int		return_value;
 
-	return_value = 0;
-	tree = input->next;
 	if (check_flag(input))
 		return (builtin_error("shell: export",
-				ft_strjoin(tree->next->content, EXPORT_ERROPT), 2));
-	if (!input->next)
-		return (export_no_param(data, input));
+				ft_strjoin(input->next->content, EXPORT_ERROPT), 2));
+	return_value = 0;
+	tree = input->next;
+	if (!tree || tree->type != STR)
+		return (export_no_param(data, tree));
 	while (tree && tree->type == STR)
 	{
 		return_value = export_traverse(data, tree);

@@ -6,7 +6,7 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/12/03 17:19:12 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/04 12:48:57 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,11 @@ SRCS_PWD		=	test_pwd.c\
 SRCS_EXIT		=	test_exit.c\
 					../cmd/exit.c ../utils/builtin_error.c
 #SRCS_ENV		=
-#SRCS_EXPORT	=
+SRCS_EXPORT		=	test_export.c\
+					../cmd/export.c\
+					../utils/builtin_error.c ../utils/find_env.c ../utils/check_flag.c\
+					../utils/save_env.c ../utils/free_token.c ../../libft/ft_strequel.c\
+					../utils/env_name_check.c ../utils/get_redir_fd.c
 SRCS_UNSET		=	test_unset.c\
 					../cmd/unset.c\
 					../utils/builtin_error.c ../utils/find_env.c ../utils/check_flag.c\
