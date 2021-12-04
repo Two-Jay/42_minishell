@@ -6,32 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 11:07:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 17:33:31 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 17:35:10 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
-
-static int	getenv_len(char *str)
-{
-	int	len;
-
-	len = 0;
-	while (*str)
-	{
-		if (*str == '$')
-		{
-			while (*str != ' ' && *str != 0)
-			{
-				len++;
-				str++;
-			}
-			break ;
-		}
-		str++;
-	}
-	return (len);
-}
 
 t_envlst	*find_env(char *envname, t_data *data)
 {
