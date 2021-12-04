@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 17:40:00 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:51:12 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void	pipe_child(
 		t_data *data, t_token *input, t_pipe *struct_pipe, int fd[2])
 {
 	if (dup2(struct_pipe->fd_tmp, STDIN_FILENO) < 0)
-		exit(builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 1));
+		exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 	if (struct_pipe->index + 1 < struct_pipe->max_index)
 		if (dup2(fd[PIPE_WRITE], STDOUT_FILENO) < 0)
-			exit(builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 1));
+			exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 	if (struct_pipe->fd_tmp != STDIN_FILENO)
 		close(struct_pipe->fd_tmp);
 	if (struct_pipe->index + 1 < struct_pipe->max_index)
@@ -80,17 +80,17 @@ int	minishell_pipe(t_data *data, char *envp[])
 	input = data->input;
 	struct_pipe = pipe_struct(input, envp);
 	if (!struct_pipe)
-		return (builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 1));
+		return (builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 	while (struct_pipe->index < struct_pipe->max_index)
 	{
 		while (input->type != CMD && input)
 			input = input->next;
 		if (pipe_makepipe(data, input, struct_pipe) < 0)
-			return (builtin_error(data, "pipe", ft_strdup(PIPE_ERR), 1));
+			return (builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 		input = input->next;
 		struct_pipe->index++;
 	}
 	pipe_wait(data, struct_pipe);
 	free(struct_pipe);
-	return (free_token(input, 0));
+	return (free_token(data->input, 0));
 }

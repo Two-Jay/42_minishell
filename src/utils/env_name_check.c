@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
+/*   env_name_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/16 19:12:04 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/10/16 20:22:47 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/12/03 16:38:57 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/12/04 12:34:36 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-char	*export_equal_check(char *str)
+char	*env_equal_check(char *str)
 {
 	char	*ptr_equal;
 
@@ -24,11 +24,11 @@ char	*export_equal_check(char *str)
 		ptr_equal++;
 	}
 	if (!*ptr_equal)
-		return (0);
+		return (NULL);
 	return (ptr_equal);
 }
 
-int	export_name_check(char *str, char *ptr_equal)
+int	env_name_check(char *str, char *ptr_equal)
 {
 	if (!ft_isalpha(*str) && *str != '_')
 		return (0);

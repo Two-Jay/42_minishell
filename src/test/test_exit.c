@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_pwd.c                                         :+:      :+:    :+:   */
+/*   test_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 23:56:22 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 15:01:45 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/12/03 16:05:22 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/12/04 14:35:46 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(void)
 {
 	t_data	*data;
-	t_token	*input[5];
+	t_token	*input[3];
 
 	data = malloc(sizeof(t_data));
 	for (int i = 0; i < 3; i++)
@@ -32,19 +32,14 @@ int	main(void)
 	}
 	input[2]->next = NULL;
 	input[0]->prev = NULL;
-	input[0]->content = ft_strdup("pwd");
+	input[0]->content = ft_strdup("exit");
 	input[0]->type = CMD;
-	input[1]->content = ft_strdup(">");
-	input[1]->type = REDIRECT;
-	input[2]->content = ft_strdup("a");
-	input[2]->type = FILEPATH;
+	input[1]->content = ft_strdup("1243124210");
+	input[1]->type = STR;
+	input[1]->next = NULL;
+	input[2]->content = ft_strdup("150");
+	input[2]->type = STR;
 	data->input = input[0];
-	minishell_pwd(data->input);
-	for (int i = 0; i < 3; i++)
-	{
-		free(input[i]->content);
-		free(input[i]);
-	}
-	free(data);
-	system("leaks a.out");
+	minishell_exit(data, data->input);
+	printf("$? : %d\n", data->dq);
 }

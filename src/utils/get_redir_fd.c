@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 00:10:43 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 15:01:42 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ t_token	*get_redir_node(t_token *input)
 	t_token	*node_temp;
 
 	node_temp = input;
-	if (node_temp->type == CMD)
-		node_temp = node_temp->next;
+	if (!node_temp)
+		return (NULL);
 	while (node_temp && node_temp->type != CMD && node_temp->type != REDIRECT)
 		node_temp = node_temp->next;
-	if (!input || input->type == CMD)
+	if (!node_temp || node_temp->type == CMD)
 		return (NULL);
 	return (node_temp);
 }
