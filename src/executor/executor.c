@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 14:43:25 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 17:40:28 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,13 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 {
 	char	*cmd_path;
 	char	**exec_argv;
+	int		fd;
 
+	fd = get_redir_fd(input);
+	if (dup2(fd, STDOUT_FILENO) < 0)
+		exit(child_error("shell", ft_strdup(PIPE_ERR), 1));
+	if (fd != STDOUT_FILENO)
+		close(fd);
 	cmd_path = exec_getcmd(input->content, envp);
 	if (!cmd_path)
 		exit(data->dq);
