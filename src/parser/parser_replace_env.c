@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/26 01:58:54 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/04 14:37:06 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,5 +223,6 @@ int setup_and_check_env(const char *str, t_data *data)
 		}
 	}
 	data->ip->scenv_ret = dst;
+	trs(data->ip->scenv_ret);
 	return (0);
 }
