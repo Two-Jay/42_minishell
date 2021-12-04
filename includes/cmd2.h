@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 14:13:11 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:30:10 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_pipe		*pipe_struct(t_token *input, char *envp[]);
 char		**pipe_insert_arr(t_token *input, char *cmd_path);
 
 /*
-	* cd & pwd
+	* cd & pwd & echo
 */
 # define	CD_ERRNODIR ": No such file or directory"
 # define	CD_ERROPT ": invalid option\ncd : usage: cd [dir]"
@@ -86,9 +86,6 @@ char		**pipe_insert_arr(t_token *input, char *cmd_path);
 # define	CD_SUCCESS 0
 int			minishell_cd(t_data *data, t_token *input);
 int			minishell_pwd(t_token *input);
-/*
-	* echo
-*/
 int			minishell_echo(t_token *input);
 
 /*
