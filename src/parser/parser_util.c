@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:37:34 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/30 16:57:23 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/03 23:49:12 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int is_pipe_redirection(const char *str, int ix, int str_l)
+int is_redirection(const char *str, int ix)
 {
-	if (str[ix] == '|')
+	if (ft_strequel(str + ix, ">") || ft_strequel(str + ix, "<"))
 		return (1);
-	if (str[ix] == '>')
-	{
-		if (ix < str_l - 1 && str[ix + 1] == '>')
-			return (2);
-		return (1);
-	}
-	if (str[ix] == '<')
-	{
-		if (ix < str_l - 1 && str[ix + 1] == '<')
-			return (2);
-		return (1);
-	}
+	if (ft_strequel(str + ix, ">>") || ft_strequel(str + ix, "<<"))
+		return (2);
 	return (0);
+}
+
+int is_pipe(const char *str, int ix)
+{
+	return (ft_strequel(str + ix, "|"));
+}
+
+int is_pipe_redirection(const char *str, int ix)
+{
+	return (is_pipe(str, ix) || is_redirection(str, ix));
 }
 
 int is_quotation(const char *str, int ix)
