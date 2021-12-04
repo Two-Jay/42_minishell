@@ -6,13 +6,13 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 19:59:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 15:00:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 15:02:42 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-int	pwd_getpwd(t_token *input)
+static int	pwd_getpwd(t_token *input)
 {
 	char	*pwd;
 	int		fd;
