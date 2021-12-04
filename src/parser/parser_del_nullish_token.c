@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:22:20 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 07:40:42 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 08:41:11 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ int get_token_l(t_token *token)
 
 t_token *get_last_token(t_token *token)
 {
-	int		ix;
 	t_token	*lst;
 
-	ix = 0;
 	lst = token;
-	while (lst)
+	while (lst->next)
 		lst = lst->next;
 	return (lst);
 }
@@ -51,15 +49,13 @@ int delete_nullish_token(t_token *token)
 	else
 	{
 		lst = get_last_token(token);
-		while (lst)
+		while (lst->content == NULL)
 		{
-			tri(lst->ix);
-			if (lst->content)
-				break ;
 			tmp = lst->prev;
-			free(token);
+			free(lst);
 			lst = tmp;
 		}
+		lst->next = NULL;
 	}
 	return (0);
 }
