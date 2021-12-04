@@ -6,11 +6,18 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 00:17:40 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 18:10:55 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
+
+static int	cd_no_argument(t_data *data)
+{
+	if (!find_env("HOME", data) || chdir(find_env("HOME", data)->value) < 0)
+		return (CD_HOMENOTSET);
+	return (CD_SUCCESS);
+}
 
 static int	cd_move_directory(t_data *data)
 {
@@ -19,12 +26,13 @@ static int	cd_move_directory(t_data *data)
 	str = data->input->next->content;
 	if (ft_strequel(str, "~"))
 	{
-		if (chdir(find_env("HOME", data)->value) < 0)
+		if (!find_env("HOME", data) || chdir(find_env("HOME", data)->value) < 0)
 			return (CD_HOMENOTSET);
 	}
 	else if (ft_strequel(str, "-"))
 	{
-		if (chdir(find_env("OLDPWD", data)->value) < 0)
+		if (!find_env("OLDPWD", data)
+			|| chdir(find_env("OLDPWD", data)->value) < 0)
 			return (CD_PWDNOTSET);
 	}
 	else
@@ -59,14 +67,14 @@ int	minishell_cd(t_data *data, t_token *input)
 {
 	int		result_movedir;
 
-	if (!input->next)
-		return (0);
 	if (check_flag(input))
 		return (builtin_error(
 				"cd", ft_strjoin(input->next->content, CD_ERROPT), 1));
-	if (input->next->type == PIPE || input->next->type == REDIRECT)
-		return (0);
-	result_movedir = cd_move_directory(data);
+	if (!input->next
+		|| input->next->type == PIPE || input->next->type == REDIRECT)
+		result_movedir = cd_no_argument(data);
+	else
+		result_movedir = cd_move_directory(data);
 	if (result_movedir == CD_PWDNOTSET)
 		return (builtin_error("cd", ft_strdup(CD_ERROLD), 1));
 	if (result_movedir == CD_HOMENOTSET)
