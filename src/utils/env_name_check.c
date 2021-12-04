@@ -6,11 +6,27 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:38:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 16:39:43 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 12:34:36 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
+
+char	*env_equal_check(char *str)
+{
+	char	*ptr_equal;
+
+	ptr_equal = str;
+	while (*ptr_equal)
+	{
+		if (*ptr_equal == '=')
+			break ;
+		ptr_equal++;
+	}
+	if (!*ptr_equal)
+		return (NULL);
+	return (ptr_equal);
+}
 
 int	env_name_check(char *str, char *ptr_equal)
 {
