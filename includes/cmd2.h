@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 14:30:10 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:42:38 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_pipe
 # define	EXEC_NOTFILE -1
 int			exec_builtin(t_data *data, t_token *input);
 int			exec_program(t_data *data, t_token *input, char *envp[]);
-char		*exec_getcmd(t_data *data, char *cmd, char *envp[]);
+char		*exec_getcmd(char *cmd, char *envp[]);
 char		*if_file(char *cmd);
 int			cmd_access(char *path);
 

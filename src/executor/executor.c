@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 00:18:14 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:43:25 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ int	exec_builtin(t_data *data, t_token *input)
 	int	builtin_return;
 
 	builtin_return = 0;
+	(void)input;
+	/*
 	if (ft_strequel(input->content, "cd"))
 		builtin_return = minishell_cd(data, input);
 	else if (ft_strequel(input->content, "echo"))
 		builtin_return = minishell_echo(input);
 	else if (ft_strequel(input->content, "pwd"))
-		builtin_return = minishell_pwd(data, input);
-	/*
+		builtin_return = minishell_pwd(input);
 	else if (ft_strequel(input->content, "env"))
 		builtin_return = minishell_env(data);
 	else if (ft_strequel(input->content, "exit"))
@@ -58,7 +59,7 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 	char	*cmd_path;
 	char	**exec_argv;
 
-	cmd_path = exec_getcmd(data, input->content, envp);
+	cmd_path = exec_getcmd(input->content, envp);
 	if (!cmd_path)
 		exit(data->dq);
 	exec_argv = pipe_insert_arr(input, cmd_path);

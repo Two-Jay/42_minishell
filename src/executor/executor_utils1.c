@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 17:32:26 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:42:01 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*check_path(char **path, char *cmd)
 	return (temp_cmd);
 }
 
-char	*exec_getcmd(t_data *data, char *cmd, char *envp[])
+char	*exec_getcmd(char *cmd, char *envp[])
 {
 	char	**path;
 	char	*cmd_path;
@@ -73,13 +73,10 @@ char	*exec_getcmd(t_data *data, char *cmd, char *envp[])
 	if (cmd_path)
 		return (cmd_path);
 	if (!ft_strchr(cmd, '/'))
-		child_error(
-			data, "shell", ft_strjoin(cmd, EXEC_ERRNOCMD), 127);
+		child_error("shell", ft_strjoin(cmd, EXEC_ERRNOCMD), 127);
 	else if (cmd_access(cmd) == EXEC_ISDIR)
-		child_error(
-			data, "shell", ft_strjoin(cmd, EXEC_ERRDIR), 126);
+		child_error("shell", ft_strjoin(cmd, EXEC_ERRDIR), 126);
 	else
-		child_error(
-			data, "shell", ft_strjoin(cmd, EXEC_ERRNODIR), 127);
+		child_error("shell", ft_strjoin(cmd, EXEC_ERRNODIR), 127);
 	return (NULL);
 }
