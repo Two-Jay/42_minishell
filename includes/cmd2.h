@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 13:07:30 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 13:10:20 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int			minishell_echo(t_token *input);
 */
 # define	EXPORT_ERRID ": not a valid identifier"
 # define	EXPORT_ERROPT ": invalid option\n\
-							export: usage: export [name[=value] ...]"
+export: usage: export [name[=value] ...]"
 int			minishell_export(t_data *data, t_token *input);
 
 /*
@@ -111,7 +111,7 @@ int			minishell_env(t_data *data);
 */
 # define	UNSET_ERRID ": not a valid identifier"
 # define	UNSET_ERROPT ": invalid option\n\
-							unset: usage: unset [name ...]"
+unset: usage: unset [name ...]"
 int			minishell_unset(t_data *data, t_token *input);
 
 /*

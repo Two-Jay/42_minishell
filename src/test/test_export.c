@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 12:41:54 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 12:59:27 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 13:09:54 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	main(void)
 	//test
 	input[0]->content = ft_strdup("export");
 	input[0]->type = CMD;
-	input[1]->content = ft_strdup("b=10");
-	input[1]->type = STR;
+	input[1]->content = ft_strdup("-a");
+	input[1]->type = FLAG;
 	input[2]->content = ft_strdup("c=50");
 	input[2]->type = STR;
 	input[3]->content = ft_strdup("123d=999");
