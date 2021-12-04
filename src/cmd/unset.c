@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 20:13:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 17:26:14 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 11:53:09 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	minishell_unset(t_data *data, t_token *input)
 	tree = input->next;
 	if (check_flag(input))
 		return (builtin_error("shell: unset",
-				ft_strjoin(tree->next->content, UNSET_ERRFLAG), 2));
+				ft_strjoin(tree->next->content, UNSET_ERROPT), 2));
 	while (tree && tree->type == STR)
 	{
 		return_value = unset_traverse(data, tree);
