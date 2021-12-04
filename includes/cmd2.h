@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 14:42:38 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:53:55 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char		**pipe_insert_arr(t_token *input, char *cmd_path);
 # define	CD_ERROPT ": invalid option\ncd : usage: cd [dir]"
 # define	CD_ERROLD "OLDPWD not set"
 # define	CD_ERRHOME "HOME not set"
+# define	PWD_ERROPT": invalid option\npwd: usage: pwd"
 # define	PWD_ERRFAIL "failed to get current working directory"
 # define	CD_PWDNOTSET -42
 # define	CD_HOMENOTSET -4242
