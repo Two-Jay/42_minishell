@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:16:36 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/01 21:13:08 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:50:48 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,6 @@ int	main(int argc, char *argv[], char *envp[])
 	//printf("%d\n", pipe_count_cmd(input[0])); //check if pipe_count_cmd works
 	//printf("%d\n", pipe_count_param(input[2])); //check if pipe_count_paramworks
 	minishell_pipe(data, envp);
-	for (int i = 0; i < 8; i++)
-	{
-		free(input[i]->content);
-		free(input[i]);
-	}
 	free(data);
 	system("leaks a.out");
 }

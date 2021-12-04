@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:09:26 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 00:14:10 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/03 16:09:43 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	builtin_error(char *cmd, char *error_str, int dollar_q)
 	write(2, "\n", 1);
 	if (error_str)
 		free(error_str);
-	return (-1);
+	return (dollar_q);
 }
 
 int	child_error(char *cmd, char *error_str, int dollar_q)

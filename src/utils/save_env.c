@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 15:00:59 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 16:49:31 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 12:38:58 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	save_new_env(
 
 	node_new = malloc(sizeof(t_envlst));
 	if (!node_new)
-		return (-1);
+		return (builtin_error("shell", ft_strdup(SHELL_ERRALLOC), 1));
 	node_new->key = env_key;
 	node_new->value = env_value;
 	node_new->env_state = flag;
@@ -43,7 +43,7 @@ static int	save_new_env(
 		free(env_key);
 		free(env_value);
 		free(node_new);
-		return (-1);
+		return (builtin_error("shell", ft_strdup(SHELL_ERRALLOC), 1));
 	}
 	node_last->next = node_new;
 	return (0);

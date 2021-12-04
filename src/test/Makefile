@@ -6,15 +6,16 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/12/02 23:58:49 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/04 14:43:07 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror
 SRCS_PIPE		=	test_pipe.c\
-					../cmd/pipe.c ../utils/getcmd.c ../cmd/pipe_utils.c\
+					../cmd/pipe.c ../cmd/pipe_utils.c\
 					../utils/builtin_error.c ../utils/free_token.c ../utils/ft_free_char2d.c\
+					../../libft/ft_strequel.c\
 					../executor/executor.c ../executor/executor_utils1.c ../executor/executor_utils2.c
 SRCS_CD			=	test_cd.c\
 					../cmd/cd.c\
@@ -25,10 +26,21 @@ SRCS_ECHO		=	test_echo.c\
 SRCS_PWD		=	test_pwd.c\
 					../cmd/pwd.c ../utils/get_redir_fd.c ../../libft/ft_strequel.c\
 					../utils/builtin_error.c
-#SRCS_ENV		=
-#SRCS_EXIT		=
-#SRCS_EXPORT	=
-#SRCS_UNSET		=
+SRCS_EXIT		=	test_exit.c\
+					../cmd/exit.c ../utils/builtin_error.c
+SRCS_ENV		=	test_env.c\
+					../cmd/env.c ../utils/builtin_error.c ../utils/get_redir_fd.c\
+					../../libft/ft_strequel.c
+SRCS_EXPORT		=	test_export.c\
+					../cmd/export.c\
+					../utils/builtin_error.c ../utils/find_env.c ../utils/check_flag.c\
+					../utils/save_env.c ../utils/free_token.c ../../libft/ft_strequel.c\
+					../utils/env_name_check.c ../utils/get_redir_fd.c
+SRCS_UNSET		=	test_unset.c\
+					../cmd/unset.c\
+					../utils/builtin_error.c ../utils/find_env.c ../utils/check_flag.c\
+					../utils/save_env.c ../utils/free_token.c ../../libft/ft_strequel.c\
+					../utils/env_name_check.c
 #SRCS_EXEC	=
 #SRCS			=
 
@@ -40,7 +52,7 @@ OBJS_EXIT		=	$(SRCS_EXIT:.c=.o)
 OBJS_EXPORT		=	$(SRCS_EXPORT:.c=.o)
 OBJS_PWD		=	$(SRCS_PWD:.c=.o)
 OBJS_UNSET		=	$(SRCS_UNSET:.c=.o)
-OBJS_EXEC	=	$(SRCS_EXEC:.c=.o)
+OBJS_EXEC		=	$(SRCS_EXEC:.c=.o)
 OBJS			=	$(SRCS:.c=.o)
 
 TARGET			=	a.out
