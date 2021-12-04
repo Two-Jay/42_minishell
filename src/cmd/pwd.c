@@ -6,13 +6,13 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 19:59:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 00:16:23 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 13:07:20 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cmd2.h"
 
-int	minishell_pwd(t_data *data, t_token *input)
+int	minishell_pwd(t_token *input)
 {
 	char	*pwd;
 	int		fd;
