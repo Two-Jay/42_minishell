@@ -6,15 +6,16 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/12/04 14:18:47 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/04 14:43:07 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror
 SRCS_PIPE		=	test_pipe.c\
-					../cmd/pipe.c ../utils/getcmd.c ../cmd/pipe_utils.c\
+					../cmd/pipe.c ../cmd/pipe_utils.c\
 					../utils/builtin_error.c ../utils/free_token.c ../utils/ft_free_char2d.c\
+					../../libft/ft_strequel.c\
 					../executor/executor.c ../executor/executor_utils1.c ../executor/executor_utils2.c
 SRCS_CD			=	test_cd.c\
 					../cmd/cd.c\
@@ -51,7 +52,7 @@ OBJS_EXIT		=	$(SRCS_EXIT:.c=.o)
 OBJS_EXPORT		=	$(SRCS_EXPORT:.c=.o)
 OBJS_PWD		=	$(SRCS_PWD:.c=.o)
 OBJS_UNSET		=	$(SRCS_UNSET:.c=.o)
-OBJS_EXEC	=	$(SRCS_EXEC:.c=.o)
+OBJS_EXEC		=	$(SRCS_EXEC:.c=.o)
 OBJS			=	$(SRCS:.c=.o)
 
 TARGET			=	a.out

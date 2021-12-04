@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 12:41:54 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 13:09:54 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:38:48 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ int	main(void)
 	}
 	env1->key = ft_strdup("a");
 	env1->value = ft_strdup("10");
+	env1->env_state = ENV;
 	env1->next = NULL;
 	input[3]->next = NULL;
 	input[0]->prev = NULL;
 	//test
 	input[0]->content = ft_strdup("export");
 	input[0]->type = CMD;
-	input[1]->content = ft_strdup("-a");
-	input[1]->type = FLAG;
+	input[1]->content = ft_strdup("b=5343");
+	input[1]->type = STR;
 	input[2]->content = ft_strdup("c=50");
 	input[2]->type = STR;
 	input[3]->content = ft_strdup("123d=999");
@@ -51,6 +52,9 @@ int	main(void)
 	data->input = input[0];
 	data->envlst = env1;
 	minishell_export(data, data->input); //export (with arguments)
+	input[0]->next = NULL;
+	minishell_export(data, data->input); //export (no arguments)
+	input[0]->next = input[1];
 	free(input[1]->content);
 	free(input[2]->content);
 	input[1]->content = ft_strdup(">");
@@ -58,7 +62,7 @@ int	main(void)
 	input[2]->content = ft_strdup("test.txt");
 	input[2]->type = FILEPATH;
 	input[2]->next = NULL;
-	minishell_export(data, data->input); //export (no arguments)
+	minishell_export(data, data->input); //export (no arguments - redir)
 	free(input[0]->content);
 	free(input[0]);
 	free(input[1]->content);

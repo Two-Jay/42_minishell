@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 14:32:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 19:02:41 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:34:31 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ int	main(void)
 	input[0]->prev = NULL;
 	//test
 	input[0]->content = ft_strdup("cd");
-	input[1]->content = ft_strdup("-n");
-	input[1]->type = FLAG;
+	input[0]->type = CMD;
+	input[1]->content = ft_strdup("src/test");
+	input[1]->type = STR;
 	input[2]->content = ft_strdup("src");
 	input[2]->type = STR;
 	data->input = input[0];

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:56:22 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/02 23:59:39 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 15:01:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ int	main(void)
 	input[0]->prev = NULL;
 	input[0]->content = ft_strdup("pwd");
 	input[0]->type = CMD;
-	input[1]->content = ft_strdup(">>");
+	input[1]->content = ft_strdup(">");
 	input[1]->type = REDIRECT;
 	input[2]->content = ft_strdup("a");
 	input[2]->type = FILEPATH;
-	input[0]->next = NULL;
 	data->input = input[0];
-	minishell_pwd(data, data->input);
+	minishell_pwd(data->input);
 	for (int i = 0; i < 3; i++)
 	{
 		free(input[i]->content);

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:05:22 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 16:26:07 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:35:46 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(void)
 	input[0]->prev = NULL;
 	input[0]->content = ft_strdup("exit");
 	input[0]->type = CMD;
-	input[1]->content = ft_strdup("aaa");
+	input[1]->content = ft_strdup("1243124210");
 	input[1]->type = STR;
 	input[1]->next = NULL;
 	input[2]->content = ft_strdup("150");

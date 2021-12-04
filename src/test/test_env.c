@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 14:06:28 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 14:26:42 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/04 14:36:25 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	main(void)
 	input[2]->next = NULL;
 	input[0]->content = ft_strdup("env");
 	input[0]->type = CMD;
-	input[1]->content = ft_strdup(">>");
-	input[1]->type = REDIRECT;
+	input[1]->content = ft_strdup("asd");
+	input[1]->type = STR;
 	input[2]->content = ft_strdup("test.txt");
-	input[2]->type = FILEPATH;
+	input[2]->type = STR;
 	data->envlst = env[0];
 	data->input = input[0];
 	minishell_env(data, data->input);
