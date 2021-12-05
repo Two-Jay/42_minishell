@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:56:59 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 16:01:14 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 		exit(data->dq);
 	exec_argv = pipe_insert_arr(input, cmd_path);
 	if (!exec_argv)
-		exit(child_error("shell",
+		exit(builtin_error("shell",
 				ft_strjoin(input->content, EXEC_ERRPARSE), 1));
 	execve(cmd_path, exec_argv, envp);
 	ft_free_char2d(exec_argv);
 	free(cmd_path);
-	exit(child_error("pipe", ft_strdup(PIPE_ERR), 1));
+	exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 }
 
 int	executor(t_data *data, char *envp[])
