@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 02:02:27 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:38:07 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,17 @@ int	minishell_export(t_data *data, t_token *input, int ofd)
 {
 	int		return_value;
 
+	input = input->next;
 	if (check_flag(input))
 		return (builtin_error("shell: export",
 				ft_strjoin(input->next->content, EXPORT_ERROPT), 2));
 	return_value = 0;
-	input = input->next;
 	if (!input || input->type != STR)
 		return (export_no_param(data, ofd));
-	while (input && input->type == STR)
+	while (input && input->type != PIPE)
 	{
-		return_value = export_traverse(data, input);
+		if (input->type == STR)
+			return_value = export_traverse(data, input);
 		input = input->next;
 	}
 	return (return_value);

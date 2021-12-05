@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 01:41:57 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:40:35 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,33 @@ static int	echo_if_nnn(char *flag)
 	return (1);
 }
 
-static int	echo_noflag(t_token *tree, int ofd)
+static int	echo_noflag(t_token *input, int ofd)
 {
-	while (tree && tree->type != PIPE)
+	while (input && input->type != PIPE)
 	{
-		if (tree->type != REDIRECT && tree->type != FILEPATH)
+		if (input->type != REDIRECT && input->type != FILEPATH)
 		{
-			ft_putstr_fd(tree->content, ofd);
-			if (tree->next && tree->next->type == STR)
+			ft_putstr_fd(input->content, ofd);
+			if (input->next && input->next->type == STR)
 				write(ofd, " ", 1);
 		}
-		tree = tree->next;
+		input = input->next;
 	}
 	write(ofd, "\n", 1);
 	return (0);
 }
 
-static int	echo_nflag(t_token *tree, int ofd)
+static int	echo_nflag(t_token *input, int ofd)
 {
-	while (tree && tree->type != PIPE)
+	while (input && input->type != PIPE)
 	{
-		if (tree->type != REDIRECT && tree->type != FILEPATH)
+		if (input->type != REDIRECT && input->type != FILEPATH)
 		{
-			ft_putstr_fd(tree->content, ofd);
-			if (tree->next && tree->next->type == STR)
+			ft_putstr_fd(input->content, ofd);
+			if (input->next && input->next->type == STR)
 				write(ofd, " ", 1);
 		}
-		tree = tree->next;
+		input = input->next;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 20:26:51 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 02:02:05 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:32:25 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	env_no_param(t_data *data, int ofd)
 int	minishell_env(t_data *data, t_token *input, int ofd)
 {
 	if (input->next
-		&& (input->next->type != REDIRECT && input->next->type != PIPE))
+		&& input->next->type != REDIRECT && input->next->type != PIPE)
 		return (builtin_error("env",
 				ft_strjoin(input->next->content, ENV_ERROPT), 1));
 	return (env_no_param(data, ofd));
