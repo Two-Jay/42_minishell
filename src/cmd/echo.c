@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 18:44:35 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ static int	echo_noflag(t_token *tree, int fd)
 	while (tree && tree->type != PIPE && tree->type != REDIRECT)
 	{
 		ft_putstr_fd(tree->content, fd);
-		write(fd, " ", 1);
+		if (tree->next
+			&& tree->next->type != PIPE && tree->next->type != REDIRECT)
+			write(fd, " ", 1);
 		tree = tree->next;
 	}
 	write(fd, "\n", 1);
@@ -45,7 +47,9 @@ static int	echo_nflag(t_token *tree, int fd)
 	while (tree && tree->type != PIPE && tree->type != REDIRECT)
 	{
 		ft_putstr_fd(tree->content, fd);
-		write(fd, " ", 1);
+		if (tree->next
+			&& tree->next->type != PIPE && tree->next->type != REDIRECT)
+			write(fd, " ", 1);
 		tree = tree->next;
 	}
 	if (fd != STDOUT_FILENO)
