@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 19:27:14 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 19:36:20 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	here_doc_readline(char *limiter)
 	char	*input;
 	int		fd[2];
 
-	if (fd < 0)
-		return (builtin_error("shell", ft_strdup(PIPE_ERR), -1));
+	if (pipe(fd) < 0)
+		return (builtin_error("heredoc", ft_strdup(PIPE_ERR), 1));
 	while (1)
 	{
 		input = readline("> ");
@@ -27,15 +27,12 @@ static int	here_doc_readline(char *limiter)
 			free(input);
 			break ;
 		}
-		ft_putstr_fd(input, fd);
-		ft_putstr_fd("\n", fd);
+		ft_putstr_fd(input, fd[PIPE_WRITE]);
+		ft_putstr_fd("\n", fd[PIPE_WRITE]);
 		free(input);
 	}
-	close(fd);
-	fd_rdonly = open("temp", O_RDONLY);
-	if (fd_rdonly < 0)
-		return (builtin_error("shell", ft_strdup(PIPE_ERR), -1));
-	return (fd_rdonly);
+	close(fd[PIPE_WRITE]);
+	return (fd[PIPE_READ]);
 }
 
 int	ifd_condition(t_token *input, char *str)
