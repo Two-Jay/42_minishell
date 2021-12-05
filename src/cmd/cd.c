@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 02:45:17 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:46:51 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	minishell_cd(t_data *data, t_token *input)
 	int		result_movedir;
 
 	input = input->next;
-	while (input->type == REDIRECT && input->type == FILEPATH)
+	while (input->type == REDIRECT || input->type == FILEPATH)
 		input = input->next;
 	if (check_flag(input))
 		return (builtin_error(
