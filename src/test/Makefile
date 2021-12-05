@@ -6,23 +6,19 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/12/05 18:15:16 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/05 18:40:49 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror
-SRCS_PIPE		=	test_pipe.c\
-					../cmd/pipe.c ../cmd/pipe_utils.c\
-					../utils/builtin_error.c ../utils/free_token.c ../utils/ft_free_char2d.c\
-					../../libft/ft_strequel.c\
-					../executor/executor.c ../executor/executor_utils1.c ../executor/executor_utils2.c
 SRCS_CD			=	test_cd.c\
 					../cmd/cd.c\
 					../utils/builtin_error.c ../utils/find_env.c ../utils/check_flag.c\
 					../utils/save_env.c ../utils/free_token.c ../../libft/ft_strequel.c
 SRCS_ECHO		=	test_echo.c\
-					../cmd/echo.c ../utils/get_redir_fd.c ../../libft/ft_strequel.c
+					../cmd/echo.c ../utils/get_redir_fd.c ../../libft/ft_strequel.c\
+					../utils/builtin_error.c
 SRCS_PWD		=	test_pwd.c\
 					../cmd/pwd.c ../utils/get_redir_fd.c ../../libft/ft_strequel.c\
 					../utils/builtin_error.c
@@ -49,7 +45,6 @@ SRCS			=	test_executor.c\
 					../utils/find_env.c ../utils/free_token.c ../utils/ft_free_char2d.c\
 					../utils/get_redir_fd.c ../utils/save_env.c ../../libft/ft_strequel.c
 
-OBJS_PIPE		=	$(SRCS_PIPE:.c=.o)
 OBJS_CD			=	$(SRCS_CD:.c=.o)
 OBJS_ECHO		=	$(SRCS_ECHO:.c=.o)
 OBJS_ENV		=	$(SRCS_ENV:.c=.o)
@@ -61,23 +56,23 @@ OBJS			=	$(SRCS:.c=.o)
 
 TARGET			=	a.out
 
-ifdef IF_PIPE
-	OBJECTS	=	$(OBJS_PIPE)
-	PRINT	=	"$(LF)Testing Pipe...\n"
-else ifdef IF_CD
+ifdef IF_CD
 	OBJECTS	=	$(OBJS_CD)
 	PRINT	=	"$(LF)Testing Command: CD...\n"
 else ifdef IF_ECHO
 	OBJECTS	=	$(OBJS_ECHO)
+	RDLINE	=	-lreadline
 	PRINT	=	"$(LF)Testing Command: ECHO...\n"
 else ifdef IF_ENV
 	OBJECTS	=	$(OBJS_ENV)
+	RDLINE	=	-lreadline
 	PRINT	=	"$(LF)Testing Command: ENV...\n"
 else ifdef IF_EXIT
 	OBJECTS	=	$(OBJS_EXIT)
 	PRINT	=	"$(LF)Testing Command: EXIT...\n"
 else ifdef IF_EXPORT
 	OBJECTS	=	$(OBJS_EXPORT)
+	RDLINE	=	-lreadline
 	PRINT	=	"$(LF)Testing Command: EXPORT...\n"
 else ifdef IF_PWD
 	OBJECTS	=	$(OBJS_PWD)
@@ -85,20 +80,18 @@ else ifdef IF_PWD
 else ifdef IF_UNSET
 	OBJECTS	=	$(OBJS_UNSET)
 	PRINT	=	"$(LF)Testing Command: UNSET...\n"
-else ifdef IF_PIPE_D
-	OBJECTS	=	$(OBJS_PIPE)
-	PRINT	=	"$(LF)Testing Pipe...\n"
-	DFLAGS	=	-g3 -fsanitize=address
 else ifdef IF_CD_D
 	OBJECTS	=	$(OBJS_CD)
 	PRINT	=	"$(LF)Testing Command: CD...(debug mode)\n"
 	DFLAGS	=	-g3 -fsanitize=address
 else ifdef IF_ECHO_D
 	OBJECTS	=	$(OBJS_ECHO)
+	RDLINE	=	-lreadline
 	PRINT	=	"$(LF)Testing Command: ECHO...(debug mode)\n"
 	DFLAGS	=	-g3 -fsanitize=address
 else ifdef IF_ENV_D
 	OBJECTS	=	$(OBJS_ENV)
+	RDLINE	=	-lreadline
 	PRINT	=	"$(LF)Testing Command: ENV...(debug mode)\n"
 	DFLAGS	=	-g3 -fsanitize=address
 else ifdef IF_EXIT_D
@@ -107,6 +100,7 @@ else ifdef IF_EXIT_D
 	DFLAGS	=	-g3 -fsanitize=address
 else ifdef IF_EXPORT_D
 	OBJECTS	=	$(OBJS_EXPORT)
+	RDLINE	=	-lreadline
 	PRINT	=	"$(LF)Testing Command: EXPORT...(debug mode)\n"
 	DFLAGS	=	-g3 -fsanitize=address
 else ifdef IF_PWD_D
@@ -136,12 +130,6 @@ $(TARGET) : $(OBJECTS)
 
 debug :
 	@$(MAKE) IF_DEBUG=1 all
-
-pipe :
-	@$(MAKE) IF_PIPE=1 all
-
-debug-pipe :
-	@$(MAKE) IF_PIPE_D=1 all
 
 cd :
 	@$(MAKE) IF_CD=1 all
