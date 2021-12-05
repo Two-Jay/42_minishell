@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 13:06:34 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:38:07 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	check_flag(t_token *input)
 {
-	if (!input->next)
+	if (!input)
 		return (0);
-	if (input->next->type == FLAG)
+	if (input->type == FLAG)
 		return (1);
 	return (0);
 }
