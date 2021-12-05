@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 01:26:07 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:04:53 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define	EXEC_ISFILE 0
 # define	EXEC_NOTFILE -1
 int			minishell_executor(t_data *data, char *envp[]);
-int			exec_builtin(t_data *data, t_token *input);
+int			exec_builtin(t_data *data, t_token *input, int ofd);
 int			exec_program(t_data *data, t_token *input, char *envp[]);
 char		*exec_getcmd(char *cmd, char *envp[]);
 void		exec_dup_ifd(t_token *input);
@@ -68,8 +68,8 @@ int			pipe_count_cmd(t_token *input);
 # define	CD_FAILED -1
 # define	CD_SUCCESS 0
 int			minishell_cd(t_data *data, t_token *input);
-int			minishell_pwd(t_token *input);
-int			minishell_echo(t_token *input);
+int			minishell_pwd(t_token *input, int ofd);
+int			minishell_echo(t_token *input, int ofd);
 
 /*
 	* Export
@@ -77,13 +77,13 @@ int			minishell_echo(t_token *input);
 # define	EXPORT_ERRID ": not a valid identifier"
 # define	EXPORT_ERROPT ": invalid option\n\
 export: usage: export [name[=value] ...]"
-int			minishell_export(t_data *data, t_token *input);
+int			minishell_export(t_data *data, t_token *input, int ofd);
 
 /*
 	* Env
 */
 # define	ENV_ERROPT ": illegal option\nusage: env"
-int			minishell_env(t_data *data, t_token *input);
+int			minishell_env(t_data *data, t_token *input, int ofd);
 
 /*
 	* Unset
@@ -124,6 +124,7 @@ int			save_env(
 */
 # define	SHELL_ERRALLOC "failed to allocate memory"
 int			builtin_error(char *cmd, char *error_str, int dollar_q);
+int			if_builtin(t_token *input);
 int			check_flag(t_token *input);
 int			free_token(t_token *input, int return_status);
 void		ft_free_char2d(char **arr);

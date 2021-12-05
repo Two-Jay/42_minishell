@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 01:25:06 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:07:07 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static t_pipe	*pipe_struct(t_token *input, char *envp[])
 static void	pipe_child(
 		t_data *data, t_token *input, t_pipe *struct_pipe, int fd[2])
 {
-	int	builtin_return;
-
 	pipe_dup_ifd(input, struct_pipe);
 	pipe_dup_ofd(input, struct_pipe, fd);
 	if (struct_pipe->fd_tmp != STDIN_FILENO)
@@ -38,10 +36,9 @@ static void	pipe_child(
 	if (struct_pipe->index + 1 < struct_pipe->max_index)
 		close(fd[PIPE_WRITE]);
 	close(fd[PIPE_READ]);
-	builtin_return = exec_builtin(data, input);
-	if (builtin_return == EXEC_NOTBUILTIN)
+	if (!if_builtin(input))
 		exec_program(data, input, struct_pipe->envp);
-	exit(builtin_return);
+	exit(exec_builtin(data, input, STDOUT_FILENO));
 }
 
 static int	pipe_makepipe(t_data *data, t_token *input, t_pipe *struct_pipe)
