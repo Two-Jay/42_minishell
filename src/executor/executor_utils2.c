@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:56:41 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 16:52:49 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,18 @@ void	exec_dup_iofd(t_token *input)
 	int		ofd;
 	int		ifd;
 
-	ofd = get_redir_ofd(input);
 	ifd = get_redir_ifd(input);
-	if (dup2(ofd, STDOUT_FILENO) < 0)
-		exit(child_error("shell", ft_strdup(PIPE_ERR), 1));
-	if (dup2(ofd, STDIN_FILENO) < 0)
-		exit(child_error("shell", ft_strdup(PIPE_ERR), 1));
-	if (ofd != STDOUT_FILENO)
-		close(ofd);
+	ofd = get_redir_ofd(input);
 	if (ifd != STDIN_FILENO)
+	{
+		if (dup2(ifd, STDIN_FILENO) < 0)
+			exit(child_error("shell", ft_strdup(PIPE_ERR), 1));
 		close(ifd);
+	}
+	if (ofd != STDOUT_FILENO)
+	{
+		if (dup2(ofd, STDOUT_FILENO) < 0)
+			exit(child_error("shell", ft_strdup(PIPE_ERR), 1));
+		close(ofd);
+	}
 }
