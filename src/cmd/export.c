@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:06:45 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:52:17 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	export_no_param(t_data *data, t_token *input)
 	int			fd;
 
 	node_tmp = data->envlst;
-	fd = get_redir_fd(input);
+	fd = get_redir_ofd(input);
 	while (node_tmp)
 	{
 		if (node_tmp->env_state == ENV || node_tmp->env_state == EXPORT_ONLY)

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 19:59:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:06:45 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:52:38 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	pwd_getpwd(t_token *input)
 	char	*pwd;
 	int		fd;
 
-	fd = get_redir_fd(input);
+	fd = get_redir_ofd(input);
 	if (fd < 0)
 		return (1);
 	pwd = getcwd(0, 10);

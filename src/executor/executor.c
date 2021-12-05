@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:06:19 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:50:02 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,19 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 {
 	char	*cmd_path;
 	char	**exec_argv;
-	int		fd;
+	int		ofd;
+	int		ifd;
+	int		builtin_return;
 
-	fd = get_redir_fd(input);
-	if (dup2(fd, STDOUT_FILENO) < 0)
+	ofd = get_redir_ofd(input);
+	ifd = get_redir_ifd(input);
+	if (dup2(ofd, STDOUT_FILENO) < 0)
 		exit(child_error("shell", ft_strdup(PIPE_ERR), 1));
-	if (fd != STDOUT_FILENO)
-		close(fd);
+	if (ofd != STDOUT_FILENO)
+		close(ofd);
+	builtin_return = exec_builtin(data, input);
+	if (builtin_return != EXEC_NOTBUILTIN)
+		return (builtin_return);
 	cmd_path = exec_getcmd(input->content, envp);
 	if (!cmd_path)
 		exit(data->dq);
@@ -86,20 +92,18 @@ int	executor(t_data *data, char *envp[])
 	if (exec_if_pipe(data))
 		return (minishell_pipe(data, envp));
 	builtin_return = exec_builtin(data, input);
-	if (builtin_return == EXEC_NOTBUILTIN)
+	if (builtin_return != EXEC_NOTBUILTIN)
+		return (builtin_return);
+	exec_pid = fork();
+	if (!exec_pid)
+		exec_program(data, input, envp);
+	else if (exec_pid < 0)
+		return (free_token(input, builtin_error(
+					"shell", ft_strdup(EXEC_ERRFORK), 1)));
+	else
 	{
-		exec_pid = fork();
-		if (!exec_pid)
-			exec_program(data, input, envp);
-		else if (exec_pid < 0)
-			return (free_token(input, builtin_error(
-						"shell", ft_strdup(EXEC_ERRFORK), 1)));
-		else
-		{
-			waitpid(exec_pid, &status, 0);
-			data->dq = WEXITSTATUS(status);
-		}
-		return (free_token(input, 0));
+		waitpid(exec_pid, &status, 0);
+		data->dq = WEXITSTATUS(status);
 	}
-	return (builtin_return);
+	return (free_token(input, 0));
 }
