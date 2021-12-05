@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 03:42:40 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 08:25:18 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 14:21:04 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int is_flag(t_token *token)
 
 int is_filepath(t_token *token)
 {
-	return (is_redirection(token->prev->content, 0)
-		|| (token->next && is_redirection(token->next->content, 0)));
+	return (is_redirection(token->prev->content, 0));
 }
 
 t_state define_type_input_token(t_token *token)
