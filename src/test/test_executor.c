@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:41:01 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 01:13:54 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:51:07 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,20 @@ int	main(int argc, char *argv[], char *envp[])
 	input[1]->type = REDIRECT;
 	input[2]->content = ft_strdup("Makefile");
 	input[2]->type = FILEPATH;
-	input[3]->content = ft_strdup("asd");
-	input[3]->type = STR;
-	input[4]->content = ft_strdup("|");
-	input[4]->type = PIPE;
-	input[5]->content = ft_strdup("cat");
-	input[5]->type = CMD;
-	input[6]->content = ft_strdup("-e");
-	input[6]->type = FLAG;
-	input[7]->content = ft_strdup("|");
-	input[7]->type = PIPE;
-	input[8]->content = ft_strdup("cat");
-	input[8]->type = CMD;
-	input[9]->content = ft_strdup("-e");
-	input[9]->type = FLAG;
+	input[3]->content = ft_strdup(">");
+	input[3]->type = REDIRECT;
+	input[4]->content = ft_strdup("a");
+	input[4]->type = FILEPATH;
+	input[5]->content = ft_strdup(">");
+	input[5]->type = REDIRECT;
+	input[6]->content = ft_strdup("b");
+	input[6]->type = FILEPATH;
+	input[7]->content = ft_strdup("HELLO");
+	input[7]->type = STR;
+	input[8]->content = ft_strdup(">");
+	input[8]->type = REDIRECT;
+	input[9]->content = ft_strdup("d");
+	input[9]->type = FILEPATH;
 	data->input = input[0];
 	data->envlst = env1;
 	minishell_executor(data, envp);
@@ -82,5 +82,5 @@ int	main(int argc, char *argv[], char *envp[])
 	free(env2->key);
 	free(env2->value);
 	free(data);
-	system("leaks a.out");
+	//system("leaks a.out");
 }
