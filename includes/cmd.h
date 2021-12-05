@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 19:27:30 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 00:58:53 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int			minishell_executor(t_data *data, char *envp[]);
 int			exec_builtin(t_data *data, t_token *input);
 int			exec_program(t_data *data, t_token *input, char *envp[]);
 char		*exec_getcmd(char *cmd, char *envp[]);
-void		exec_dup_iofd(t_token *input);
+void		exec_dup_ifd(t_token *input);
+void		exec_dup_ofd(t_token *input);
 char		*if_file(char *cmd);
 int			cmd_access(char *path);
 

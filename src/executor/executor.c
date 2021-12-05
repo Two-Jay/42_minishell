@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 19:27:43 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 00:59:11 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 	char	*cmd_path;
 	char	**exec_argv;
 
-	exec_dup_iofd(input);
+	exec_dup_ofd(input);
 	cmd_path = exec_getcmd(input->content, envp);
 	if (!cmd_path)
 		exit(data->dq);
@@ -72,27 +72,28 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 
 int	minishell_executor(t_data *data, char *envp[])
 {
-	t_token	*input;
 	int		builtin_return;
 	int		exec_pid;
 	int		status;
 
-	input = data->input;
 	if (exec_if_pipe(data))
 		return (minishell_pipe(data, envp));
-	builtin_return = exec_builtin(data, input);
+	builtin_return = exec_builtin(data, data->input);
 	if (builtin_return != EXEC_NOTBUILTIN)
 		return (builtin_return);
 	exec_pid = fork();
 	if (!exec_pid)
-		exec_program(data, input, envp);
+	{
+		exec_dup_ifd(data->input);
+		exec_program(data, data->input, envp);
+	}
 	else if (exec_pid < 0)
-		return (free_token(input, builtin_error(
+		return (free_token(data->input, builtin_error(
 					"shell", ft_strdup(EXEC_ERRFORK), 1)));
 	else
 	{
 		waitpid(exec_pid, &status, 0);
 		data->dq = WEXITSTATUS(status);
 	}
-	return (free_token(input, 0));
+	return (free_token(data->input, 0));
 }

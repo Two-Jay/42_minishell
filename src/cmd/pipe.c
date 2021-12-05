@@ -6,19 +6,33 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 18:35:50 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 01:03:26 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	pipe_dup_ifd(t_token *input, t_pipe *struct_pipe)
+{
+	int	ifd;
+
+	ifd = get_redir_ifd(input->next);
+	if (dup2(struct_pipe->fd_tmp, STDIN_FILENO) < 0)
+		exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
+	if (ifd != STDIN_FILENO)
+	{
+		if (dup2(ifd, STDIN_FILENO) < 0)
+			exit(builtin_error("shell", ft_strdup(PIPE_ERR), 1));
+		close(ifd);
+	}
+}
 
 static void	pipe_child(
 		t_data *data, t_token *input, t_pipe *struct_pipe, int fd[2])
 {
 	int	builtin_return;
 
-	if (dup2(struct_pipe->fd_tmp, STDIN_FILENO) < 0)
-		exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
+	pipe_dup_ifd(input, struct_pipe);
 	if (struct_pipe->index + 1 < struct_pipe->max_index)
 		if (dup2(fd[PIPE_WRITE], STDOUT_FILENO) < 0)
 			exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
