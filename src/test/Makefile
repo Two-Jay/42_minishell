@@ -6,7 +6,7 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/12/05 18:40:49 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/05 18:42:03 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ else ifdef IF_EXPORT
 	PRINT	=	"$(LF)Testing Command: EXPORT...\n"
 else ifdef IF_PWD
 	OBJECTS	=	$(OBJS_PWD)
+	RDLINE	=	-lreadline
 	PRINT	=	"$(LF)Testing Command: PWD...\n"
 else ifdef IF_UNSET
 	OBJECTS	=	$(OBJS_UNSET)
@@ -105,6 +106,7 @@ else ifdef IF_EXPORT_D
 	DFLAGS	=	-g3 -fsanitize=address
 else ifdef IF_PWD_D
 	OBJECTS	=	$(OBJS_PWD)
+	RDLINE	=	-lreadline
 	PRINT	=	"$(LF)Testing Command: PWD...(debug mode)\n"
 	DFLAGS	=	-g3 -fsanitize=address
 else ifdef IF_UNSET_D
