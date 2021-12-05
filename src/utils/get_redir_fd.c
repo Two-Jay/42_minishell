@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 19:15:57 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 19:20:04 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	here_doc_readline(char *limiter, int fd)
 			break ;
 		}
 		ft_putstr_fd(input, fd);
+		ft_putstr_fd("\n", fd);
 		free(input);
 	}
 	close(fd);
@@ -62,7 +63,6 @@ int	ifd_condition(t_token *input, char *str)
 		if (input->next->next && input->next->next->type == REDIRECT)
 			close(fd);
 	}
-	dprintf(2, "input: %s, fd: %d\n", input->next->content, fd);
 	return (fd);
 }
 
