@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 00:58:53 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 01:26:07 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ int			cmd_access(char *path);
 */
 # define	PIPE_ERR "failed to make PIPE / REDIRECTION"
 int			minishell_pipe(t_data *data, char *envp[]);
-t_pipe		*pipe_struct(t_token *input, char *envp[]);
 char		**pipe_insert_arr(t_token *input, char *cmd_path);
+void		pipe_dup_ifd(t_token *input, t_pipe *struct_pipe);
+void		pipe_dup_ofd(t_token *input, t_pipe *struct_pipe, int fd[2]);
+int			pipe_count_cmd(t_token *input);
 
 /*
 	* cd & pwd & echo

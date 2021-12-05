@@ -6,25 +6,24 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 01:03:26 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 01:25:06 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	pipe_dup_ifd(t_token *input, t_pipe *struct_pipe)
+static t_pipe	*pipe_struct(t_token *input, char *envp[])
 {
-	int	ifd;
+	t_pipe	*struct_pipe;
 
-	ifd = get_redir_ifd(input->next);
-	if (dup2(struct_pipe->fd_tmp, STDIN_FILENO) < 0)
-		exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
-	if (ifd != STDIN_FILENO)
-	{
-		if (dup2(ifd, STDIN_FILENO) < 0)
-			exit(builtin_error("shell", ft_strdup(PIPE_ERR), 1));
-		close(ifd);
-	}
+	struct_pipe = malloc(sizeof(t_pipe));
+	if (!struct_pipe)
+		return (NULL);
+	struct_pipe->index = 0;
+	struct_pipe->max_index = pipe_count_cmd(input);
+	struct_pipe->fd_tmp = STDIN_FILENO;
+	struct_pipe->envp = envp;
+	return (struct_pipe);
 }
 
 static void	pipe_child(
@@ -33,9 +32,7 @@ static void	pipe_child(
 	int	builtin_return;
 
 	pipe_dup_ifd(input, struct_pipe);
-	if (struct_pipe->index + 1 < struct_pipe->max_index)
-		if (dup2(fd[PIPE_WRITE], STDOUT_FILENO) < 0)
-			exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
+	pipe_dup_ofd(input, struct_pipe, fd);
 	if (struct_pipe->fd_tmp != STDIN_FILENO)
 		close(struct_pipe->fd_tmp);
 	if (struct_pipe->index + 1 < struct_pipe->max_index)
