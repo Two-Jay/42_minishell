@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <jekim@42seoul.student.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
 /*   Updated: 2021/12/05 06:36:39 by jekim            ###   ########.fr       */
@@ -28,7 +28,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
-# include "cmd.h"
 
 # define INTRO "Nyamnyam_shell.dev '-'//"
 # define TRUE 0
