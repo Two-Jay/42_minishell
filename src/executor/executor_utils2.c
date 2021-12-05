@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 18:10:14 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 18:20:17 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	exec_dup_iofd(t_token *input)
 	int		ofd;
 	int		ifd;
 
-	ifd = get_redir_ifd(input);
-	ofd = get_redir_ofd(input);
+	ifd = get_redir_ifd(input->next);
+	ofd = get_redir_ofd(input->next);
 	if (ifd != STDIN_FILENO)
 	{
 		if (dup2(ifd, STDIN_FILENO) < 0)
