@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 16:28:18 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 16:41:30 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,31 @@ static int	here_doc_readline(char *limiter, int fd)
 	return (fd_rdonly);
 }
 
-int	get_redir_heredoc(t_token *input)
+int	ifd_condition(t_token *input, char *str)
 {
-	int		fd;
-	char	*limiter;
+	int	fd;
 
-	fd = STDIN_FILENO;
-	while (input && input->type != CMD && input->type != PIPE)
+	if (ft_strequel(input->content, "<<"))
 	{
-		if (input->type == REDIRECT)
+		fd = open("temp", O_WRONLY | O_APPEND | O_CREAT, 0777);
+		fd = here_doc_readline(str, fd);
+		if (fd < 0)
+			return (-1);
+		if (input->next->next && input->next->next->type == REDIRECT)
 		{
-			limiter = input->next->content;
-			if (ft_strequel(input->content, "<<"))
-			{
-				fd = open("temp", O_WRONLY | O_APPEND | O_CREAT, 0777);
-				fd = here_doc_readline(limiter, fd);
-				if (fd < 0)
-					return (-1);
-				if (input->next->next && input->next->next->type == REDIRECT)
-				{
-					unlink("temp");
-					close(fd);
-				}
-			}
+			unlink("temp");
+			close(fd);
+			return (STDIN_FILENO);
 		}
-		input = input->next;
+	}
+	else if (ft_strequel(input->content, "<"))
+	{
+		fd = open(str, O_RDONLY);
+		if (fd < 0)
+			return (builtin_error(
+					"shell", ft_strjoin(str, EXEC_ERRNODIR), -1));
+		if (input->next->next && input->next->next->type == REDIRECT)
+			close(fd);
 	}
 	return (fd);
 }
@@ -74,16 +74,7 @@ int	get_redir_ifd(t_token *input)
 	while (input && input->type != CMD && input->type != PIPE)
 	{
 		if (input->type == REDIRECT)
-		{
-			filename = input->next->content;
-			if (ft_strequel(input->content, "<"))
-				fd = open(filename, O_RDONLY);
-			if (fd < 0)
-				return (builtin_error(
-						"shell", ft_strjoin(filename, EXEC_ERRNODIR), -1));
-			if (input->next->next && input->next->next->type == REDIRECT)
-				close(fd);
-		}
+			fd = ifd_condition(input, input->next->content);
 		input = input->next;
 	}
 	return (fd);
