@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:41:01 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 18:50:42 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 19:01:21 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	main(int argc, char *argv[], char *envp[])
 	input[0]->type = CMD;
 	input[1]->content = ft_strdup("-e");
 	input[1]->type = FLAG;
-	input[2]->content = ft_strdup("<");
+	input[2]->content = ft_strdup("<<");
 	input[2]->type = REDIRECT;
-	input[3]->content = ft_strdup("test.txt");
+	input[3]->content = ft_strdup("asd");
 	input[3]->type = FILEPATH;
 	input[4]->content = ft_strdup("|");
 	input[4]->type = PIPE;
