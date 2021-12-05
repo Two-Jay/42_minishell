@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:06:45 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 16:51:06 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	pipe_child(
 		close(struct_pipe->fd_tmp);
 	if (struct_pipe->index + 1 < struct_pipe->max_index)
 		close(fd[PIPE_WRITE]);
-	//redirection needed
 	close(fd[PIPE_READ]);
 	if (exec_builtin(data, input) == EXEC_NOTBUILTIN)
 		exec_program(data, input, struct_pipe->envp);
