@@ -32,8 +32,12 @@ LESS=-R
 LSCOLORS=Gxfxcxdxbxegedabagacad
 LC_CTYPE=UTF-8
 _=/Users/kimjeongjun/minishell/./minishell
-h
-VSCODE_GIT_ASKPASS_NODE=/private/var/folders/vc/67hymhfs079crg31cnq__wwc0000gn/T/AppTranslocation/79C2D59D-B7A3-4EDE-8B05-6D07445F4AB1/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)
+256color
+COLORTERM=truecolor
+XPC_SERVICE_NAME=0
+LaunchInstanceID=5A129780-2575-42CB-996E-2432C722A231
+USER=kimjeongjun
+8B05-6D07445F4AB1/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)
 VSCODE_GIT_ASKPASS_EXTRA_ARGS=
 VSCODE_GIT_ASKPASS_MAIN=/private/var/folders/vc/67hymhfs079crg31cnq__wwc0000gn/T/AppTranslocation/79C2D59D-B7A3-4EDE-8B05-6D07445F4AB1/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
 TERM=xterm-256color

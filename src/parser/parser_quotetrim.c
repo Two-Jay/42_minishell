@@ -6,19 +6,11 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:06:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/04 16:50:11 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 08:45:48 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void print_condition(int *con)
-{
-	int ix = 0;
-	while (con[ix])
-		printf("%d", con[ix++]);
-	printf("\n");
-}
 
 int is_quoted_input(char *str)
 {
@@ -41,9 +33,9 @@ int is_quoted_input(char *str)
 	return (FALSE);
 }
 
-int handle_error(char *str, t_data *data)
+int handle_error(char *str, char *dst)
 {
-	data->ip->qtrim_ret = ft_strdup(str);
+	dst = ft_strdup(str);
 	return (0);
 }
 
@@ -144,7 +136,7 @@ int get_ret_buf_length(t_data *data)
 	return (ret);
 }
 
-int strdup_as_checked(char *str, t_data *data)
+char *strdup_as_checked(char *str, t_data *data)
 {
 	char	*ret;
 	int		len;
@@ -156,7 +148,7 @@ int strdup_as_checked(char *str, t_data *data)
 	len = get_ret_buf_length(data);
 	ret = (char *)malloc(sizeof(char) * (len + 1));
 	if (!ret)
-		return (ERROR_OCCURED);
+		return (NULL);
 	ret[len] = '\0';
 	while (str[ix])
 	{
@@ -164,18 +156,27 @@ int strdup_as_checked(char *str, t_data *data)
 			ret[jx++] = str[ix];
 		ix++;
 	}
-	data->ip->qtrim_ret = ret;
-	return (0);
+	return (ret);
 }
 
-int quote_trim(char *str, t_data *data)
+char *free_checker(t_data *data)
 {
+	if (data->ip->qtrim_checker)
+		free(data->ip->qtrim_checker);
+	return (NULL);
+}
+
+char *quote_trim(char *str, t_data *data)
+{
+	char *ret;
+
 	if (is_quoted_input(str) == FALSE)
-		return (handle_error(str, data));
-	if (set_int_checker(data, ft_strlen(str))
-		|| check_unprint_char(str, data)
-		|| strdup_as_checked(str, data))
-		return (ERROR_OCCURED);
-	trs(data->ip->qtrim_ret);
-	return (0);
+		return (str);
+	if (set_int_checker(data, ft_strlen(str)))
+		return (NULL);
+	check_unprint_char(str, data);
+	ret = strdup_as_checked(str, data);
+	if (!ret)
+		return (free_checker(data), NULL);
+	return (free_checker(data), ret);
 }

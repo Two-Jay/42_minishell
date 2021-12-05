@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/04 16:47:18 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 08:45:46 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int free_ip(t_input_process *ip, int errflag)
 	ix = -1;
 	if (ip->scenv_ret)
 		free(ip->scenv_ret);
-	if (ip->qtrim_ret)
-		free(ip->qtrim_ret);
 	if (ip->isbs_ret)
 		free(ip->isbs_ret);
 	if (ip->split_ret)
@@ -80,13 +78,13 @@ int set_input_process_struct(t_data *data)
 int parse_input_string(const char *str, t_data *data)
 {
 	if (check_isclosed(str))
-		return (ft_putstr_fd_error("Error\n", 2, ERROR_OCCURED));
+		return (ft_putstr_fd_error(ERRM_UNCLOSED_QUOTE, 2, ERROR_OCCURED));
 	if (set_input_process_struct(data)
 		|| setup_and_check_env(str, data)
-		|| quote_trim(data->ip->scenv_ret, data)
-		|| insert_space_beside_spclcmd(data->ip->qtrim_ret, data)
+		|| insert_space_beside_spclcmd(data->ip->scenv_ret, data)
 		|| split_by_chunk(data->ip->isbs_ret, data)
 		|| build_input_token_lst(data->ip->split_ret, data)
+		|| delete_nullish_token(data->input->next)
 		|| assign_type_input_token_lst(data->input->next))
 		return (free_ip(data->ip, ERROR_OCCURED));
 	print_token(data);

@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:37:34 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/03 23:49:12 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 05:17:11 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,14 @@ int is_pipe(const char *str, int ix)
 
 int is_pipe_redirection(const char *str, int ix)
 {
-	return (is_pipe(str, ix) || is_redirection(str, ix));
+	int red_ret;
+
+	if (is_pipe(str, ix))
+		return (1);
+	red_ret = is_redirection(str, ix);
+	if (red_ret)
+		return (red_ret);
+	return (0);
 }
 
 int is_quotation(const char *str, int ix)
