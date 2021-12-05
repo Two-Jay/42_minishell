@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:41:01 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 18:07:46 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 18:21:18 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,26 @@ int	main(int argc, char *argv[], char *envp[])
 	input[3]->type = CMD;
 	input[4]->content = ft_strdup("-e");
 	input[4]->type = FLAG;
-	input[5]->content = ft_strdup("|");
-	input[5]->type = PIPE;
-	input[6]->content = ft_strdup("echo");
-	input[6]->type = CMD;
-	input[7]->content = ft_strdup("hello");
-	input[7]->type = STR;
-	input[8]->content = ft_strdup(">");
-	input[8]->type = REDIRECT;
-	input[8]->content = ft_strdup("test.txt");
-	input[8]->type = FILEPATH;
+	input[5]->content = ft_strdup(">");
+	input[5]->type = REDIRECT;
+	input[6]->content = ft_strdup("test.txt");
+	input[6]->type = FILEPATH;
+	input[7]->content = ft_strdup("|");
+	input[7]->type = PIPE;
+	input[8]->content = ft_strdup("echo");
+	input[8]->type = CMD;
+	input[9]->content = ft_strdup("hello");
+	input[9]->type = STR;
 	data->input = input[0];
 	data->envlst = env1;
 	minishell_executor(data, envp);
+	/*
 	for (int i = 0; i < 10; i++)
 	{
 		free(input[i]->content);
 		free(input[i]);
 	}
+	*/
 	free(env1->key);
 	free(env1->value);
 	free(env2->key);
