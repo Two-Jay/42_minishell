@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:48:14 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 18:33:11 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,15 @@ int	exec_builtin(t_data *data, t_token *input)
 	else
 		builtin_return = EXEC_NOTBUILTIN;
 	data->dq = builtin_return;
-	return (EXEC_NOTBUILTIN);
+	return (builtin_return);
 }
 
 int	exec_program(t_data *data, t_token *input, char *envp[])
 {
 	char	*cmd_path;
 	char	**exec_argv;
-	int		builtin_return;
 
 	exec_dup_iofd(input);
-	builtin_return = exec_builtin(data, input);
-	if (builtin_return != EXEC_NOTBUILTIN)
-		return (builtin_return);
 	cmd_path = exec_getcmd(input->content, envp);
 	if (!cmd_path)
 		exit(data->dq);
