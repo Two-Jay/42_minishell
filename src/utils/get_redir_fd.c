@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 18:13:36 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 18:56:59 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,9 @@ int	ifd_condition(t_token *input, char *str)
 
 int	get_redir_ifd(t_token *input)
 {
-	struct stat	*buf;
 	int			fd;
 
 	fd = STDIN_FILENO;
-	buf = NULL;
-	if (!stat("temp", buf))
-	{
-		unlink("temp");
-		free(buf);
-	}
 	while (input && input->type != CMD && input->type != PIPE)
 	{
 		if (input->type == REDIRECT)
