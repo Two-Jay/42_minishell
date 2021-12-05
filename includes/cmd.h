@@ -6,67 +6,15 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 16:49:31 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 17:04:46 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CMD_H
 # define CMD_H
 
-# include "minishell.h"
-
-typedef enum s_state
-{
-	CMD = 0,
-	FLAG,
-	PIPE,
-	REDIRECT,
-	FILEPATH,
-	STR
-}	t_state;
-
-typedef struct s_token
-{
-	char			*content;
-	int				ix;
-	t_state			type;
-	struct s_token	*prev;
-	struct s_token	*next;
-}	t_token;
-
-typedef enum s_env_state
-{
-	ENV = 0,
-	EXPORT_ONLY,
-	TEMP_ENV,
-}	t_env_state;
-
-typedef struct s_envlst
-{
-	char			*key;
-	char			*value;
-	t_env_state		env_state;
-	struct s_envlst	*next;
-}	t_envlst;
-
-typedef struct s_data
-{
-	t_envlst		*envlst;
-	t_token			*input;
-	t_input_process	*ip;
-	int				dq;
-	void			**malloc_queue;
-	char			*homedir;
-}	t_data;
-
-typedef struct s_pipe
-{
-	char	**envp;
-	int		index;
-	int		max_index;
-	int		fd_tmp;
-	int		last_pid;
-}	t_pipe;
+# include "structure.h"
+# include "headers.h"
 
 # define PIPE_READ 0
 # define PIPE_WRITE 1

@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 16:52:49 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd.h"
+#include "../../includes/minishell.h"
 
 int	cmd_access(char *path)
 {

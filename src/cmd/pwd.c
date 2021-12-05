@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 19:59:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:52:38 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd.h"
+#include "../../includes/minishell.h"
 
 static int	pwd_getpwd(t_token *input)
 {
