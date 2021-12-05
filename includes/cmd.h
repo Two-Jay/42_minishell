@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:48:37 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 19:15:33 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int			save_env(
 	* Utilities
 */
 # define	SHELL_ERRALLOC "failed to allocate memory"
+void		del_temp(void);
 int			builtin_error(char *cmd, char *error_str, int dollar_q);
 int			check_flag(t_token *input);
 int			free_token(t_token *input, int return_status);

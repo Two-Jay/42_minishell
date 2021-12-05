@@ -6,23 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 18:57:11 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 19:15:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static void	exec_del_temp(void)
-{
-	struct stat	*buf;
-
-	buf = NULL;
-	if (!stat("temp", buf))
-	{
-		unlink("temp");
-		free(buf);
-	}
-}
 
 static int	exec_if_pipe(t_data *data)
 {
@@ -106,6 +94,6 @@ int	minishell_executor(t_data *data, char *envp[])
 		waitpid(exec_pid, &status, 0);
 		data->dq = WEXITSTATUS(status);
 	}
-	exec_del_temp();
+	del_temp();
 	return (free_token(input, 0));
 }
