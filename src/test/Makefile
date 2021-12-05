@@ -6,7 +6,7 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/12/04 14:43:07 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/05 18:06:59 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,13 @@ SRCS_UNSET		=	test_unset.c\
 					../utils/builtin_error.c ../utils/find_env.c ../utils/check_flag.c\
 					../utils/save_env.c ../utils/free_token.c ../../libft/ft_strequel.c\
 					../utils/env_name_check.c
-#SRCS_EXEC	=
-#SRCS			=
+SRCS			=	test_executor.c\
+					../executor/executor.c ../executor/executor_utils1.c ../executor/executor_utils2.c\
+					../cmd/cd.c ../cmd/echo.c ../cmd/env.c ../cmd/exit.c ../cmd/export.c\
+					../cmd/pipe_utils.c ../cmd/pipe.c ../cmd/pwd.c ../cmd/unset.c\
+					../utils/builtin_error.c ../utils/check_flag.c ../utils/env_name_check.c\
+					../utils/find_env.c ../utils/free_token.c ../utils/ft_free_char2d.c\
+					../utils/get_redir_fd.c ../utils/save_env.c
 
 OBJS_PIPE		=	$(SRCS_PIPE:.c=.o)
 OBJS_CD			=	$(SRCS_CD:.c=.o)
@@ -52,7 +57,6 @@ OBJS_EXIT		=	$(SRCS_EXIT:.c=.o)
 OBJS_EXPORT		=	$(SRCS_EXPORT:.c=.o)
 OBJS_PWD		=	$(SRCS_PWD:.c=.o)
 OBJS_UNSET		=	$(SRCS_UNSET:.c=.o)
-OBJS_EXEC		=	$(SRCS_EXEC:.c=.o)
 OBJS			=	$(SRCS:.c=.o)
 
 TARGET			=	a.out
@@ -81,9 +85,6 @@ else ifdef IF_PWD
 else ifdef IF_UNSET
 	OBJECTS	=	$(OBJS_UNSET)
 	PRINT	=	"$(LF)Testing Command: UNSET...\n"
-else ifdef IF_EXEC
-	OBJECTS	=	$(OBJS_EXEC)
-	PRINT	=	"$(LF)Testing execution function\n"
 else ifdef IF_PIPE_D
 	OBJECTS	=	$(OBJS_PIPE)
 	PRINT	=	"$(LF)Testing Pipe...\n"
@@ -116,17 +117,13 @@ else ifdef IF_UNSET_D
 	OBJECTS	=	$(OBJS_UNSET)
 	PRINT	=	"$(LF)Testing Command: UNSET...(debug mode)\n"
 	DFLAGS	=	-g3 -fsanitize=address
-else ifdef IF_EXEC_D
-	OBJECTS	=	$(OBJS_EXEC)
-	PRINT	=	"$(LF)Testing execution function (debug mode)\n"
-	DFLAGS	=	-g3 -fsanitize=address
-else ifndef	IF_DEBUG
+else ifdef IF_DEBUG
 	OBJECTS	=	$(OBJS)
-	PRINT	=	"$(LF)Testing All...(debug mode)\n"
+	PRINT	=	"$(LF)Testing execution function (debug mode)\n"
 	DFLAGS	=	-g3 -fsanitize=address
 else
 	OBJECTS	=	$(OBJS)
-	PRINT	=	"$(LF)Testing All...\n"
+	PRINT	=	"$(LF)Testing execution function...\n"
 endif
 
 all : $(TARGET)
@@ -134,6 +131,9 @@ all : $(TARGET)
 $(TARGET) : $(OBJECTS)
 	@printf $(PRINT)
 	@$(CC) $(OBJECTS) $(CFLAGS) $(DFLAGS) libft.a -o $(TARGET)
+
+debug :
+	@$(MAKE) IF_DEBUG=1 all
 
 pipe :
 	@$(MAKE) IF_PIPE=1 all
@@ -182,12 +182,6 @@ unset :
 
 debug-unset :
 	@$(MAKE) IF_UNSET_D=1 all
-
-exec :
-	@$(MAKE) IF_EXEC=1 all
-
-debug-exec :
-	@$(MAKE) IF_EXEC_D=1 all
 
 %.o : %.c
 	@$(CC) $(CFLAGS) $(DFLAGS) -c -o $@ $< -I ./
