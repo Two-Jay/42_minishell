@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 03:42:40 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 14:21:04 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 14:32:44 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int is_CMD(t_token *token)
 {
-	return (token->ix == 1 || (token->ix > 1 && token->prev->type == PIPE));
+	return (token->ix == 1
+		|| (token->ix > 1 && token->prev->type == PIPE)
+		|| (token->next && is_redirection(token->next->content, 0)));
 }
 
 int is_contain_space_or_slash(t_token *token)
