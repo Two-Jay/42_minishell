@@ -28,6 +28,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
+# include "cmd.h"
 
 # define INTRO "Nyamnyam_shell.dev '-'//"
 # define TRUE 0
@@ -41,41 +42,6 @@
 # define tri(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%d\n", x); }
 # define trp(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%p\n", x); }
 
-typedef enum s_state
-{
-	CMD = 0,
-	FLAG,
-	PIPE,
-	REDIRECT,
-	FILEPATH,
-	STR
-}	t_state;
-
-
-typedef struct s_token
-{
-	char			*content;
-	int				ix;
-	t_state			type;
-	struct s_token	*prev;
-	struct s_token	*next;
-}	t_token;
-
-typedef enum s_env_state
-{
-	ENV = 0,
-	EXPORT_ONLY,
-	TEMP_ENV,
-}	t_env_state;
-
-typedef struct	s_envlst
-{
-	char			*key;
-	char			*value;
-	t_env_state		env_state;
-	struct s_envlst	*next;
-}	t_envlst;
-
 typedef struct	input_process
 {
 	char 	*scenv_ret;
@@ -83,16 +49,6 @@ typedef struct	input_process
 	char 	*isbs_ret;
 	char 	**split_ret;
 }	t_input_process;
-
-typedef struct	s_data
-{
-	t_envlst	*envlst;
-	t_token		*input;
-	t_input_process *ip;
-	int			dq;
-	void		**malloc_queue;
-	char		*homedir;
-}	t_data;
 
 typedef struct	s_parser_env_bucket
 {
