@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 14:32:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:41:11 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	main(void)
 	printf("after cd : %s\n", buf);
 	printf("env 1 -> %s : %s\n", env1->key, env1->value);
 	printf("env 2 -> %s : %s\n", env1->next->key, env1->next->value);
-
 	//free
 	free(input[0]->content);
 	free(input[0]);

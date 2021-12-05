@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 12:41:54 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:41:54 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	main(void)
 	input[3]->type = STR;
 	data->input = input[0];
 	data->envlst = env1;
-	minishell_export(data, data->input); //export (with arguments)
+	minishell_export(data, data->input, STDOUT_FILENO); //export (with arguments)
 	input[0]->next = NULL;
-	minishell_export(data, data->input); //export (no arguments)
+	minishell_export(data, data->input, STDOUT_FILENO); //export (no arguments)
 	input[0]->next = input[1];
 	free(input[1]->content);
 	free(input[2]->content);
@@ -62,7 +62,7 @@ int	main(void)
 	input[2]->content = ft_strdup("test.txt");
 	input[2]->type = FILEPATH;
 	input[2]->next = NULL;
-	minishell_export(data, data->input); //export (no arguments - redir)
+	minishell_export(data, data->input, STDOUT_FILENO); //export (no arguments - redir)
 	free(input[0]->content);
 	free(input[0]);
 	free(input[1]->content);

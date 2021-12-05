@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:56:22 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:42:05 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(void)
 	input[2]->content = ft_strdup("a");
 	input[2]->type = FILEPATH;
 	data->input = input[0];
-	minishell_pwd(data->input);
+	minishell_pwd(data->input, STDOUT_FILENO);
 	for (int i = 0; i < 3; i++)
 	{
 		free(input[i]->content);
