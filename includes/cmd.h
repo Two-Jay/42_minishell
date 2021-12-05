@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:48:50 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:56:48 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,14 @@ typedef struct s_pipe
 int			exec_builtin(t_data *data, t_token *input);
 int			exec_program(t_data *data, t_token *input, char *envp[]);
 char		*exec_getcmd(char *cmd, char *envp[]);
+void		exec_dup_iofd(t_token *input);
 char		*if_file(char *cmd);
 int			cmd_access(char *path);
 
 /*
 	* Pipelines
 */
-# define	PIPE_ERR "failed to make PIPE"
+# define	PIPE_ERR "failed to make PIPE / REDIRECTION"
 int			minishell_pipe(t_data *data, char *envp[]);
 t_pipe		*pipe_struct(t_token *input, char *envp[]);
 char		**pipe_insert_arr(t_token *input, char *cmd_path);

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:50:02 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:56:59 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,9 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 {
 	char	*cmd_path;
 	char	**exec_argv;
-	int		ofd;
-	int		ifd;
 	int		builtin_return;
 
-	ofd = get_redir_ofd(input);
-	ifd = get_redir_ifd(input);
-	if (dup2(ofd, STDOUT_FILENO) < 0)
-		exit(child_error("shell", ft_strdup(PIPE_ERR), 1));
-	if (ofd != STDOUT_FILENO)
-		close(ofd);
+	exec_dup_iofd(input);
 	builtin_return = exec_builtin(data, input);
 	if (builtin_return != EXEC_NOTBUILTIN)
 		return (builtin_return);
