@@ -6,7 +6,7 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/12/05 18:06:59 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/05 18:15:16 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ SRCS			=	test_executor.c\
 					../cmd/pipe_utils.c ../cmd/pipe.c ../cmd/pwd.c ../cmd/unset.c\
 					../utils/builtin_error.c ../utils/check_flag.c ../utils/env_name_check.c\
 					../utils/find_env.c ../utils/free_token.c ../utils/ft_free_char2d.c\
-					../utils/get_redir_fd.c ../utils/save_env.c
+					../utils/get_redir_fd.c ../utils/save_env.c ../../libft/ft_strequel.c
 
 OBJS_PIPE		=	$(SRCS_PIPE:.c=.o)
 OBJS_CD			=	$(SRCS_CD:.c=.o)
@@ -119,10 +119,12 @@ else ifdef IF_UNSET_D
 	DFLAGS	=	-g3 -fsanitize=address
 else ifdef IF_DEBUG
 	OBJECTS	=	$(OBJS)
+	RDLINE	=	-lreadline
 	PRINT	=	"$(LF)Testing execution function (debug mode)\n"
 	DFLAGS	=	-g3 -fsanitize=address
 else
 	OBJECTS	=	$(OBJS)
+	RDLINE	=	-lreadline
 	PRINT	=	"$(LF)Testing execution function...\n"
 endif
 
@@ -130,7 +132,7 @@ all : $(TARGET)
 
 $(TARGET) : $(OBJECTS)
 	@printf $(PRINT)
-	@$(CC) $(OBJECTS) $(CFLAGS) $(DFLAGS) libft.a -o $(TARGET)
+	@$(CC) $(OBJECTS) $(CFLAGS) $(DFLAGS) libft.a $(RDLINE) -o $(TARGET)
 
 debug :
 	@$(MAKE) IF_DEBUG=1 all
