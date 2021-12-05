@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 18:13:36 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ifd_condition(t_token *input, char *str)
 {
 	int	fd;
 
+	fd = STDIN_FILENO;
 	if (ft_strequel(input->content, "<<"))
 	{
 		fd = open("temp", O_WRONLY | O_APPEND | O_CREAT, 0777);
@@ -50,15 +51,13 @@ int	ifd_condition(t_token *input, char *str)
 		{
 			unlink("temp");
 			close(fd);
-			return (STDIN_FILENO);
 		}
 	}
 	else if (ft_strequel(input->content, "<"))
 	{
 		fd = open(str, O_RDONLY);
 		if (fd < 0)
-			return (builtin_error(
-					"shell", ft_strjoin(str, EXEC_ERRNODIR), -1));
+			return (builtin_error("shell", ft_strjoin(str, EXEC_ERRNODIR), -1));
 		if (input->next->next && input->next->next->type == REDIRECT)
 			close(fd);
 	}
@@ -67,11 +66,11 @@ int	ifd_condition(t_token *input, char *str)
 
 int	get_redir_ifd(t_token *input)
 {
-	char		*filename;
 	struct stat	*buf;
 	int			fd;
 
 	fd = STDIN_FILENO;
+	buf = NULL;
 	if (!stat("temp", buf))
 	{
 		unlink("temp");
