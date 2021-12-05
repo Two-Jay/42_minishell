@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 18:10:55 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:06:23 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd2.h"
+#include "../../includes/cmd.h"
 
 static int	cd_no_argument(t_data *data)
 {
