@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:04:46 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 17:48:37 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define	EXEC_ISDIR 1
 # define	EXEC_ISFILE 0
 # define	EXEC_NOTFILE -1
+int			minishell_executor(t_data *data, char *envp[]);
 int			exec_builtin(t_data *data, t_token *input);
 int			exec_program(t_data *data, t_token *input, char *envp[]);
 char		*exec_getcmd(char *cmd, char *envp[]);

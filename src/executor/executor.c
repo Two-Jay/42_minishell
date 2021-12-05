@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:47 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 17:48:14 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 	exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 }
 
-int	executor(t_data *data, char *envp[])
+int	minishell_executor(t_data *data, char *envp[])
 {
 	t_token	*input;
 	int		builtin_return;
