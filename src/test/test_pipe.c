@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:16:36 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:06:45 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd.h"
+#include "../../includes/minishell.h"
 
 // Test Code for Pipe
 int	main(int argc, char *argv[], char *envp[])

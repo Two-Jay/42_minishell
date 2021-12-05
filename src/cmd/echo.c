@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:06:27 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd.h"
+#include "../../includes/minishell.h"
 
 static int	echo_if_nnn(char *flag)
 {
@@ -58,7 +58,7 @@ int	minishell_echo(t_token *input)
 	int		fd;
 
 	input = input->next;
-	fd = get_redir_fd(input);
+	fd = get_redir_ofd(input);
 	if (fd < 0)
 		return (1);
 	if (input->type == FLAG && echo_if_nnn(input->content))

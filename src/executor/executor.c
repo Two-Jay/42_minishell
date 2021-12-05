@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 14:06:19 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 17:05:47 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd.h"
+#include "../../includes/minishell.h"
 
 static int	exec_if_pipe(t_data *data)
 {
@@ -55,24 +55,23 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 {
 	char	*cmd_path;
 	char	**exec_argv;
-	int		fd;
+	int		builtin_return;
 
-	fd = get_redir_fd(input);
-	if (dup2(fd, STDOUT_FILENO) < 0)
-		exit(child_error("shell", ft_strdup(PIPE_ERR), 1));
-	if (fd != STDOUT_FILENO)
-		close(fd);
+	exec_dup_iofd(input);
+	builtin_return = exec_builtin(data, input);
+	if (builtin_return != EXEC_NOTBUILTIN)
+		return (builtin_return);
 	cmd_path = exec_getcmd(input->content, envp);
 	if (!cmd_path)
 		exit(data->dq);
 	exec_argv = pipe_insert_arr(input, cmd_path);
 	if (!exec_argv)
-		exit(child_error("shell",
+		exit(builtin_error("shell",
 				ft_strjoin(input->content, EXEC_ERRPARSE), 1));
 	execve(cmd_path, exec_argv, envp);
 	ft_free_char2d(exec_argv);
 	free(cmd_path);
-	exit(child_error("pipe", ft_strdup(PIPE_ERR), 1));
+	exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 }
 
 int	executor(t_data *data, char *envp[])
@@ -86,20 +85,18 @@ int	executor(t_data *data, char *envp[])
 	if (exec_if_pipe(data))
 		return (minishell_pipe(data, envp));
 	builtin_return = exec_builtin(data, input);
-	if (builtin_return == EXEC_NOTBUILTIN)
+	if (builtin_return != EXEC_NOTBUILTIN)
+		return (builtin_return);
+	exec_pid = fork();
+	if (!exec_pid)
+		exec_program(data, input, envp);
+	else if (exec_pid < 0)
+		return (free_token(input, builtin_error(
+					"shell", ft_strdup(EXEC_ERRFORK), 1)));
+	else
 	{
-		exec_pid = fork();
-		if (!exec_pid)
-			exec_program(data, input, envp);
-		else if (exec_pid < 0)
-			return (free_token(input, builtin_error(
-						"shell", ft_strdup(EXEC_ERRFORK), 1)));
-		else
-		{
-			waitpid(exec_pid, &status, 0);
-			data->dq = WEXITSTATUS(status);
-		}
-		return (free_token(input, 0));
+		waitpid(exec_pid, &status, 0);
+		data->dq = WEXITSTATUS(status);
 	}
-	return (builtin_return);
+	return (free_token(input, 0));
 }
