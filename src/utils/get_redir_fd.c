@@ -6,16 +6,16 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 19:20:04 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 19:27:14 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	here_doc_readline(char *limiter, int fd)
+static int	here_doc_readline(char *limiter)
 {
 	char	*input;
-	int		fd_rdonly;
+	int		fd[2];
 
 	if (fd < 0)
 		return (builtin_error("shell", ft_strdup(PIPE_ERR), -1));
@@ -45,15 +45,11 @@ int	ifd_condition(t_token *input, char *str)
 	fd = STDIN_FILENO;
 	if (ft_strequel(input->content, "<<"))
 	{
-		fd = open("temp", O_WRONLY | O_APPEND | O_CREAT, 0777);
-		fd = here_doc_readline(str, fd);
+		fd = here_doc_readline(str);
 		if (fd < 0)
 			return (-1);
 		if (input->next->next && input->next->next->type == REDIRECT)
-		{
-			del_temp();
 			close(fd);
-		}
 	}
 	else if (ft_strequel(input->content, "<"))
 	{

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 19:15:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 19:27:43 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,5 @@ int	minishell_executor(t_data *data, char *envp[])
 		waitpid(exec_pid, &status, 0);
 		data->dq = WEXITSTATUS(status);
 	}
-	del_temp();
 	return (free_token(input, 0));
 }
