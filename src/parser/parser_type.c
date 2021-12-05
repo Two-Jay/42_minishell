@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 03:42:40 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 18:51:13 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 19:02:23 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ t_state define_type_input_token(t_token *token, int cmd_flag)
 	return (ret);
 }
 
+int check_cmd_inline(t_token *token)
+{	
+	return (token->type == CMD);
+}
+
+int check_pipe_to_init_condition(t_token *token)
+{
+	return (token->type == PIPE);
+}
+
 int assign_type_input_token_lst(t_token *token)
 {
 	t_token *lst;
@@ -77,9 +87,11 @@ int assign_type_input_token_lst(t_token *token)
 	cmd_flag = 0;
 	while (lst)
 	{
-		lst->type = define_type_input_token(lst, cmd_flags);
-		if (lst->type == CMD)
-			cmd_flag = 1; 
+		lst->type = define_type_input_token(lst, cmd_flag);
+		if (check_cmd_inline(lst))
+			cmd_flag = 1;
+		if (check_pipe_to_init_condition(lst))
+			cmd_flag = 0;
 		lst = lst->next;
 	}
 	return (0);
