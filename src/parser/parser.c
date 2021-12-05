@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 08:45:46 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/05 14:01:30 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int free_ip(t_input_process *ip, int errflag)
+int	free_ip(t_input_process *ip, int errflag)
 {
-	int ix;
+	int	ix;
 
 	ix = -1;
 	if (ip->scenv_ret)
@@ -32,7 +32,7 @@ int free_ip(t_input_process *ip, int errflag)
 	return (0);
 }
 
-char *catch_lst_type(t_state state)
+char	*catch_lst_type(t_state state)
 {
 	if (state == CMD)
 		return ("CMD\n");
@@ -49,10 +49,10 @@ char *catch_lst_type(t_state state)
 	return ("ERROR\n");
 }
 
-void print_token(t_data *data)
+void	print_token(t_data *data)
 {
-	int lst_len;
-	t_token *lst;
+	int		lst_len;
+	t_token	*lst;
 
 	lst_len = 0;
 	lst = data->input->next;
@@ -67,7 +67,7 @@ void print_token(t_data *data)
 	tri(lst_len);
 }
 
-int set_input_process_struct(t_data *data)
+int	set_input_process_struct(t_data *data)
 {
 	data->ip = (t_input_process *)malloc(sizeof(t_input_process));
 	if (!data->ip)
@@ -75,7 +75,7 @@ int set_input_process_struct(t_data *data)
 	return (0);
 }
 
-int parse_input_string(const char *str, t_data *data)
+int	parse_input_string(const char *str, t_data *data)
 {
 	if (check_isclosed(str))
 		return (ft_putstr_fd_error(ERRM_UNCLOSED_QUOTE, 2, ERROR_OCCURED));
