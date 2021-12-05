@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:09:26 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/03 16:09:43 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:06:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd2.h"
+#include "../../includes/cmd.h"
 
 int	builtin_error(char *cmd, char *error_str, int dollar_q)
 {

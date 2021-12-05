@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:38:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 12:34:36 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:06:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd2.h"
+#include "../../includes/cmd.h"
 
 char	*env_equal_check(char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 15:00:59 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 12:38:58 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:06:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd2.h"
+#include "../../includes/cmd.h"
 
 static t_envlst	*get_last_node(t_data *data)
 {

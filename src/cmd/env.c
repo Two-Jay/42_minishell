@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 20:26:51 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 14:25:29 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:06:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd2.h"
+#include "../../includes/cmd.h"
 
 static int	env_no_param(t_data *data, t_token *input)
 {

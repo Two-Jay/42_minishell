@@ -6,11 +6,11 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 20:13:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/04 14:17:12 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 14:06:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmd2.h"
+#include "../../includes/cmd.h"
 
 static t_envlst	*unset_find_prev(t_data *data, t_envlst *node_todel)
 {
