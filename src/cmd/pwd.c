@@ -6,36 +6,30 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 19:59:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:02:43 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	pwd_getpwd(t_token *input)
+static int	pwd_getpwd(int ofd)
 {
 	char	*pwd;
-	int		fd;
 
-	fd = get_redir_ofd(input);
-	if (fd < 0)
-		return (1);
 	pwd = getcwd(0, 10);
 	if (!pwd)
 		return (builtin_error("shell: pwd", ft_strdup(PWD_ERRFAIL), 1));
-	ft_putstr_fd(pwd, fd);
-	write(fd, "\n", 1);
+	ft_putstr_fd(pwd, ofd);
+	write(ofd, "\n", 1);
 	free(pwd);
-	if (fd != STDOUT_FILENO)
-		close(fd);
 	return (0);
 }
 
-int	minishell_pwd(t_token *input)
+int	minishell_pwd(t_token *input, int ofd)
 {
 	if (input->next
 		&& (input->next->type != REDIRECT && input->next->type != PIPE))
 		return (builtin_error("shell: pwd",
 				ft_strjoin(input->next->content, PWD_ERROPT), 1));
-	return (pwd_getpwd(input->next));
+	return (pwd_getpwd(ofd));
 }

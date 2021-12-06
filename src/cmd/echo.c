@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:40:35 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,46 +26,45 @@ static int	echo_if_nnn(char *flag)
 	return (1);
 }
 
-static int	echo_noflag(t_token *tree, int fd)
+static int	echo_noflag(t_token *input, int ofd)
 {
-	while (tree && tree->type != PIPE && tree->type != REDIRECT)
+	while (input && input->type != PIPE)
 	{
-		ft_putstr_fd(tree->content, fd);
-		write(fd, " ", 1);
-		tree = tree->next;
+		if (input->type != REDIRECT && input->type != FILEPATH)
+		{
+			ft_putstr_fd(input->content, ofd);
+			if (input->next && input->next->type == STR)
+				write(ofd, " ", 1);
+		}
+		input = input->next;
 	}
-	write(fd, "\n", 1);
-	if (fd != STDOUT_FILENO)
-		close(fd);
+	write(ofd, "\n", 1);
 	return (0);
 }
 
-static int	echo_nflag(t_token *tree, int fd)
+static int	echo_nflag(t_token *input, int ofd)
 {
-	while (tree && tree->type != PIPE && tree->type != REDIRECT)
+	while (input && input->type != PIPE)
 	{
-		ft_putstr_fd(tree->content, fd);
-		write(fd, " ", 1);
-		tree = tree->next;
+		if (input->type != REDIRECT && input->type != FILEPATH)
+		{
+			ft_putstr_fd(input->content, ofd);
+			if (input->next && input->next->type == STR)
+				write(ofd, " ", 1);
+		}
+		input = input->next;
 	}
-	if (fd != STDOUT_FILENO)
-		close(fd);
 	return (0);
 }
 
-int	minishell_echo(t_token *input)
+int	minishell_echo(t_token *input, int ofd)
 {
-	int		fd;
-
 	input = input->next;
-	fd = get_redir_ofd(input);
-	if (fd < 0)
-		return (1);
 	if (input->type == FLAG && echo_if_nnn(input->content))
 	{
 		input = input->next;
-		return (echo_nflag(input, fd));
+		return (echo_nflag(input, ofd));
 	}
 	else
-		return (echo_noflag(input, fd));
+		return (echo_noflag(input, ofd));
 }

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:11:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:41:28 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(void)
 	t_token	*input[5];
 
 	data = malloc(sizeof(t_data));
+	if (!data)
+		return (0);
 	for (int i = 0; i < 5; i++)
 	{
 		input[i] = malloc(sizeof(t_token));
@@ -43,7 +45,7 @@ int	main(void)
 	input[4]->content = ft_strdup("a");
 	input[4]->type = FILEPATH;
 	data->input = input[0];
-	minishell_echo(data->input);
+	minishell_echo(data->input, STDOUT_FILENO);
 	for (int i = 0; i < 4; i++)
 	{
 		free(input[i]->content);

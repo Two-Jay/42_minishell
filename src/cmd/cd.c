@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:46:51 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,13 @@ int	minishell_cd(t_data *data, t_token *input)
 {
 	int		result_movedir;
 
+	input = input->next;
+	while (input->type == REDIRECT || input->type == FILEPATH)
+		input = input->next;
 	if (check_flag(input))
 		return (builtin_error(
-				"cd", ft_strjoin(input->next->content, CD_ERROPT), 1));
-	if (!input->next
-		|| input->next->type == PIPE || input->next->type == REDIRECT)
+				"cd", ft_strjoin(input->content, CD_ERROPT), 1));
+	if (!input || input->type == PIPE)
 		result_movedir = cd_no_argument(data);
 	else
 		result_movedir = cd_move_directory(data);

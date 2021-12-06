@@ -6,40 +6,36 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 20:26:51 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:32:25 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	env_no_param(t_data *data, t_token *input)
+static int	env_no_param(t_data *data, int ofd)
 {
 	t_envlst	*node_tmp;
-	int			fd;
 
 	node_tmp = data->envlst;
-	fd = get_redir_ofd(input);
 	while (node_tmp)
 	{
 		if (node_tmp->env_state == ENV)
 		{
-			ft_putstr_fd(node_tmp->key, fd);
-			ft_putstr_fd("=", fd);
-			ft_putstr_fd(node_tmp->value, fd);
-			ft_putstr_fd("\n", fd);
+			ft_putstr_fd(node_tmp->key, ofd);
+			ft_putstr_fd("=", ofd);
+			ft_putstr_fd(node_tmp->value, ofd);
+			ft_putstr_fd("\n", ofd);
 		}
 		node_tmp = node_tmp->next;
 	}
-	if (fd != STDOUT_FILENO)
-		close(fd);
 	return (0);
 }
 
-int	minishell_env(t_data *data, t_token *input)
+int	minishell_env(t_data *data, t_token *input, int ofd)
 {
 	if (input->next
-		&& (input->next->type != REDIRECT && input->next->type != PIPE))
+		&& input->next->type != REDIRECT && input->next->type != PIPE)
 		return (builtin_error("env",
 				ft_strjoin(input->next->content, ENV_ERROPT), 1));
-	return (env_no_param(data, input->next));
+	return (env_no_param(data, ofd));
 }

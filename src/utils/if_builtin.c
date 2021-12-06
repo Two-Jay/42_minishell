@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_flag.c                                       :+:      :+:    :+:   */
+/*   if_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/20 13:06:34 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 02:38:07 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/12/06 02:03:57 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/12/06 02:04:29 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_flag(t_token *input)
+int	if_builtin(t_token *input)
 {
-	if (!input)
-		return (0);
-	if (input->type == FLAG)
+	if (ft_strequel(input->content, "cd")
+		|| ft_strequel(input->content, "echo")
+		|| ft_strequel(input->content, "pwd")
+		|| ft_strequel(input->content, "env")
+		|| ft_strequel(input->content, "exit")
+		|| ft_strequel(input->content, "export")
+		|| ft_strequel(input->content, "unset"))
 		return (1);
 	return (0);
 }

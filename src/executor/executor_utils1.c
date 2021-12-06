@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 18:08:14 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ char	*exec_getcmd(char *cmd, char *envp[])
 	if (cmd_path)
 		return (cmd_path);
 	if (!ft_strchr(cmd, '/'))
-		child_error("shell", ft_strjoin(cmd, EXEC_ERRNOCMD), 127);
+		builtin_error("shell", ft_strjoin(cmd, EXEC_ERRNOCMD), 127);
 	else if (cmd_access(cmd) == EXEC_ISDIR)
-		child_error("shell", ft_strjoin(cmd, EXEC_ERRDIR), 126);
+		builtin_error("shell", ft_strjoin(cmd, EXEC_ERRDIR), 126);
 	else
-		child_error("shell", ft_strjoin(cmd, EXEC_ERRNODIR), 127);
+		builtin_error("shell", ft_strjoin(cmd, EXEC_ERRNODIR), 127);
 	return (NULL);
 }
