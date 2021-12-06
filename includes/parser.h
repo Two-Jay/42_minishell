@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 09:29:13 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 10:58:05 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "structure.h"
 # include "headers.h"
+
+# define PSR_ERRSYNTAX "syntax error near unexpected token "
+# define DQ_ERRSYNTAX 258
 
 /*
 ** root setting functions
@@ -45,7 +48,7 @@ int			insert_space_beside_spclcmd(const char *str, t_data *data);
 int			split_by_chunk(const char *str, t_data *data);
 int			build_input_token_lst(char **split_ret, t_data *data);
 int			assign_type_input_token_lst(t_token *token);
-int         validate_error(t_token *token);
+int         guard_syntax_error(t_token *token, t_data *data);
 
 /*
 **		parsing util functions

@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 09:32:41 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 10:31:35 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int get_envkey_l(const char *src, int ix)
 }
 
 /*
-** do not care about get_env() returns NULL;
+** do not care here about get_env() returns NULL;
 ** when get_env() returns NULL, it means that the value was not found
 */
 int search_and_copy_envval(const char *src, t_eb *eb, t_data *data)
@@ -190,7 +190,7 @@ int check_envcnt(const char *str)
 	while (str[++ix])
 	{
 		is_inquoted(str, ix, &quote_flag);
-		if (is_errnoflag(str, ix, quote_flag) || is_envflag(str, ix, quote_flag))
+		if (is_dq(str, ix, quote_flag) || is_envflag(str, ix, quote_flag))
 			ret++;
 	}
 	if (ret > 0)
