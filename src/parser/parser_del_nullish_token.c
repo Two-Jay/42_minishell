@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_del_nullish_token.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:22:20 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 08:41:11 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 11:28:20 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int delete_nullish_token(t_token *token)
 	else
 	{
 		lst = get_last_token(token);
-		while (lst->content == NULL)
+		while (lst->content == NULL && lst->ix != 1)
 		{
 			tmp = lst->prev;
 			free(lst);
