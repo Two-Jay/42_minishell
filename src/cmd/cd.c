@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 23:26:47 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 00:48:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	cd_add_pwd(t_data *data)
 	return (save_env(data, ft_strdup("PWD"), env_value, ENV));
 }
 
-static int	cd_if_argument(t_token *input)
+static int	if_argument(t_token *input)
 {
 	if (!input->next || input->next->type == PIPE)
 		return (0);
@@ -83,10 +83,10 @@ int	minishell_cd(t_data *data, t_token *input)
 {
 	int		result_movedir;
 
-	if (cd_if_argument(input) < 0)
+	if (cd_if_argument(input) == FLAG_O)
 		return (builtin_error(
 				"cd", ft_strjoin(input->content, CD_ERROPT), 1));
-	else if (cd_if_argument(input) > 0)
+	else if (cd_if_argument(input) == ARGUMENT_O)
 		result_movedir = cd_move_directory(data, input);
 	else
 		result_movedir = cd_no_argument(data);
