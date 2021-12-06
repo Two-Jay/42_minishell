@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/07 04:11:40 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/07 04:20:34 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ int search_and_copy_envval(const char *src, t_eb *eb, t_data *data)
 	eb->envkey = ft_strndup((char *)(src + eb->now_ix + 1), eb->key_l);
 	eb->envval = get_env(eb->envkey, data);
 	eb->value_l = ft_strlen(eb->envval);
-	tri(eb->now_ix);
-	tri(eb->key_l);
-	trs(eb->envkey);
-	tri(eb->value_l);
-	trs(eb->envval);
 	return (0);
 }
 
@@ -203,7 +198,6 @@ int check_envcnt(const char *str)
 		if (is_dq(str, ix, quote_flag) || is_envflag(str, ix, quote_flag))
 			ret++;
 	}
-	tri(ret);
 	if (ret > 0)
 		return (TRUE);
 	return (FALSE);
@@ -234,7 +228,6 @@ int setup_and_check_env(const char *str, t_data *data)
 				dst = append_env(dst, &ix, data);
 		}
 	}
-	trs(dst);
 	data->ip->scenv_ret = dst;
 	return (0);
 }
