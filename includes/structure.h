@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:02:25 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:09:57 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 03:50:41 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct s_parser_env_bucket
 	int		key_l;
 	char	*envval;
 	int		value_l;
-	char	*errno_str;
-	int		errno_l;
+	char	*nbr_str;
+	int		nbr_l;
 }	t_eb;
 
 typedef enum s_state

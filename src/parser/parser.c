@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 11:12:30 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/07 03:41:50 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	set_input_process_struct(t_data *data)
 
 int	parse_input_string(const char *str, t_data *data)
 {
-	if (check_isclosed(str, data))
+	if (check_isclosed(str))
 		return (ERROR_OCCURED);
 	if (set_input_process_struct(data)
 		|| setup_and_check_env(str, data)
@@ -86,7 +86,7 @@ int	parse_input_string(const char *str, t_data *data)
 		|| build_input_token_lst(data->ip->split_ret, data)
 		|| delete_nullish_token(data->input->next)
 		|| assign_type_input_token_lst(data->input->next)
-		|| guard_syntax_error(data->input->next, data))
+		|| guard_syntax_error(data->input->next))
 		return (free_ip(data->ip, ERROR_OCCURED));
 	print_token(data);
 	return (free_ip(data->ip, 0));
