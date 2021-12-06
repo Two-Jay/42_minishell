@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 18:59:29 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 22:05:54 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,5 @@ int	minishell_pipe(t_data *data, char *envp[])
 	}
 	pipe_wait(data, struct_pipe);
 	free(struct_pipe);
-	return (free_token(data->input, 0));
+	return (free_token(data->input));
 }

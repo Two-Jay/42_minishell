@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 22:04:32 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 22:05:25 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 			if (data.input && data.input->next)
 			{
 				minishell_executor(&data, envp);
-				free_token(&data.input);
+				free_token(data.input);
 			}
 		}
 		free(input);
