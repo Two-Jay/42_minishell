@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 22:07:03 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 02:22:46 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ int	exec_builtin(t_data *data, t_token *input, int ofd)
 	int	builtin_return;
 
 	builtin_return = 0;
+	while (input && (input->type == REDIRECT || input->type == FILEPATH))
+		input = input->next;
+	if (!input || input->type == PIPE)
+		return (0);
 	if (ft_strequel(input->content, "cd"))
 		builtin_return = minishell_cd(data, input);
 	else if (ft_strequel(input->content, "echo"))
@@ -40,7 +44,7 @@ int	exec_builtin(t_data *data, t_token *input, int ofd)
 	else if (ft_strequel(input->content, "env"))
 		builtin_return = minishell_env(data, input, ofd);
 	else if (ft_strequel(input->content, "exit"))
-		builtin_return = minishell_exit(data, input);
+		builtin_return = minishell_exit(input);
 	else if (ft_strequel(input->content, "export"))
 		builtin_return = minishell_export(data, input, ofd);
 	else if (ft_strequel(input->content, "unset"))
@@ -76,10 +80,10 @@ static int	exec_dup_builtin(t_data *data, t_token *input)
 
 	if (!if_builtin(input))
 		return (EXEC_NOTBUILTIN);
-	ofd = get_redir_ofd(input->next);
+	ofd = get_redir_ofd(input);
 	if (ofd < 0)
 		return (builtin_error("shell", ft_strdup(PIPE_ERR), 1));
-	ifd = get_redir_ifd(input->next);
+	ifd = get_redir_ifd(input);
 	if (ifd < 0)
 		return (builtin_error("shell", ft_strdup(PIPE_ERR), 1));
 	if (ifd != STDIN_FILENO)
