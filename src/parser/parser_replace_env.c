@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 10:31:35 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/07 03:36:02 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 /*
 ** env part
 */
-
 int is_end_envkey(const char *src, int ix)
 {
-	return ((ft_isspace(src[ix])
-			|| is_double_quote(src, ix)
-			|| is_single_quote(src, ix))
-			|| src[ix] == '$');
+	if (ix == 0 && !ft_isalpha(src[ix]) && src[ix] != '_')
+		return (TRUE);
+	if (!ft_isalnum(src[ix]) && src[ix] != '_')
+		return (TRUE);
+	return (FALSE);
 }
 
 int get_envkey_l(const char *src, int ix)
@@ -31,7 +31,7 @@ int get_envkey_l(const char *src, int ix)
 	ret = 0;
 	while (src[ix])
 	{
-		if (is_end_envkey(src, ix))
+		if (is_end_envkey(src, ix) == TRUE)
 			break ;
 		ix++;
 		ret++;
@@ -49,6 +49,11 @@ int search_and_copy_envval(const char *src, t_eb *eb, t_data *data)
 	eb->envkey = ft_strndup((char *)(src + eb->now_ix + 1), eb->key_l);
 	eb->envval = get_env(eb->envkey, data);
 	eb->value_l = ft_strlen(eb->envval);
+	tri(eb->now_ix);
+	tri(eb->key_l);
+	trs(eb->envkey);
+	tri(eb->value_l);
+	trs(eb->envval);
 	return (0);
 }
 
@@ -111,6 +116,7 @@ char	*append_env(char *src, int *now_ix, t_data *data)
 	char	*ret;
 	t_eb	*envbucket;
 
+	printf("check\n");
 	envbucket = set_envbucket(src, *now_ix);
 	if (!envbucket
 		|| search_and_copy_envval(src, envbucket, data))
@@ -122,12 +128,9 @@ char	*append_env(char *src, int *now_ix, t_data *data)
 	return (return_append_env(envbucket, ret));
 }
 
-/*
-** errno part
-*/
-int search_and_copy_dq(t_eb *eb, t_data *data)
+int search_and_copy_dq(t_eb *eb)
 {
-	eb->errno_str = ft_itoa(data->dq);
+	eb->errno_str = ft_itoa(g_dq);
 	eb->errno_l = ft_strlen(eb->errno_str);
 	return (0);
 }
@@ -148,14 +151,14 @@ char	*fetch_dq_in_src(t_eb *eb)
 	return (ret);
 }
 
-char	*append_dq(char *src, int *now_ix, t_data *data)
+char	*append_dq(char *src, int *now_ix)
 {
 	char	*ret;
 	t_eb	*envbucket;
 
 	envbucket = set_envbucket(src, *now_ix);
 	if (!envbucket
-		|| search_and_copy_dq(envbucket, data))
+		|| search_and_copy_dq(envbucket))
 		return (return_append_env(envbucket, NULL));
 	ret = fetch_dq_in_src(envbucket);
 	if (!ret)
@@ -193,6 +196,7 @@ int check_envcnt(const char *str)
 		if (is_dq(str, ix, quote_flag) || is_envflag(str, ix, quote_flag))
 			ret++;
 	}
+	tri(ret);
 	if (ret > 0)
 		return (TRUE);
 	return (FALSE);
@@ -216,11 +220,12 @@ int setup_and_check_env(const char *str, t_data *data)
 		{
 			is_inquoted(dst, ix, &quote_flag);
 			if (is_dq(dst, ix, quote_flag))
-				dst = append_dq(dst, &ix, data);
+				dst = append_dq(dst, &ix);
 			else if (is_envflag(dst, ix, quote_flag))
 				dst = append_env(dst, &ix, data);
 		}
 	}
+	trs(dst);
 	data->ip->scenv_ret = dst;
 	return (0);
 }

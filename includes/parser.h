@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 13:46:14 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/07 03:38:30 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "headers.h"
 
 # define PSR_ERRSYNTAX "syntax error near unexpected token "
-# define DQ_ERRSYNTAX 258
 
 /*
 ** root setting functions
@@ -38,7 +37,7 @@ char		*ft_strncpy(char *s1, const char *s2, size_t n);
 /*
 **		parsing functions
 */
-int			check_isclosed(const char *input, t_data *data);
+int			check_isclosed(const char *input);
 int			parse_input_string(const char *str, t_data *data);
 int			setup_and_check_env(const char *str, t_data *data);
 char		*quote_trim(char *str, t_data *data);
@@ -48,13 +47,12 @@ int			insert_space_beside_spclcmd(const char *str, t_data *data);
 int			split_by_chunk(const char *str, t_data *data);
 int			build_input_token_lst(char **split_ret, t_data *data);
 int			assign_type_input_token_lst(t_token *token);
-int         guard_syntax_error(t_token *token, t_data *data);
+int         guard_syntax_error(t_token *token);
 
 /*
 **		parsing util functions
 */
-int         print_syntax_error(char *cmd,
-                char *error_str, t_data *data);
+int         print_syntax_error(char *cmd, char *error_str);
 void		is_inquoted(const char *str, int ix, int *flag);
 int			is_double_quote(const char *str, int ix);
 int			is_single_quote(const char *str, int ix);

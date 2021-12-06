@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/07 02:00:50 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/07 02:59:34 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 void signal_handler_SIGINT(int signo)
 {
     (void)signo;
-    printf("\b\b\n%s", PROMPT);
+    printf("\n\b\b%s", PROMPT);
+    g_dq = 130;
 }
 
 // /*

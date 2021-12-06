@@ -23,6 +23,12 @@
 # define FALSE 1
 # define ERROR_OCCURED 1
 
+int g_dq;
+extern int g_dq;
+# define DQ_ERRSYNTAX 258
+# define DQ_SIGINT 130
+
+
 # define ERRM_UNCLOSED_QUOTE "Error : unclosed quote\n"
 
 # define trs(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%s\n", x); }
