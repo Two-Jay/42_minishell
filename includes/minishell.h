@@ -18,6 +18,7 @@
 # include "signal.h"
 
 # define INTRO "Nyamnyam_shell.dev '-'//"
+# define PROMPT ">> :"
 # define TRUE 0
 # define FALSE 1
 # define ERROR_OCCURED 1
