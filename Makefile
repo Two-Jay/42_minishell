@@ -6,7 +6,7 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/07 00:47:16 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/07 02:35:58 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ UTILS_FILE		=	utils.c \
 					env_name_check.c \
 					find_env.c \
 					save_env.c \
+					add_shlvl.c \
 					builtin_error.c \
 					check_flag.c \
 					check_argument.c \

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 01:54:15 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 02:36:18 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int			save_env(
 				char *env_key,
 				char *env_value,
 				t_env_state flag);
+void		add_shlvl(t_data *data);
 
 /*
 	* Utilities
