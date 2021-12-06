@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 19:36:20 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 02:20:55 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	get_redir_ifd(t_token *input)
 	int			fd;
 
 	fd = STDIN_FILENO;
+	if (input->type == CMD)
+		input = input->next;
 	while (input && input->type != CMD && input->type != PIPE)
 	{
 		if (input->type == REDIRECT)
@@ -79,6 +81,8 @@ int	get_redir_ofd(t_token *input)
 	int		fd;
 
 	fd = STDOUT_FILENO;
+	if (input->type == CMD)
+		input = input->next;
 	while (input && input->type != CMD && input->type != PIPE)
 	{
 		if (input->type == REDIRECT)
