@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 00:48:45 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 01:04:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	cd_move_directory(t_data *data, t_token *input)
 {
 	char	*str;
 
-	while (input->type != STR)
+	while (input && input->type != STR)
 		input = input->next;
 	str = input->content;
 	if (ft_strequel(str, "~"))
@@ -65,28 +65,16 @@ static int	cd_add_pwd(t_data *data)
 	return (save_env(data, ft_strdup("PWD"), env_value, ENV));
 }
 
-static int	if_argument(t_token *input)
-{
-	if (!input->next || input->next->type == PIPE)
-		return (0);
-	input = input->next;
-	while (input->type == REDIRECT || input->type == FILEPATH)
-		input = input->next;
-	if (check_flag(input))
-		return (-1);
-	if (!input || input->type == PIPE)
-		return (0);
-	return (1);
-}
-
 int	minishell_cd(t_data *data, t_token *input)
 {
 	int		result_movedir;
+	int		argument_check;
 
-	if (cd_if_argument(input) == FLAG_O)
+	argument_check = check_argument(input);
+	if (argument_check == FLAG_O)
 		return (builtin_error(
-				"cd", ft_strjoin(input->content, CD_ERROPT), 1));
-	else if (cd_if_argument(input) == ARGUMENT_O)
+				"cd", ft_strjoin(find_flag(input)->content, CD_ERROPT), 1));
+	else if (argument_check == ARGUMENT_O)
 		result_movedir = cd_move_directory(data, input);
 	else
 		result_movedir = cd_no_argument(data);

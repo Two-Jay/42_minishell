@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 00:46:58 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 01:04:15 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define LLMAX 9223372036854775807
 # define ARGUMENT_X 0
 # define ARGUMENT_O 1
-# define FLAG_O 1
+# define FLAG_O -1
 
 /*
 	* Minishell Executor
@@ -126,6 +126,7 @@ int			save_env(
 int			builtin_error(char *cmd, char *error_str, int dollar_q);
 int			if_builtin(t_token *input);
 int			check_flag(t_token *input);
+t_token		*find_flag(t_token *input);
 int			check_argument(t_token *input);
 int			free_token(t_token *input);
 void		ft_free_char2d(char **arr);
