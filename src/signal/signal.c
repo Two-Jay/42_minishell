@@ -1,27 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/06 05:32:52 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 11:26:36 by jekim            ###   ########.fr       */
+/*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
+/*   Updated: 2021/12/06 11:00:07 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int len;
-
-	len = 0;
-	if (fd < 0)
-		return ;
-	if (s)
-	{
-		len = ft_strlen(s);
-		write(fd, s, len);
-	}
-}
+#include "../../includes/minishell.h"

@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 10:56:11 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 11:12:30 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ int	set_input_process_struct(t_data *data)
 
 int	parse_input_string(const char *str, t_data *data)
 {
-	if (check_isclosed(str))
-		return (ft_putstr_fd_error(ERRM_UNCLOSED_QUOTE, 2, ERROR_OCCURED));
+	if (check_isclosed(str, data))
+		return (ERROR_OCCURED);
 	if (set_input_process_struct(data)
 		|| setup_and_check_env(str, data)
 		|| insert_space_beside_spclcmd(data->ip->scenv_ret, data)

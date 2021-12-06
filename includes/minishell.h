@@ -15,6 +15,7 @@
 
 # include "cmd.h"
 # include "parser.h"
+# include "signal.h"
 
 # define INTRO "Nyamnyam_shell.dev '-'//"
 # define TRUE 0

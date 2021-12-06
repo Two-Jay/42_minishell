@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 10:58:05 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 11:21:48 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char		*ft_strncpy(char *s1, const char *s2, size_t n);
 /*
 **		parsing functions
 */
-int			check_isclosed(const char *input);
+int			check_isclosed(const char *input, t_data *data);
 int			parse_input_string(const char *str, t_data *data);
 int			setup_and_check_env(const char *str, t_data *data);
 char		*quote_trim(char *str, t_data *data);
@@ -53,11 +53,11 @@ int         guard_syntax_error(t_token *token, t_data *data);
 /*
 **		parsing util functions
 */
+int         print_syntax_error(char *cmd, char *error_str, t_data *data);
 void		is_inquoted(const char *str, int ix, int *flag);
 int			is_double_quote(const char *str, int ix);
 int			is_single_quote(const char *str, int ix);
 int			is_quotation(const char *str, int ix);
-int			ft_putstr_fd_error(char *str, int fd, int error_code);
 int			is_redirection(const char *str, int ix);
 int			is_pipe(const char *str, int ix);
 

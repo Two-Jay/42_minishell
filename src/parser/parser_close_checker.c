@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_close_checker.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 09:53:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/03 19:18:15 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 11:21:57 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_isclosed(const char *input)
+int	check_isclosed(const char *input, t_data *data)
 {
 	int	ix;
 	int	flag;
@@ -20,10 +20,16 @@ int	check_isclosed(const char *input)
 	flag = 0;
 	ix = -1;
 	if (ft_strlen(input) == 1 && is_quotation(input, ix))
-		return (FALSE);
+		return (print_syntax_error(
+			"Shell",
+			ft_strjoin(PSR_ERRSYNTAX, "'unclosed quote'"),
+			data));
 	while (input[++ix])
         is_inquoted(input, ix, &flag);
 	if (flag == 0)
 		return (TRUE);
-	return (FALSE);
+	return (print_syntax_error(
+			"Shell",
+			ft_strjoin(PSR_ERRSYNTAX, "'unclosed quote'"),
+			data));
 }

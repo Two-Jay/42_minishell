@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:37:34 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 05:17:11 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 11:24:35 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ void	is_inquoted(const char *str, int ix, int *flag)
 	}
 }
 
-int ft_putstr_fd_error(char *str, int fd, int error_code)
+int	print_syntax_error(char *cmd, char *error_str, t_data *data)
 {
-	int len;
-
-	len = ft_strlen(str);
-	if (str && fd)
-		write(fd, str, len);
-	return (error_code);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(error_str, 2);
+	write(2, "\n", 1);
+	// if (error_str)
+	// 	free(error_str);
+    data->dq = DQ_ERRSYNTAX;
+	return (ERROR_OCCURED);
 }

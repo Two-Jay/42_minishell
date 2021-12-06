@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/06 05:32:52 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 11:26:36 by jekim            ###   ########.fr       */
+/*   Created: 2021/12/06 11:00:36 by jekim             #+#    #+#             */
+/*   Updated: 2021/12/06 11:10:22 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef SIGNAL_H
+# define SIGNAL_H
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	int len;
+# include "structure.h"
+# include "headers.h"
 
-	len = 0;
-	if (fd < 0)
-		return ;
-	if (s)
-	{
-		len = ft_strlen(s);
-		write(fd, s, len);
-	}
-}
+#endif
