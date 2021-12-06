@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 03:42:40 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 16:35:27 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 20:57:38 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ t_state define_type_input_token(t_token *token, int cmd_flag)
 		ret = REDIRECT;
 	else if (is_filepath(token))
 		ret = FILEPATH;
+	else if (is_pipe(token->content, 0))
+		ret = PIPE;
 	else if (is_CMD(cmd_flag))
 		ret = CMD;
 	else if (is_flag(token))
 		ret = FLAG;
-	else if (is_pipe(token->content, 0))
-		ret = PIPE;
 	else
 		ret = STR;
 	return (ret);

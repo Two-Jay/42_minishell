@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 19:07:43 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 01:57:29 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ int	main(int argc, char **argv, char **envp)
 	char	*input;
 	t_data	data;
 
-	if (print_intro(argc, argv) || init_env(envp, &data))
+	if (print_intro(argc, argv)
+		|| init_env(envp, &data)
+		|| set_signal_handler())
 		exit(EXIT_FAILURE);
 	while (1)
 	{
-		input = readline(">> :");
+		input = readline(PROMPT);
 		if (input)
 		{
 			trs(input);

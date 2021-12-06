@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/06 15:45:02 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/07 01:25:52 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ INCLUDE		=	-I$(INC_DIR) -I$(LIBFT_DIR)
 
 OBJ_DIR		=	./obj/
 SRC_DIR		=	./src/
+SIGNAL_DIR	=	./src/signal/
 UTILS_DIR	= 	./src/utils/
 PARSER_DIR	=	./src/parser/
 CMD_DIR		=	./src/cmd/
@@ -29,6 +30,8 @@ LIBFT_DIR	=	./libft/
 
 SRC_FILE		=	minishell.c \
 					environ.c
+
+SIGNAL_FILE		=	signal.c 
 
 PARSER_FILE 	=	parser.c \
 					parser_isbs.c \
@@ -69,18 +72,21 @@ EXEC_FILE		=	executor_utils1.c \
 					executor.c
 
 MAIN_OBJ_FILE	=	$(SRC_FILE:.c=.o)
+SIGNAL_OBJ_FILE	=	$(SIGNAL_FILE:.c=.o)
 PARSER_OBJ_FILE	=	$(PARSER_FILE:.c=.o)
 UTILS_OBJ_FILE	=	$(UTILS_FILE:.c=.o)
 CMD_OBJ_FILE	=	$(CMD_FILE:.c=.o)
 EXEC_OBJ_FILE	=	$(EXEC_FILE:.c=.o)
 
 MAIN_OBJ		=	$(addprefix $(OBJ_DIR), $(MAIN_OBJ_FILE))
+SIGNAL_OBJ		=	$(addprefix $(OBJ_DIR), $(SIGNAL_OBJ_FILE))
 PARSER_OBJ		=	$(addprefix $(OBJ_DIR), $(PARSER_OBJ_FILE))
 UTILS_OBJ		=	$(addprefix $(OBJ_DIR), $(UTILS_OBJ_FILE))
 CMD_OBJ			=	$(addprefix $(OBJ_DIR), $(CMD_OBJ_FILE))
 EXEC_OBJ		=	$(addprefix $(OBJ_DIR), $(EXEC_OBJ_FILE))
 
 OBJ				= 	$(MAIN_OBJ)	\
+					$(SIGNAL_OBJ)	\
 					$(PARSER_OBJ)	\
 					$(UTILS_OBJ)	\
 					$(CMD_OBJ)	\
@@ -89,6 +95,10 @@ OBJ				= 	$(MAIN_OBJ)	\
 all			:	$(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
+
+$(OBJ_DIR)%.o : $(SIGNAL_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(G) $(CCFLAG) $(INCLUDE) $< -c -o $@
 
