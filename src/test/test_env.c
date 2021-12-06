@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 14:06:28 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:41:34 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(void)
 	input[2]->type = STR;
 	data->envlst = env[0];
 	data->input = input[0];
-	minishell_env(data, data->input);
+	minishell_env(data, data->input, STDOUT_FILENO);
 	for (int i = 0; i < 4; i++)
 	{
 		free(env[i]->key);

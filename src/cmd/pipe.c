@@ -6,27 +6,39 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:07:07 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static t_pipe	*pipe_struct(t_token *input, char *envp[])
+{
+	t_pipe	*struct_pipe;
+
+	struct_pipe = malloc(sizeof(t_pipe));
+	if (!struct_pipe)
+		return (NULL);
+	struct_pipe->index = 0;
+	struct_pipe->max_index = pipe_count_cmd(input);
+	struct_pipe->fd_tmp = STDIN_FILENO;
+	struct_pipe->envp = envp;
+	return (struct_pipe);
+}
+
 static void	pipe_child(
 		t_data *data, t_token *input, t_pipe *struct_pipe, int fd[2])
 {
-	if (dup2(struct_pipe->fd_tmp, STDIN_FILENO) < 0)
-		exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
-	if (struct_pipe->index + 1 < struct_pipe->max_index)
-		if (dup2(fd[PIPE_WRITE], STDOUT_FILENO) < 0)
-			exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
+	pipe_dup_ifd(input, struct_pipe);
+	pipe_dup_ofd(input, struct_pipe, fd);
 	if (struct_pipe->fd_tmp != STDIN_FILENO)
 		close(struct_pipe->fd_tmp);
 	if (struct_pipe->index + 1 < struct_pipe->max_index)
 		close(fd[PIPE_WRITE]);
 	close(fd[PIPE_READ]);
-	if (exec_builtin(data, input) == EXEC_NOTBUILTIN)
+	if (!if_builtin(input))
 		exec_program(data, input, struct_pipe->envp);
+	exit(exec_builtin(data, input, STDOUT_FILENO));
 }
 
 static int	pipe_makepipe(t_data *data, t_token *input, t_pipe *struct_pipe)

@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_cd.c                                          :+:      :+:    :+:   */
+/*   test_executor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/27 14:32:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 02:41:11 by jiychoi          ###   ########.fr       */
+/*   Created: 2021/12/05 17:41:01 by jiychoi           #+#    #+#             */
+/*   Updated: 2021/12/06 02:51:07 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_data		*data;
 	t_envlst	*env1;
 	t_envlst	*env2;
-	t_token		*input[3];
-	char		buf[100];
+	t_token		*input[10];
 
+	(void)argc;
+	(void)argv;
 	data = malloc(sizeof(t_data));
 	env1 = malloc(sizeof(t_envlst));
 	env2 = malloc(sizeof(t_envlst));
 	if (!data || !env1 || !env2)
 		return (0);
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		input[i] = malloc(sizeof(t_token));
 		if (!input[i])
@@ -37,42 +38,49 @@ int	main(void)
 			input[i]->prev = input[i - 1];
 		}
 	}
-	chdir("/Users/chichoon/Documents/minishell/");
 	env1->key = ft_strdup("PWD");
 	env1->value = ft_strdup("/Users/chichoon/Documents/minishell/");
 	env1->next = env2;
-	env2->key = ft_strdup("OLDPWD");
-	env2->value = ft_strdup("/Users/chichoon/Documents/minishell/src/test");
+	env2->key = ft_strdup("HOME");
+	env2->value = ft_strdup("/Users/chichoon/");
 	env2->next = NULL;
-	input[2]->next = NULL;
+	input[9]->next = NULL;
 	input[0]->prev = NULL;
 	//test
-	input[0]->content = ft_strdup("cd");
+	input[0]->content = ft_strdup("echo");
 	input[0]->type = CMD;
-	input[1]->content = ft_strdup("src/test");
-	input[1]->type = STR;
-	input[2]->content = ft_strdup("src");
-	input[2]->type = STR;
+	input[1]->content = ft_strdup("<");
+	input[1]->type = REDIRECT;
+	input[2]->content = ft_strdup("Makefile");
+	input[2]->type = FILEPATH;
+	input[3]->content = ft_strdup(">");
+	input[3]->type = REDIRECT;
+	input[4]->content = ft_strdup("a");
+	input[4]->type = FILEPATH;
+	input[5]->content = ft_strdup(">");
+	input[5]->type = REDIRECT;
+	input[6]->content = ft_strdup("b");
+	input[6]->type = FILEPATH;
+	input[7]->content = ft_strdup("HELLO");
+	input[7]->type = STR;
+	input[8]->content = ft_strdup(">");
+	input[8]->type = REDIRECT;
+	input[9]->content = ft_strdup("d");
+	input[9]->type = FILEPATH;
 	data->input = input[0];
 	data->envlst = env1;
-	getcwd(buf, 100);
-	printf("before cd : %s\n", buf);
-	minishell_cd(data, data->input);
-	getcwd(buf, 100);
-	printf("after cd : %s\n", buf);
-	printf("env 1 -> %s : %s\n", env1->key, env1->value);
-	printf("env 2 -> %s : %s\n", env1->next->key, env1->next->value);
-	//free
-	free(input[0]->content);
-	free(input[0]);
-	free(input[1]->content);
-	free(input[1]);
-	free(input[2]->content);
-	free(input[2]);
+	minishell_executor(data, envp);
+	/*
+	for (int i = 0; i < 10; i++)
+	{
+		free(input[i]->content);
+		free(input[i]);
+	}
+	*/
 	free(env1->key);
 	free(env1->value);
 	free(env2->key);
 	free(env2->value);
 	free(data);
-	system("leaks a.out");
+	//system("leaks a.out");
 }

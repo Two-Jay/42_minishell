@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:47 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:19:12 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	exec_if_pipe(t_data *data)
 	return (0);
 }
 
-int	exec_builtin(t_data *data, t_token *input)
+int	exec_builtin(t_data *data, t_token *input, int ofd)
 {
 	int	builtin_return;
 
@@ -34,33 +34,28 @@ int	exec_builtin(t_data *data, t_token *input)
 	if (ft_strequel(input->content, "cd"))
 		builtin_return = minishell_cd(data, input);
 	else if (ft_strequel(input->content, "echo"))
-		builtin_return = minishell_echo(input);
+		builtin_return = minishell_echo(input, ofd);
 	else if (ft_strequel(input->content, "pwd"))
-		builtin_return = minishell_pwd(input);
+		builtin_return = minishell_pwd(input, ofd);
 	else if (ft_strequel(input->content, "env"))
-		builtin_return = minishell_env(data, input);
+		builtin_return = minishell_env(data, input, ofd);
 	else if (ft_strequel(input->content, "exit"))
 		builtin_return = minishell_exit(data, input);
 	else if (ft_strequel(input->content, "export"))
-		builtin_return = minishell_export(data, input);
+		builtin_return = minishell_export(data, input, ofd);
 	else if (ft_strequel(input->content, "unset"))
 		builtin_return = minishell_unset(data, input);
-	else
-		builtin_return = EXEC_NOTBUILTIN;
 	data->dq = builtin_return;
-	return (EXEC_NOTBUILTIN);
+	if (ofd != STDOUT_FILENO)
+		close(ofd);
+	return (builtin_return);
 }
 
 int	exec_program(t_data *data, t_token *input, char *envp[])
 {
 	char	*cmd_path;
 	char	**exec_argv;
-	int		builtin_return;
 
-	exec_dup_iofd(input);
-	builtin_return = exec_builtin(data, input);
-	if (builtin_return != EXEC_NOTBUILTIN)
-		return (builtin_return);
 	cmd_path = exec_getcmd(input->content, envp);
 	if (!cmd_path)
 		exit(data->dq);
@@ -74,29 +69,48 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 	exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 }
 
-int	executor(t_data *data, char *envp[])
+static int	exec_dup_builtin(t_data *data, t_token *input)
 {
-	t_token	*input;
+	int		ofd;
+	int		ifd;
+
+	if (!if_builtin(input))
+		return (EXEC_NOTBUILTIN);
+	ofd = get_redir_ofd(input->next);
+	if (ofd < 0)
+		return (free_token(input, builtin_error(
+					"shell", ft_strdup(PIPE_ERR), 1)));
+	ifd = get_redir_ifd(input->next);
+	if (ifd < 0)
+		return (free_token(input, builtin_error(
+					"shell", ft_strdup(PIPE_ERR), 1)));
+	if (ifd != STDIN_FILENO)
+		close(ifd);
+	return (exec_builtin(data, data->input, ofd));
+}
+
+int	minishell_executor(t_data *data, char *envp[])
+{
 	int		builtin_return;
 	int		exec_pid;
 	int		status;
 
-	input = data->input;
 	if (exec_if_pipe(data))
 		return (minishell_pipe(data, envp));
-	builtin_return = exec_builtin(data, input);
+	builtin_return = exec_dup_builtin(data, data->input);
 	if (builtin_return != EXEC_NOTBUILTIN)
-		return (builtin_return);
+		return (free_token(data->input, builtin_return));
 	exec_pid = fork();
 	if (!exec_pid)
-		exec_program(data, input, envp);
-	else if (exec_pid < 0)
-		return (free_token(input, builtin_error(
-					"shell", ft_strdup(EXEC_ERRFORK), 1)));
-	else
 	{
-		waitpid(exec_pid, &status, 0);
-		data->dq = WEXITSTATUS(status);
+		exec_dup_ifd(data->input);
+		exec_dup_ofd(data->input);
+		exec_program(data, data->input, envp);
 	}
-	return (free_token(input, 0));
+	else if (exec_pid < 0)
+		return (free_token(data->input, builtin_error(
+					"shell", ft_strdup(EXEC_ERRFORK), 1)));
+	waitpid(exec_pid, &status, 0);
+	data->dq = WEXITSTATUS(status);
+	return (free_token(data->input, 0));
 }

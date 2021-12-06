@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 20:13:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:39:55 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ int	minishell_unset(t_data *data, t_token *input)
 	if (check_flag(input))
 		return (builtin_error("shell: unset",
 				ft_strjoin(input->next->content, UNSET_ERROPT), 2));
-	while (input && input->type == STR)
+	while (input && input->type != PIPE)
 	{
-		return_value = unset_traverse(data, input);
+		if (input->type == STR)
+			return_value = unset_traverse(data, input);
 		input = input->next;
 	}
 	return (return_value);

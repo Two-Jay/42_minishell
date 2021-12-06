@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 02:37:30 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	exit_with_param(t_token *input)
 	char		*str;
 	long long	errno_converted;
 
-	str = input->next->content;
+	str = input->content;
 	errno_converted = 0;
 	write(1, "exit\n", 5);
 	if (!is_num(str) || (ft_strlen(str) > 20)
@@ -84,9 +84,17 @@ static void	exit_no_param(void)
 
 int	minishell_exit(t_data *data, t_token *input)
 {
-	if (data->input->next)
+	t_token	*input_tmp;
+
+	input = input->next;
+	while (input->type == REDIRECT || input->type == FILEPATH)
+		input = input->next;
+	if (input && input->type != PIPE)
 	{
-		if (data->input->next->next)
+		input_tmp = input;
+		while (input_tmp->type == REDIRECT || input_tmp->type == FILEPATH)
+			input_tmp = input_tmp->next;
+		if (input_tmp->type == STR)
 		{
 			builtin_error("shell", ft_strjoin("exit: ", EXIT_ERRMANY), 1);
 			data->dq = 1;
