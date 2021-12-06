@@ -6,7 +6,7 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/06 15:45:02 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/07 00:47:16 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ UTILS_FILE		=	utils.c \
 					save_env.c \
 					builtin_error.c \
 					check_flag.c \
+					check_argument.c \
 					free_token.c \
 					ft_free_char2d.c \
 					get_redir_fd.c \
