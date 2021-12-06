@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 00:44:49 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 01:58:04 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 02:08:28 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_argument(t_token *input)
 	if (!input->next || input->next->type == PIPE)
 		return (ARGUMENT_X);
 	input = input->next;
-	while (input->type == REDIRECT || input->type == FILEPATH)
+	while (input && (input->type == REDIRECT || input->type == FILEPATH))
 		input = input->next;
 	if (check_flag(input))
 		return (FLAG_O);
