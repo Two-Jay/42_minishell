@@ -3,24 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 03:42:40 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 19:02:23 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 16:35:27 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int is_CMD(t_token *token, int cmd_flag)
+int is_CMD(int cmd_flag)
 {
-	return (token->ix == 1
-		|| (token->ix > 1 && token->prev->type == PIPE)
-		|| (token->next && is_redirection(token->next->content, 0))
-		|| (token->ix > 1 && cmd_flag == 0));
+	return (cmd_flag == 0);
 }
 
-int is_contain_space_or_slash(t_token *token)
+int is_contain_space_or_dash(t_token *token)
 {
 	int ix;
 
@@ -41,7 +38,7 @@ int is_flag(t_token *token)
 	return (token->prev->type == CMD
 		&& token->content[0] == '-'
 		&& ft_strlen(token->content) > 1
-		&& is_contain_space_or_slash(token) == FALSE);
+		&& is_contain_space_or_dash(token) == FALSE);
 }
 
 int is_filepath(t_token *token)
@@ -57,7 +54,7 @@ t_state define_type_input_token(t_token *token, int cmd_flag)
 		ret = REDIRECT;
 	else if (is_filepath(token))
 		ret = FILEPATH;
-	else if (is_CMD(token, cmd_flag))
+	else if (is_CMD(cmd_flag))
 		ret = CMD;
 	else if (is_flag(token))
 		ret = FLAG;

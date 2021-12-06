@@ -1,4 +1,4 @@
-PWD=/Users/jekim/Desktop/42_minishell
+PWD=/Users/jekim/Desktop/minishell
 USER=jekim
 ITERM_PROFILE=Default
 LANG=en_US.UTF-8
@@ -14,8 +14,8 @@ TERM_SESSION_ID=w0t0p0:1E869119-4180-410E-80DE-FE518B69C4FF
 HOME=/Users/jekim
 COLORTERM=truecolor
 SHELL=/bin/zsh
-OLDPWD=/Users/jekim/Desktop/42_minishell
-_P9K_TTY=/dev/ttys001
+OLDPWD=/Users/jekim/Desktop/minishell
+_P9K_TTY=/dev/ttys002
 P9K_TTY=old
 __CF_USER_TEXT_ENCODING=0x18FD6:0x0:0x0
 ITERM_SESSION_ID=w0t0p0:1E869119-4180-410E-80DE-FE518B69C4FF
@@ -25,7 +25,8 @@ TERM_PROGRAM=vscode
 COLORFGBG=15;0
 XPC_SERVICE_NAME=0
 XPC_FLAGS=0x0
-_=/Users/jekim/Desktop/42_minishell/./minishell
+_=/Users/jekim/Desktop/minishell/./minishell
+inishell
 1
 P9K_TTY=old
 COLORTERM=truecolor
