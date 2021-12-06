@@ -6,11 +6,21 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:56:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 13:47:33 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 14:13:11 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	print_syntax_error(char *cmd, char *error_str, t_data *data)
+{
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(error_str, 2);
+	write(2, "\n", 1);
+    data->dq = DQ_ERRSYNTAX;
+	return (ERROR_OCCURED);
+}
 
 int	check_isclosed(const char *input, t_data *data)
 {

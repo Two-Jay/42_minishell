@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:37:34 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 13:48:19 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 14:13:12 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,4 @@ void	is_inquoted(const char *str, int ix, int *flag)
 		else if (*flag == 0)
 			*flag = 1;
 	}
-}
-
-int	print_syntax_error(char *cmd, char *error_str, t_data *data)
-{
-	trp(error_str);
-	trs(error_str);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(error_str, 2);
-	trs(error_str);
-	write(2, "\n", 1);
-    data->dq = DQ_ERRSYNTAX;
-	return (ERROR_OCCURED);
 }
