@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 17:04:41 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 09:29:13 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "structure.h"
 # include "headers.h"
-extern int	g_errno;
 
 /*
 ** root setting functions
@@ -46,6 +45,7 @@ int			insert_space_beside_spclcmd(const char *str, t_data *data);
 int			split_by_chunk(const char *str, t_data *data);
 int			build_input_token_lst(char **split_ret, t_data *data);
 int			assign_type_input_token_lst(t_token *token);
+int         validate_error(t_token *token);
 
 /*
 **		parsing util functions

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_replace_env.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 08:45:47 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 09:32:41 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,14 +125,14 @@ char	*append_env(char *src, int *now_ix, t_data *data)
 /*
 ** errno part
 */
-int search_and_copy_errno(t_eb *eb)
+int search_and_copy_dq(t_eb *eb, t_data *data)
 {
-	eb->errno_str = ft_itoa(errno);
+	eb->errno_str = ft_itoa(data->dq);
 	eb->errno_l = ft_strlen(eb->errno_str);
 	return (0);
 }
 
-char	*fetch_errno_in_src(t_eb *eb)
+char	*fetch_dq_in_src(t_eb *eb)
 {
 	char *ret;
 
@@ -148,17 +148,16 @@ char	*fetch_errno_in_src(t_eb *eb)
 	return (ret);
 }
 
-char	*append_errono(char *src, int *now_ix, t_data *data)
+char	*append_dq(char *src, int *now_ix, t_data *data)
 {
 	char	*ret;
 	t_eb	*envbucket;
 
-	(void)data;
 	envbucket = set_envbucket(src, *now_ix);
 	if (!envbucket
-		|| search_and_copy_errno(envbucket))
+		|| search_and_copy_dq(envbucket, data))
 		return (return_append_env(envbucket, NULL));
-	ret = fetch_errno_in_src(envbucket);
+	ret = fetch_dq_in_src(envbucket);
 	if (!ret)
 		return (return_append_env(envbucket, NULL));
 	*now_ix += envbucket->errno_l - 1;
@@ -174,7 +173,7 @@ int is_envflag(const char *str, int ix, int flag)
 	return (str[ix] == '$' && flag != 1);
 }
 
-int is_errnoflag(const char *str, int ix, int flag)
+int is_dq(const char *str, int ix, int flag)
 {
 	return (str[ix] == '$' && str[ix + 1] == '?' && flag != 1);
 }
@@ -216,8 +215,8 @@ int setup_and_check_env(const char *str, t_data *data)
 		while (dst[++ix])
 		{
 			is_inquoted(dst, ix, &quote_flag);
-			if (is_errnoflag(dst, ix, quote_flag))
-				dst = append_errono(dst, &ix, data);
+			if (is_dq(dst, ix, quote_flag))
+				dst = append_dq(dst, &ix, data);
 			else if (is_envflag(dst, ix, quote_flag))
 				dst = append_env(dst, &ix, data);
 		}

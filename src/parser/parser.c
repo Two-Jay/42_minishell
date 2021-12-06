@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 14:02:18 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/05 18:56:01 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int	parse_input_string(const char *str, t_data *data)
 		|| split_by_chunk(data->ip->isbs_ret, data)
 		|| build_input_token_lst(data->ip->split_ret, data)
 		|| delete_nullish_token(data->input->next)
-		|| assign_type_input_token_lst(data->input->next))
+		|| assign_type_input_token_lst(data->input->next)
+		|| validate_error(data->input->next))
 		return (free_ip(data->ip, ERROR_OCCURED));
 	print_token(data);
 	return (free_ip(data->ip, 0));
