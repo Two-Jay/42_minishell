@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 11:21:48 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 11:35:40 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int         guard_syntax_error(t_token *token, t_data *data);
 /*
 **		parsing util functions
 */
-int         print_syntax_error(char *cmd, char *error_str, t_data *data);
+int         print_syntax_error(char *cmd,
+                char *error_str, char *error_target, t_data *data);
 void		is_inquoted(const char *str, int ix, int *flag);
 int			is_double_quote(const char *str, int ix);
 int			is_single_quote(const char *str, int ix);
