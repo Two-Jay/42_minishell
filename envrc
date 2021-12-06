@@ -13,7 +13,7 @@ XPC_FLAGS=0x0
 ORIGINAL_XDG_CURRENT_DESKTOP=undefined
 SHLVL=1
 PWD=/Users/kimjeongjun/minishell
-OLDPWD=/Users/kimjeongjun/minishell
+OLDPWD=/Users/kimjeongjun
 ZSH=/Users/kimjeongjun/.oh-my-zsh
 PAGER=less
 LESS=-R
@@ -29,6 +29,7 @@ VSCODE_GIT_ASKPASS_EXTRA_ARGS=
 VSCODE_GIT_ASKPASS_MAIN=/private/var/folders/vc/67hymhfs079crg31cnq__wwc0000gn/T/AppTranslocation/1434DBE6-3760-4B7B-AE31-859EAECB35CA/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
 TERM=xterm-256color
 _=/Users/kimjeongjun/minishell/./minishell
+minishell
 defined
 XPC_FLAGS=0x0
 SHELL=/bin/zsh
