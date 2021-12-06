@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 22:05:54 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 02:49:15 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	pipe_wait(t_data *data, t_pipe *struct_pipe)
 		if (wait_return_pid < 0)
 			return ;
 	}
-	data->dq = WEXITSTATUS(status_save);
+	g_dq = WEXITSTATUS(status_save);
 	return ;
 }
 
