@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 15:33:42 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 19:07:43 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	main(int argc, char **argv, char **envp)
 			trs(input);
 			parse_input_string(input, &data);
 			add_history(input);
-			minishell_executor(&data, envp);
+			if (data.input && data.input->next)
+				minishell_executor(&data, envp);
 		}
 		free(input);
 	}
