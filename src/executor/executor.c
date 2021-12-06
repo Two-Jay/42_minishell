@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 19:05:22 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 21:47:34 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	minishell_executor(t_data *data, char *envp[])
 		return (minishell_pipe(data, envp));
 	builtin_return = exec_dup_builtin(data, input_start);
 	if (builtin_return != EXEC_NOTBUILTIN)
-		return (free_token(input_start, builtin_return));
+		return (builtin_return);
 	exec_pid = fork();
 	if (!exec_pid)
 	{
@@ -110,9 +110,8 @@ int	minishell_executor(t_data *data, char *envp[])
 		exec_program(data, input_start, envp);
 	}
 	else if (exec_pid < 0)
-		return (free_token(input_start, builtin_error(
-					"shell", ft_strdup(EXEC_ERRFORK), 1)));
+		return (builtin_error("shell", ft_strdup(EXEC_ERRFORK), 1));
 	waitpid(exec_pid, &status, 0);
 	data->dq = WEXITSTATUS(status);
-	return (free_token(input_start, 0));
+	return (0);
 }

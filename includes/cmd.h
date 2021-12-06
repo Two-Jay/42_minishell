@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 02:04:53 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 21:50:54 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int			save_env(
 int			builtin_error(char *cmd, char *error_str, int dollar_q);
 int			if_builtin(t_token *input);
 int			check_flag(t_token *input);
-int			free_token(t_token *input, int return_status);
+void		free_token(t_token *input);
 void		ft_free_char2d(char **arr);
 
 #endif

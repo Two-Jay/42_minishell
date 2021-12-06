@@ -6,13 +6,13 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 00:56:40 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:44 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/06 21:50:36 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	free_token(t_token *input, int return_status)
+void	free_token(t_token *input)
 {
 	t_token	*tree;
 
@@ -25,5 +25,4 @@ int	free_token(t_token *input, int return_status)
 	}
 	free(tree->content);
 	free(tree);
-	return (return_status);
 }
