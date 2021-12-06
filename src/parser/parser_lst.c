@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 17:12:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/05 07:49:27 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 20:46:20 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_token *create_input_token(const char *str, int ix)
 	if (str && *str)
 		ret->content = ft_strdup(str);
 	ret->ix = ix;
+	ret->next = NULL;
+	ret->prev = NULL;
 	return (ret);
 }
 
