@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parser_guard_syntax.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:56:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 11:36:29 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/06 13:47:33 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	check_isclosed(const char *input, t_data *data)
+{
+	int	ix;
+	int	flag;
+
+	flag = 0;
+	ix = -1;
+	if (ft_strlen(input) == 1 && is_quotation(input, ix))
+		return (print_syntax_error(
+			"Shell ",
+			ft_strjoin(PSR_ERRSYNTAX, "'unclosed quote'"),
+			data));
+	while (input[++ix])
+        is_inquoted(input, ix, &flag);
+	if (flag == 0)
+		return (TRUE);
+	return (print_syntax_error(
+			"Shell ",
+			ft_strjoin(PSR_ERRSYNTAX, "'unclosed quote'"),
+			data));
+}
 
 int check_cnt_redirection_and_filepath(t_token *token, t_data *data)
 {
@@ -32,7 +54,7 @@ int check_cnt_redirection_and_filepath(t_token *token, t_data *data)
     if ((cnt_redirect || cnt_filepath) && cnt_filepath != cnt_redirect)
         return (print_syntax_error(
             "Shell ",
-            PSR_ERRSYNTAX, "'newline'",
+            ft_strjoin(PSR_ERRSYNTAX, "'newline'"),
             data));
     return (0);
 }
@@ -59,7 +81,7 @@ int check_consecutive_pipes(t_token *token, t_data *data)
     if (cnt_pipe > 3)
         return (print_syntax_error(
             "Shell ",
-            PSR_ERRSYNTAX, tmp->content,
+            ft_strjoin(PSR_ERRSYNTAX, tmp->content),
             data));
     return (0);
 }

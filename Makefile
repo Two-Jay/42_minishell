@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/06 10:57:27 by jekim            ###   ########.fr        #
+#    Updated: 2021/12/06 13:51:33 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ PARSER_FILE 	=	parser.c \
 					parser_isbs.c \
 					parser_split.c	\
 					parser_lst.c \
-					parser_close_checker.c \
 					parser_quotetrim.c \
 					parser_guard_syntax.c \
 					parser_del_nullish_token.c \
