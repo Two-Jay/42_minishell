@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 02:49:45 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 18:25:36 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	exec_builtin(t_data *data, t_token *input, int ofd)
 		builtin_return = minishell_export(data, input, ofd);
 	else if (ft_strequel(input->content, "unset"))
 		builtin_return = minishell_unset(data, input);
-	g_dq = builtin_return;
+	data->dq = builtin_return;
 	if (ofd != STDOUT_FILENO)
 		close(ofd);
 	return (builtin_return);
@@ -62,7 +62,7 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 
 	cmd_path = exec_getcmd(input->content, envp);
 	if (!cmd_path)
-		exit(g_dq);
+		exit(data->dq);
 	exec_argv = pipe_insert_arr(input, cmd_path);
 	if (!exec_argv)
 		exit(builtin_error("shell",
@@ -114,6 +114,6 @@ int	minishell_executor(t_data *data, char *envp[])
 	else if (exec_pid < 0)
 		return (builtin_error("shell", ft_strdup(EXEC_ERRFORK), 1));
 	waitpid(exec_pid, &status, 0);
-	g_dq = WEXITSTATUS(status);
+	data->dq = WEXITSTATUS(status);
 	return (0);
 }
