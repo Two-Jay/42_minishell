@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:41:01 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 02:51:07 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 18:27:22 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,21 @@ int	main(int argc, char *argv[], char *envp[])
 	//test
 	input[0]->content = ft_strdup("echo");
 	input[0]->type = CMD;
-	input[1]->content = ft_strdup("<");
-	input[1]->type = REDIRECT;
-	input[2]->content = ft_strdup("Makefile");
-	input[2]->type = FILEPATH;
-	input[3]->content = ft_strdup(">");
-	input[3]->type = REDIRECT;
-	input[4]->content = ft_strdup("a");
-	input[4]->type = FILEPATH;
-	input[5]->content = ft_strdup(">");
-	input[5]->type = REDIRECT;
-	input[6]->content = ft_strdup("b");
-	input[6]->type = FILEPATH;
-	input[7]->content = ft_strdup("HELLO");
-	input[7]->type = STR;
+	input[1]->content = ft_strdup("hello");
+	input[1]->type = STR;
+	input[2]->content = ft_strdup("|");
+	input[2]->type = PIPE;
+	input[3]->content = ft_strdup("cat");
+	input[3]->type = CMD;
+	input[4]->content = ft_strdup(">");
+	input[4]->type = REDIRECT;
+	input[5]->content = ft_strdup("a.txt");
+	input[5]->type = FILEPATH;
+	input[6]->content = ft_strdup("|");
+	input[6]->type = PIPE;
+	input[7]->content = ft_strdup("cat");
+	input[7]->type = CMD;
+	input[7]->next = NULL;
 	input[8]->content = ft_strdup(">");
 	input[8]->type = REDIRECT;
 	input[9]->content = ft_strdup("d");

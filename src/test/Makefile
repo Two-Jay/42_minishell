@@ -6,7 +6,7 @@
 #    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/27 12:18:02 by jiychoi           #+#    #+#              #
-#    Updated: 2021/12/06 02:16:28 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/07 18:31:34 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRCS			=	test_executor.c\
 					../utils/builtin_error.c ../utils/check_flag.c ../utils/env_name_check.c\
 					../utils/find_env.c ../utils/free_token.c ../utils/ft_free_char2d.c\
 					../utils/get_redir_fd.c ../utils/save_env.c ../../libft/ft_strequel.c\
-					../utils/if_builtin.c
+					../utils/if_builtin.c ../utils/check_argument.c
 
 OBJS_CD			=	$(SRCS_CD:.c=.o)
 OBJS_ECHO		=	$(SRCS_ECHO:.c=.o)
@@ -182,7 +182,7 @@ debug-unset :
 clean :
 	@printf "$(LF)Deleting files...\n"
 	@rm -rf $(OBJS_PIPE) $(OBJS_CD) $(OBJS_ECHO) $(OBJS_ENV) $(OBJS_EXIT)
-	@rm -rf $(OBJS_PWD) $(OBJS_UNSET) $(OBJS_EXEC) $(OBJS_EXPORT)
+	@rm -rf $(OBJS_PWD) $(OBJS_UNSET) $(OBJS_EXEC) $(OBJS_EXPORT) $(OBJS)
 
 fclean : clean
 	@rm -rf a.out
