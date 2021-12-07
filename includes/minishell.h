@@ -27,6 +27,7 @@ int g_dq;
 extern int g_dq;
 # define DQ_ERRSYNTAX 258
 # define DQ_SIGINT 130
+# define DQ_SIGQUIT 131
 
 
 # define ERRM_UNCLOSED_QUOTE "Error : unclosed quote\n"
