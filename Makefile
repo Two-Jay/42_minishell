@@ -6,7 +6,7 @@
 #    By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/07 15:26:29 by jekim            ###   ########.fr        #
+#    Updated: 2021/12/07 21:34:09 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME		=	minishell
 
 CC			=	gcc
 CCFLAG		=	-Wall -Wextra -Werror
-LIBFLAG		=	-L$(LIBFT_DIR) -lft -lreadline
+LIBFLAG		=	-L$(LIBFT_DIR) -L$(READLINE_L_DIR) -lft -lreadline 
 G			=	-g3
-INCLUDE		=	-I$(INC_DIR) -I$(LIBFT_DIR)
+INCLUDE		=	-I$(INC_DIR) -I$(LIBFT_DIR) -I$(READLINE_I_DIR)
 
 OBJ_DIR		=	./obj/
 SRC_DIR		=	./src/
@@ -27,6 +27,9 @@ CMD_DIR		=	./src/cmd/
 EXEC_DIR	=	./src/executor/
 INC_DIR		=	./includes/
 LIBFT_DIR	=	./libft/
+
+READLINE_L_DIR	= /opt/homebrew/opt/readline/lib
+READLINE_I_DIR	= /opt/homebrew/opt/readline/include
 
 SRC_FILE		=	minishell.c \
 					environ.c

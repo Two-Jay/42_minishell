@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:02:25 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 19:09:03 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/07 20:16:52 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_data
 	t_envlst		*envlst;
 	t_token			*input;
 	t_input_process	*ip;
+	int				dq;
 	void			**malloc_queue;
 	char			*homedir;
 }	t_data;
