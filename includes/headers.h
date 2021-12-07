@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   headers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:04:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 17:04:31 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 15:26:44 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <dirent.h>
 # include <signal.h>
 # include <termios.h>
+# include <termcap.h>
 # include <string.h>
 # include <errno.h>
 # include <sys/types.h>

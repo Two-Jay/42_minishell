@@ -29,9 +29,6 @@ extern int g_dq;
 # define DQ_SIGINT 130
 # define DQ_SIGQUIT 131
 
-
-# define ERRM_UNCLOSED_QUOTE "Error : unclosed quote\n"
-
 # define trs(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%s\n", x); }
 # define trc(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%c\n", x); }
 # define tri(x...) { printf("[%s:%d] %s = ", __func__, __LINE__, #x); printf("%d\n", x); }

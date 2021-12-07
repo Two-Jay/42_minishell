@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/07 12:32:45 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/07 15:26:48 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ void signal_handler_SIGINT(int signo)
     pid = waitpid(-1, &state, WNOHANG);
     if (pid == -1)
     {
-        ft_putstr_fd("\b\b\b\b    \b\b\b\b", 1);
+        erase_current_term_line();
         ft_putstr_fd(PROMPT, 1);
         g_dq = DQ_SIGINT;
     }
     else
     {
-        ft_putstr_fd("\b\b\b\b    \b\b\b\b", 1);
+        erase_current_term_line();
+        // ft_putstr_fd("\b\b  \b\b", 1);
+        ft_putchar_fd('c', 1);
         ft_putstr_fd(PROMPT, 1);
         g_dq = DQ_SIGINT;
     }
@@ -39,7 +41,6 @@ void signal_handler_SIGINT(int signo)
 /*
 ** ctrl + \
 */
-// 처음에 프롬포트 일부가 삭제되는 건 어떻게 막지?
 void signal_handler_SIGQUIT(int signo)
 {
     pid_t pid;
@@ -56,7 +57,6 @@ void signal_handler_SIGQUIT(int signo)
         ft_putstr_fd("Quit: 3", 1);
         g_dq = DQ_SIGQUIT;
     }
-
 }
 
 /*
