@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 02:33:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 02:39:34 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 18:31:56 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	add_shlvl(t_data *data)
 		return ;
 	shlvl_n = ft_atoi(shlvl->value);
 	shlvl_n++;
-	printf("shlvl: %d\n", shlvl_n);
 	shlvl_s = ft_itoa(shlvl_n);
 	save_env(data, ft_strdup("SHLVL"), shlvl_s, ENV);
 }
