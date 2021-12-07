@@ -50,8 +50,10 @@ UTILS_FILE		=	utils.c \
 					env_name_check.c \
 					find_env.c \
 					save_env.c \
+					add_shlvl.c \
 					builtin_error.c \
 					check_flag.c \
+					check_argument.c \
 					free_token.c \
 					ft_free_char2d.c \
 					get_redir_fd.c \

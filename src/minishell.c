@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 		|| init_env(envp, &data)
 		|| set_signal_handler())
 		exit(EXIT_FAILURE);
+	add_shlvl(&data);
 	while (1)
 	{
 		input = readline(PROMPT);
@@ -30,7 +31,10 @@ int	main(int argc, char **argv, char **envp)
 			parse_input_string(input, &data);
 			add_history(input);
 			if (data.input && data.input->next)
+			{
 				minishell_executor(&data, envp);
+				free_token(data.input);
+			}
 		}
 		free(input);
 	}

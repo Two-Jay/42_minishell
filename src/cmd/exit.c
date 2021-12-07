@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 02:37:30 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 01:59:21 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static void	exit_with_param(t_token *input)
 	char		*str;
 	long long	errno_converted;
 
+	while (input && input->type != FLAG && input->type != STR)
+		input = input->next;
 	str = input->content;
 	errno_converted = 0;
 	write(1, "exit\n", 5);
@@ -82,25 +84,17 @@ static void	exit_no_param(void)
 	exit(0);
 }
 
-int	minishell_exit(t_data *data, t_token *input)
+int	minishell_exit(t_token *input)
 {
-	t_token	*input_tmp;
+	int		argument_check;
 
-	input = input->next;
-	while (input->type == REDIRECT || input->type == FILEPATH)
-		input = input->next;
-	if (input && input->type != PIPE)
+	argument_check = check_argument(input);
+	if (argument_check == ARGUMENT_O || argument_check == FLAG_O)
 	{
-		input_tmp = input;
-		while (input_tmp->type == REDIRECT || input_tmp->type == FILEPATH)
-			input_tmp = input_tmp->next;
-		if (input_tmp->type == STR)
-		{
-			builtin_error("shell", ft_strjoin("exit: ", EXIT_ERRMANY), 1);
-			data->dq = 1;
-		}
-		else
-			exit_with_param(input);
+		if (check_arg_num(input) > 1)
+			return (builtin_error(
+					"shell", ft_strjoin("exit: ", EXIT_ERRMANY), 1));
+		exit_with_param(input);
 	}
 	else
 		exit_no_param();

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 02:03:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 02:04:29 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 02:10:26 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int	if_builtin(t_token *input)
 {
+	while (input && (input->type == REDIRECT || input->type == FILEPATH))
+		input = input->next;
+	if (!input || input->type == PIPE)
+		return (1);
 	if (ft_strequel(input->content, "cd")
 		|| ft_strequel(input->content, "echo")
 		|| ft_strequel(input->content, "pwd")

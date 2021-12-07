@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 02:46:51 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 01:04:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ static int	cd_no_argument(t_data *data)
 	return (CD_SUCCESS);
 }
 
-static int	cd_move_directory(t_data *data)
+static int	cd_move_directory(t_data *data, t_token *input)
 {
 	char	*str;
 
-	str = data->input->next->content;
+	while (input && input->type != STR)
+		input = input->next;
+	str = input->content;
 	if (ft_strequel(str, "~"))
 	{
 		if (!find_env("HOME", data) || chdir(find_env("HOME", data)->value) < 0)
@@ -66,17 +68,16 @@ static int	cd_add_pwd(t_data *data)
 int	minishell_cd(t_data *data, t_token *input)
 {
 	int		result_movedir;
+	int		argument_check;
 
-	input = input->next;
-	while (input->type == REDIRECT || input->type == FILEPATH)
-		input = input->next;
-	if (check_flag(input))
+	argument_check = check_argument(input);
+	if (argument_check == FLAG_O)
 		return (builtin_error(
-				"cd", ft_strjoin(input->content, CD_ERROPT), 1));
-	if (!input || input->type == PIPE)
-		result_movedir = cd_no_argument(data);
+				"cd", ft_strjoin(find_flag(input)->content, CD_ERROPT), 1));
+	else if (argument_check == ARGUMENT_O)
+		result_movedir = cd_move_directory(data, input);
 	else
-		result_movedir = cd_move_directory(data);
+		result_movedir = cd_no_argument(data);
 	if (result_movedir == CD_PWDNOTSET)
 		return (builtin_error("cd", ft_strdup(CD_ERROLD), 1));
 	if (result_movedir == CD_HOMENOTSET)
