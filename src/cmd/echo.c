@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 02:32:11 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/07 18:34:27 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	echo_nflag(t_token *input, int ofd)
 int	minishell_echo(t_token *input, int ofd)
 {
 	input = input->next;
-	if (!input)
+	if (!input || input->type == PIPE)
 		return (0);
 	if (input->type == FLAG && echo_if_nnn(input->content))
 	{
