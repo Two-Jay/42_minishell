@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 10:31:35 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/07 04:20:34 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 /*
 ** env part
 */
-
 int is_end_envkey(const char *src, int ix)
 {
-	return ((ft_isspace(src[ix])
-			|| is_double_quote(src, ix)
-			|| is_single_quote(src, ix))
-			|| src[ix] == '$');
+	if (ix == 0 && !ft_isalpha(src[ix]) && src[ix] != '_')
+		return (TRUE);
+	if (!ft_isalnum(src[ix]) && src[ix] != '_')
+		return (TRUE);
+	return (FALSE);
 }
 
 int get_envkey_l(const char *src, int ix)
@@ -31,7 +31,7 @@ int get_envkey_l(const char *src, int ix)
 	ret = 0;
 	while (src[ix])
 	{
-		if (is_end_envkey(src, ix))
+		if (is_end_envkey(src, ix) == TRUE)
 			break ;
 		ix++;
 		ret++;
@@ -73,8 +73,8 @@ char	*return_append_env(t_eb	*eb, char *ret)
 		free(eb->envkey);
 	if (eb->envval)
 		free(eb->envval);
-	if (eb->errno_str)
-		free(eb->errno_str);
+	if (eb->nbr_str)
+		free(eb->nbr_str);
 	if (eb)
 		free(eb);
 	return (ret);
@@ -111,6 +111,7 @@ char	*append_env(char *src, int *now_ix, t_data *data)
 	char	*ret;
 	t_eb	*envbucket;
 
+	printf("check\n");
 	envbucket = set_envbucket(src, *now_ix);
 	if (!envbucket
 		|| search_and_copy_envval(src, envbucket, data))
@@ -122,45 +123,44 @@ char	*append_env(char *src, int *now_ix, t_data *data)
 	return (return_append_env(envbucket, ret));
 }
 
-/*
-** errno part
-*/
-int search_and_copy_dq(t_eb *eb, t_data *data)
+int save_target(t_eb *eb, int target)
 {
-	eb->errno_str = ft_itoa(data->dq);
-	eb->errno_l = ft_strlen(eb->errno_str);
+	eb->nbr_str = ft_itoa(target);
+	eb->nbr_l = ft_strlen(eb->nbr_str);
 	return (0);
 }
 
-char	*fetch_dq_in_src(t_eb *eb)
+char	*fetch_nbr_in_src(t_eb *eb)
 {
-	char *ret;
+	char 	*ret;
+	char	*remain_startp;
+	int		remain_l;
 
-	ret = (char *)ft_calloc(sizeof(char), eb->src_l + eb->errno_l + 1);
+	ret = (char *)ft_calloc(sizeof(char), eb->src_l + eb->nbr_l + 1);
 	if (!ret)
 		return (NULL);
 	ft_strncpy(ret, eb->srcp, eb->now_ix);
-	ft_strncpy(ret + eb->now_ix, eb->errno_str, eb->errno_l);
-	ft_strncpy(ret + eb->now_ix + eb->errno_l,
-		eb->srcp + eb->now_ix + eb->errno_l + 1,
-		eb->src_l - eb->now_ix - 1);
-	ret[eb->src_l + eb->errno_l] = '\0';
+	ft_strncpy(ret + eb->now_ix, eb->nbr_str, eb->nbr_l);
+	remain_startp = eb->srcp + eb->now_ix + 2;
+	remain_l = eb->src_l - eb->now_ix - 1;
+	ft_strncpy(ret + eb->now_ix + eb->nbr_l, remain_startp, remain_l);
+	ret[eb->src_l + eb->nbr_l] = '\0';
 	return (ret);
 }
 
-char	*append_dq(char *src, int *now_ix, t_data *data)
+char	*append_nbr(char *src, int *now_ix, int target)
 {
 	char	*ret;
 	t_eb	*envbucket;
 
 	envbucket = set_envbucket(src, *now_ix);
 	if (!envbucket
-		|| search_and_copy_dq(envbucket, data))
+		|| save_target(envbucket, target))
 		return (return_append_env(envbucket, NULL));
-	ret = fetch_dq_in_src(envbucket);
+	ret = fetch_nbr_in_src(envbucket);
 	if (!ret)
 		return (return_append_env(envbucket, NULL));
-	*now_ix += envbucket->errno_l - 1;
+	*now_ix += 2;
 	return (return_append_env(envbucket, ret));
 }
 
@@ -176,6 +176,11 @@ int is_envflag(const char *str, int ix, int flag)
 int is_dq(const char *str, int ix, int flag)
 {
 	return (str[ix] == '$' && str[ix + 1] == '?' && flag != 1);
+}
+
+int is_env_print_process(const char *str, int ix, int flag)
+{
+	return (str[ix] == '$' && str[ix + 1] == '$' && flag != 1);
 }
 
 int check_envcnt(const char *str)
@@ -216,7 +221,9 @@ int setup_and_check_env(const char *str, t_data *data)
 		{
 			is_inquoted(dst, ix, &quote_flag);
 			if (is_dq(dst, ix, quote_flag))
-				dst = append_dq(dst, &ix, data);
+				dst = append_nbr(dst, &ix, g_dq);
+			else if (is_env_print_process(dst, ix, quote_flag))
+				dst = append_nbr(dst, &ix, getpid());
 			else if (is_envflag(dst, ix, quote_flag))
 				dst = append_env(dst, &ix, data);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@42seoul.student.com>          +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:34:52 by jekim             #+#    #+#             */
-/*   Updated: 2021/11/25 19:51:15 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/07 04:00:05 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static size_t ft_strnlen(const char *str, size_t n)
 	return (ix);
 }
 
-char *ft_strncpy(char *s1, const char *s2, size_t n)
+char *ft_strncpy(char *dst, const char *src, size_t n)
 {
 	size_t size;
 
-	size = ft_strnlen(s2, n);
+	size = ft_strnlen(src, n);
 	if (size != n)
-		ft_memset(s1 + size, '\0', n - size);
-	return (ft_memcpy(s1, s2, size));
+		ft_memset(dst + size, '\0', n - size);
+	return (ft_memcpy(dst, src, size));
 }
