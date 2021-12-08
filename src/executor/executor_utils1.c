@@ -6,29 +6,29 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/05 18:08:14 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/08 16:27:30 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	**getpath(char *envp[])
+static char	**getpath(t_data *data)
 {
-	int		i;
-	char	**path;
-	char	*temp;
+	int			i;
+	char		**path;
+	t_envlst	*env_found;
 
 	i = -1;
 	path = NULL;
-	while (envp[++i])
+	env_found = find_env("PATH", data);
+	if (!env_found)
 	{
-		if (ft_strnstr(envp[i], "PATH=", 5))
-		{
-			temp = envp[i] + 5;
-			path = ft_split(temp, ':');
-			break ;
-		}
+		path = malloc(sizeof(char *) * 2);
+		path[0] = ft_strdup(".");
+		path[1] = NULL;
 	}
+	else
+		path = ft_split(env_found->value, ':');
 	return (path);
 }
 
@@ -57,7 +57,7 @@ static char	*check_path(char **path, char *cmd)
 	return (temp_cmd);
 }
 
-char	*exec_getcmd(char *cmd, char *envp[])
+char	*exec_getcmd(t_data *data, char *cmd)
 {
 	char	**path;
 	char	*cmd_path;
@@ -65,7 +65,7 @@ char	*exec_getcmd(char *cmd, char *envp[])
 	cmd_path = if_file(cmd);
 	if (cmd_path)
 		return (cmd_path);
-	path = getpath(envp);
+	path = getpath(data);
 	if (!path)
 		return (NULL);
 	cmd_path = check_path(path, cmd);
