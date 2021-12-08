@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/07 21:45:30 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/07 22:00:34 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int set_signal_attr(void)
 
 int set_signal_handler(void)
 {
-    set_signal_attr();
+    // set_signal_attr();
     signal(SIGINT, signal_handler_SIGINT);
     // signal(SIGQUIT, signal_handler_SIGQUIT);
     signal(SIGTERM, signal_handler_SIGTERM);

@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/07 20:59:25 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/08 18:43:45 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@ int	free_ip(t_input_process *ip, int errflag)
 {
 	int	ix;
 
-	ix = -1;
+	ix = 0;
 	if (ip->scenv_ret)
 		free(ip->scenv_ret);
 	if (ip->isbs_ret)
 		free(ip->isbs_ret);
 	if (ip->split_ret)
 	{
-		while (ip->split_ret[++ix])
-			free(ip->split_ret[ix]);
+		while (ip->split_ret[ix])
+			free(ip->split_ret[ix++]);
 		free(ip->split_ret);
 	}
+	free(ip);
 	if (errflag == ERROR_OCCURED)
 		return (ERROR_OCCURED);
 	return (0);
