@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:02:25 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/08 18:36:13 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/08 18:51:44 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct s_input_process
 	char	*scenv_ret;
 	int		*qtrim_checker;
 	char	*isbs_ret;
-	int		sprit_l;
 	char	**split_ret;
 }	t_input_process;
 
