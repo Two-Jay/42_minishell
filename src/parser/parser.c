@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/08 18:43:45 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/09 12:35:28 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ int	parse_input_string(const char *str, t_data *data)
 		|| guard_syntax_error(data->input->next))
 		return (free_ip(data->ip, ERROR_OCCURED));
 	print_token(data);
+	system("leaks minishell");
 	return (free_ip(data->ip, 0));
 }
