@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/08 16:27:02 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/10 18:37:49 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@
 # define	EXEC_ISDIR 1
 # define	EXEC_ISFILE 0
 # define	EXEC_NOTFILE -1
-int			minishell_executor(t_data *data, char *envp[]);
+int			minishell_executor(t_data *data);
 int			exec_builtin(t_data *data, t_token *input, int ofd);
-int			exec_program(t_data *data, t_token *input, char *envp[]);
+int			exec_program(t_data *data, t_token *input);
 char		*exec_getcmd(t_data *data, char *cmd);
+char		**exec_getenvp(t_data *data);
 void		exec_dup_ifd(t_token *input);
 void		exec_dup_ofd(t_token *input);
 char		*if_file(char *cmd);
@@ -48,7 +49,7 @@ int			cmd_access(char *path);
 	* Pipelines
 */
 # define	PIPE_ERR "failed to make PIPE / REDIRECTION"
-int			minishell_pipe(t_data *data, char *envp[]);
+int			minishell_pipe(t_data *data);
 char		**pipe_insert_arr(t_token *input, char *cmd_path);
 void		pipe_dup_ifd(t_token *input, t_pipe *struct_pipe);
 void		pipe_dup_ofd(t_token *input, t_pipe *struct_pipe, int fd[2]);
