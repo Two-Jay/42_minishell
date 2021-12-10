@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/07 01:59:21 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/08 22:51:49 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,32 +50,30 @@ static int	is_num(char *str)
 	return (1);
 }
 
-static void	exit_with_param(t_token *input)
+static int	exit_with_param(t_token *input)
 {
 	char		*str;
 	long long	errno_converted;
+	t_token		*input_backup;
 
+	input_backup = input;
 	while (input && input->type != FLAG && input->type != STR)
 		input = input->next;
 	str = input->content;
 	errno_converted = 0;
 	write(1, "exit\n", 5);
 	if (!is_num(str) || (ft_strlen(str) > 20)
-		|| (ft_strlen(str) > 19 && *str != '-'))
+		|| (ft_strlen(str) > 19 && *str != '-') || is_overflow_ll(str) < 0)
 	{
 		builtin_error("bash: exit: ", ft_strjoin(str, EXIT_ERRNUM), 255);
 		exit(255);
 	}
-	else
-	{
-		errno_converted = is_overflow_ll(str);
-		if (errno_converted < 0)
-		{
-			builtin_error("bash: exit: ", ft_strjoin(str, EXIT_ERRNUM), 255);
-			exit(255);
-		}
-	}
+	errno_converted = is_overflow_ll(str);
+	if (check_arg_num(input_backup) > 1)
+		return (builtin_error(
+				"shell", ft_strjoin("exit: ", EXIT_ERRMANY), 1));
 	exit(errno_converted);
+	return (0);
 }
 
 static void	exit_no_param(void)
@@ -90,12 +88,7 @@ int	minishell_exit(t_token *input)
 
 	argument_check = check_argument(input);
 	if (argument_check == ARGUMENT_O || argument_check == FLAG_O)
-	{
-		if (check_arg_num(input) > 1)
-			return (builtin_error(
-					"shell", ft_strjoin("exit: ", EXIT_ERRMANY), 1));
-		exit_with_param(input);
-	}
+		return (exit_with_param(input));
 	else
 		exit_no_param();
 	return (0);

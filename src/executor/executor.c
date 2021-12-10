@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 18:25:36 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/08 16:21:55 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	exec_program(t_data *data, t_token *input, char *envp[])
 	char	*cmd_path;
 	char	**exec_argv;
 
-	cmd_path = exec_getcmd(input->content, envp);
+	cmd_path = exec_getcmd(data, input->content);
 	if (!cmd_path)
 		exit(data->dq);
 	exec_argv = pipe_insert_arr(input, cmd_path);
