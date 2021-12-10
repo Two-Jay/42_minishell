@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/08 16:21:55 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/10 18:41:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,23 @@ int	exec_builtin(t_data *data, t_token *input, int ofd)
 	return (builtin_return);
 }
 
-int	exec_program(t_data *data, t_token *input, char *envp[])
+int	exec_program(t_data *data, t_token *input)
 {
 	char	*cmd_path;
 	char	**exec_argv;
+	char	**exec_envp;
 
 	cmd_path = exec_getcmd(data, input->content);
 	if (!cmd_path)
 		exit(data->dq);
 	exec_argv = pipe_insert_arr(input, cmd_path);
-	if (!exec_argv)
+	exec_envp = exec_getenvp(data);
+	if (!exec_argv || !exec_envp)
 		exit(builtin_error("shell",
 				ft_strjoin(input->content, EXEC_ERRPARSE), 1));
-	execve(cmd_path, exec_argv, envp);
+	execve(cmd_path, exec_argv, exec_envp);
 	ft_free_char2d(exec_argv);
+	ft_free_char2d(exec_envp);
 	free(cmd_path);
 	exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 }
@@ -91,7 +94,7 @@ static int	exec_dup_builtin(t_data *data, t_token *input)
 	return (exec_builtin(data, input, ofd));
 }
 
-int	minishell_executor(t_data *data, char *envp[])
+int	minishell_executor(t_data *data)
 {
 	int		builtin_return;
 	int		exec_pid;
@@ -100,7 +103,7 @@ int	minishell_executor(t_data *data, char *envp[])
 
 	input_start = data->input->next;
 	if (exec_if_pipe(data))
-		return (minishell_pipe(data, envp));
+		return (minishell_pipe(data));
 	builtin_return = exec_dup_builtin(data, input_start);
 	if (builtin_return != EXEC_NOTBUILTIN)
 		return (builtin_return);
@@ -109,7 +112,7 @@ int	minishell_executor(t_data *data, char *envp[])
 	{
 		exec_dup_ifd(input_start);
 		exec_dup_ofd(input_start);
-		exec_program(data, input_start, envp);
+		exec_program(data, input_start);
 	}
 	else if (exec_pid < 0)
 		return (builtin_error("shell", ft_strdup(EXEC_ERRFORK), 1));
