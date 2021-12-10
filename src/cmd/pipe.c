@@ -6,13 +6,13 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 18:35:58 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/10 18:48:57 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_pipe	*pipe_struct(t_token *input, char *envp[])
+static t_pipe	*pipe_struct(t_token *input)
 {
 	t_pipe	*struct_pipe;
 
@@ -22,7 +22,6 @@ static t_pipe	*pipe_struct(t_token *input, char *envp[])
 	struct_pipe->index = 0;
 	struct_pipe->max_index = pipe_count_cmd(input);
 	struct_pipe->fd_tmp = STDIN_FILENO;
-	struct_pipe->envp = envp;
 	return (struct_pipe);
 }
 
@@ -37,7 +36,7 @@ static void	pipe_child(
 		close(fd[PIPE_WRITE]);
 	close(fd[PIPE_READ]);
 	if (!if_builtin(input))
-		exec_program(data, input, struct_pipe->envp);
+		exec_program(data, input);
 	exit(exec_builtin(data, input, STDOUT_FILENO));
 }
 
@@ -65,7 +64,7 @@ static int	pipe_makepipe(t_data *data, t_token *input, t_pipe *struct_pipe)
 	return (struct_pipe->last_pid);
 }
 
-static void	pipe_wait(t_data *data, t_pipe *struct_pipe)
+static void	pipe_wait(t_pipe *struct_pipe)
 {
 	int	status;
 	int	status_save;
@@ -79,17 +78,17 @@ static void	pipe_wait(t_data *data, t_pipe *struct_pipe)
 		if (wait_return_pid < 0)
 			return ;
 	}
-	data->dq = WEXITSTATUS(status_save);
+	g_dq = WEXITSTATUS(status_save);
 	return ;
 }
 
-int	minishell_pipe(t_data *data, char *envp[])
+int	minishell_pipe(t_data *data)
 {
 	t_token		*input;
 	t_pipe		*struct_pipe;
 
 	input = data->input->next;
-	struct_pipe = pipe_struct(input, envp);
+	struct_pipe = pipe_struct(input);
 	if (!struct_pipe)
 		return (builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 	while (struct_pipe->index < struct_pipe->max_index)
@@ -101,7 +100,7 @@ int	minishell_pipe(t_data *data, char *envp[])
 		input = input->next;
 		struct_pipe->index++;
 	}
-	pipe_wait(data, struct_pipe);
+	pipe_wait(struct_pipe);
 	free(struct_pipe);
 	return (0);
 }
