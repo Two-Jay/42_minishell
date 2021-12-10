@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_quotetrim.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:06:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/09 13:06:45 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/10 17:16:37 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ int handle_error(char *str, char *dst)
 int set_int_checker(t_data *data, int length)
 {
 	int ix;
-	
+
 	ix = -1;
+	if (!length)
+		data->ip->qtrim_checker = NULL;
 	data->ip->qtrim_checker = (int *)ft_calloc((length + 1), sizeof(int));
 	if (!data->ip->qtrim_checker)
 		return (ERROR_OCCURED);
@@ -121,14 +123,14 @@ int check_unprint_char(char *ret, t_data *data)
 	return (0);
 }
 
-int get_ret_buf_length(t_data *data)
+int get_ret_buf_length(t_data *data, int length)
 {
 	int ret;
 	int ix;
-	
+
 	ret = 0;
 	ix = -1;
-	while (data->ip->qtrim_checker[++ix])
+	while (++ix < length)
 	{
 		if (data->ip->qtrim_checker[ix] == 0)
 			ret++;
@@ -136,7 +138,7 @@ int get_ret_buf_length(t_data *data)
 	return (ret);
 }
 
-char *strdup_as_checked(char *str, t_data *data)
+char *strdup_as_checked(char *str, t_data *data, int length)
 {
 	char	*ret;
 	int		len;
@@ -145,8 +147,7 @@ char *strdup_as_checked(char *str, t_data *data)
 
 	ix = 0;
 	jx = 0;
-	len = get_ret_buf_length(data);
-	tri(len);
+	len = get_ret_buf_length(data, length);
 	ret = (char *)malloc(sizeof(char) * (len + 1));
 	if (!ret)
 		return (NULL);
@@ -155,6 +156,8 @@ char *strdup_as_checked(char *str, t_data *data)
 	{
 		if (data->ip->qtrim_checker[ix] == 0)
 			ret[jx++] = str[ix];
+		if (jx == len)
+			break ;
 		ix++;
 	}
 	return (ret);
@@ -176,8 +179,12 @@ char *quote_trim(char *str, t_data *data)
 	if (set_int_checker(data, ft_strlen(str)))
 		return (NULL);
 	check_unprint_char(str, data);
-	ret = strdup_as_checked(str, data);
+	ret = strdup_as_checked(str, data, ft_strlen(str));
 	if (!ret)
-		return (free_checker(data), NULL);
-	return (free_checker(data), ret);
+	{
+		free_checker(data);
+		return (NULL);
+	}
+	free_checker(data);
+	return (ret);
 }
