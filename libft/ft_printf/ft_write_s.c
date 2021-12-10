@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_write_s.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 16:15:54 by jekim             #+#    #+#             */
-/*   Updated: 2021/07/28 02:48:40 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/12/11 00:33:21 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_printf.h"
 
-static char	*ft_define_target_s(t_info *info, va_list *ap)
+static char	*ft_define_target_s(va_list *ap)
 {
 	char	*target;
 
@@ -22,8 +22,7 @@ static char	*ft_define_target_s(t_info *info, va_list *ap)
 	return (target);
 }
 
-static int	ft_define_widthpad_l_s(t_info *info,
-	char *str, int str_l, int print_l)
+static int	ft_define_widthpad_l_s(t_info *info, int print_l)
 {
 	int		ret;
 
@@ -37,7 +36,7 @@ static int	ft_define_widthpad_l_s(t_info *info,
 	return (ret);
 }
 
-static int	ft_define_print_l_s(t_info *info, char *str, int str_l)
+static int	ft_define_print_l_s(t_info *info, int str_l)
 {
 	int		ret;
 
@@ -51,7 +50,7 @@ static int	ft_define_print_l_s(t_info *info, char *str, int str_l)
 	return (ret);
 }
 
-static int	ft_write_str(t_info *info, char *target, int print_l)
+static int	ft_write_str(char *target, int print_l)
 {
 	char	*buf;
 	int		ix;
@@ -79,14 +78,15 @@ int	ft_print_s(t_info *info, va_list *ap)
 	int		str_l;
 	char	*target;
 
-	target = ft_define_target_s(info, ap);
+	ret = 0;
+	target = ft_define_target_s(ap);
 	str_l = ft_strlen(target);
-	print_l = ft_define_print_l_s(info, target, str_l);
-	pad_l = ft_define_widthpad_l_s(info, target, str_l, print_l);
+	print_l = ft_define_print_l_s(info, str_l);
+	pad_l = ft_define_widthpad_l_s(info, print_l);
 	if (info->left == TRUE)
-		ret += ft_write_str(info, target, print_l);
+		ret += ft_write_str(target, print_l);
 	ret += ft_write_padding(info, pad_l);
 	if (info->left == FALSE)
-		ret += ft_write_str(info, target, print_l);
+		ret += ft_write_str(target, print_l);
 	return (ret);
 }

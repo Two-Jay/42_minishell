@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:56:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/07 03:38:17 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/11 00:13:35 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	print_syntax_error(char *cmd, char *error_str)
 	ft_putstr_fd(error_str, 2);
 	write(2, "\n", 1);
     g_dq = DQ_ERRSYNTAX;
+	if (error_str)
+		free(error_str);
 	return (ERROR_OCCURED);
 }
 

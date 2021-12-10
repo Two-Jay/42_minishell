@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 17:23:17 by jekim             #+#    #+#             */
-/*   Updated: 2021/04/21 00:53:54 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/11 00:33:38 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,6 @@ static void	ft_putnbr(long long nbr, int base_l, char *base)
 	if (nbr >= base_l)
 		ft_putnbr((nbr / base_l), base_l, base);
 	ft_putchar_fd(base[nbr % base_l], 1);
-}
-
-static int	ft_write_sign(t_info *info)
-{
-	int	ret;
-
-	ret = 0;
-	if (info->input_negative == TRUE)
-		ret += ft_putchar('-');
-	else if (info->input_negative == FALSE && info->sign != 0)
-		ret += ft_putchar(info->sign);
-	return (ret);
 }
 
 static int	ft_write_prcspad(int prcspad_l)
@@ -68,7 +56,7 @@ int	ft_print_addr(t_info *info, va_list *ap)
 	int			nbr_l;
 
 	ret = 0;
-	addr = ft_handle_addr_input(info, ap);
+	addr = ft_handle_addr_input(ap);
 	base = ft_define_base_arr(info);
 	base_l = 16;
 	nbr_l = ft_intlen(addr, base_l, info);

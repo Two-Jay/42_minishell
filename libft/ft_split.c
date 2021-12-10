@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 23:41:52 by jekim             #+#    #+#             */
-/*   Updated: 2021/07/28 02:52:49 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/12/11 00:28:00 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ char	**ft_split(const char *src, char c)
 {
 	char			**bucket;
 	unsigned int	count;
-	int				ix;
 
 	if (!src)
 		return (NULL);

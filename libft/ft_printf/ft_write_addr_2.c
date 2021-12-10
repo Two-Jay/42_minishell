@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_write_addr_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 22:13:30 by jekim             #+#    #+#             */
-/*   Updated: 2021/07/28 02:47:16 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/12/11 00:30:27 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_write_addr_prefix(void)
 	return (ret);
 }
 
-long long	ft_handle_addr_input(t_info *info, va_list *ap)
+long long	ft_handle_addr_input(va_list *ap)
 {
 	long long	nbr;
 

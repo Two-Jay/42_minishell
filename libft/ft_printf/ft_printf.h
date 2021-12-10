@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 01:32:48 by jekim             #+#    #+#             */
-/*   Updated: 2021/07/28 01:36:24 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/12/11 00:30:42 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int				ft_write_addr_prefix(void);
 int				ft_write_addr(t_info *info, long long nbr, int nbr_l);
 int				ft_define_widthpad_l_addr(t_info *info, int nbr_l);
 int				ft_define_prcspad_l_addr(t_info *info, int nbr_l);
-long long		ft_handle_addr_input(t_info *info, va_list *ap);
+long long		ft_handle_addr_input(va_list *ap);
 int				ft_handle_null_addr(t_info *info, long long addr, int nbr_l);
 
 #endif

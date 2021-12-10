@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:37:34 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 14:13:12 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/10 23:52:17 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int is_redirection(const char *str, int ix)
 {
-	if (ft_strequel(str + ix, ">") || ft_strequel(str + ix, "<"))
+	if (ft_strequel(&str[ix], ">") || ft_strequel(str + ix, "<"))
 		return (1);
-	if (ft_strequel(str + ix, ">>") || ft_strequel(str + ix, "<<"))
+	if (ft_strequel(&str[ix], ">>") || ft_strequel(str + ix, "<<"))
 		return (2);
 	return (0);
 }
@@ -24,6 +24,40 @@ int is_redirection(const char *str, int ix)
 int is_pipe(const char *str, int ix)
 {
 	return (ft_strequel(str + ix, "|"));
+}
+
+int is_pipe_redirection_middle_str(const char *str, int ix)
+{
+	int red_ret;
+
+	if (is_pipe_middle_str(str, ix))
+		return (1);
+	red_ret = is_redirection_middle_str(str, ix);
+	if (red_ret)
+		return (red_ret);
+	return (0);
+}
+
+int is_pipe_middle_str(const char *str, int ix)
+{
+	return (str[ix] == '|');
+}
+
+int is_redirection_middle_str(const char *str, int ix)
+{
+	if (str[ix] == '>')
+	{
+		if (str[ix + 1] && str[ix + 1] == '>')
+			return (2);
+		return (1);
+	}
+	if (str[ix] == '<')
+	{
+		if (str[ix + 1] && str[ix + 1] == '<')
+			return (2);
+		return (1);
+	}
+	return (0);
 }
 
 int is_pipe_redirection(const char *str, int ix)

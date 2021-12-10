@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 14:21:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/08 11:53:51 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/11 00:11:16 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int count_spclcmd_input(const char *str)
 	while (str[ix])
 	{
 		is_inquoted(str, ix, &quote_flag);
-		check = is_pipe_redirection(str, ix);
+		check = is_pipe_redirection_middle_str(str, ix);
+		tri(check);
 		if (!quote_flag && check)
 		{
 			if (check != 0)
@@ -67,7 +68,7 @@ static int do_insert_space(const char *str, t_data *data)
 	while (str[jx])
 	{
 		is_inquoted(str, jx, &quote_flag);
-		check = is_pipe_redirection(str, jx);
+		check = is_pipe_redirection_middle_str(str, jx);
 		if (check == 0 || quote_flag)
 			data->ip->isbs_ret[ix++] = str[jx++];
 		else if (check == 1)
@@ -94,5 +95,7 @@ int insert_space_beside_spclcmd(const char *str, t_data *data)
 			return (ERROR_OCCURED);
 		do_insert_space(str, data);
 	}
+	tri(count_spclcmd);
+	trs(data->ip->isbs_ret);
 	return (0);
 }

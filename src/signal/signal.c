@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/07 22:00:34 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/11 01:11:14 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void signal_handler_SIGINT(int signo)
     }
     else
     {
-        tri(DQ_SIGINT);
+        ft_putstr_fd(PROMPT, STDOUT_FILENO);
+        ft_putstr_fd("\n", STDOUT_FILENO);
+        g_dq = DQ_SIGINT;
     }
 
 }
@@ -65,7 +67,12 @@ void signal_handler_SIGTERM(int signo)
     printf("\b\bSIGTERM catched\n");
 }
 
-
+/*
+** please leave the 'rl_catch_signals' even undefined.
+** it will keep the readline from handling the signal.
+** if it was undefined, it was referenced by readline library built in MacOS.
+** the readline which we use in minishell will be referenced by realine lib installed in Homebrew.
+*/
 int set_signal_attr(void)
 {
     struct termios attributes;
@@ -81,6 +88,8 @@ int set_signal_attr(void)
 
 int set_signal_handler(void)
 {
+    struct termios tty_setting;
+
     // set_signal_attr();
     signal(SIGINT, signal_handler_SIGINT);
     // signal(SIGQUIT, signal_handler_SIGQUIT);

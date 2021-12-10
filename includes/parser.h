@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/07 03:38:30 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/10 23:52:32 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,8 @@ int			is_single_quote(const char *str, int ix);
 int			is_quotation(const char *str, int ix);
 int			is_redirection(const char *str, int ix);
 int			is_pipe(const char *str, int ix);
+int         is_pipe_middle_str(const char *str, int ix);
+int         is_redirection_middle_str(const char *str, int ix);
+int         is_pipe_redirection_middle_str(const char *str, int ix);
 
 #endif

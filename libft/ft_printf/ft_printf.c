@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 01:39:48 by jekim             #+#    #+#             */
-/*   Updated: 2021/07/28 01:42:23 by jekim            ###   ########seoul.kr  */
+/*   Updated: 2021/12/11 00:28:53 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	ft_printf(const char *fmt, ...)
 {
 	int		print_len;
 	va_list	ap;
-	t_info	*info;
 
 	print_len = 0;
 	va_start(ap, fmt);
