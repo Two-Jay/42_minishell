@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:05:46 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/08 11:53:49 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/09 11:49:38 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 /*
 ** env part
 */
+int is_start_charset_envkey(char c)
+{
+	return (ft_isalpha(c) || c == '_');
+}
+
 int is_end_envkey(const char *src, int ix)
 {
-	if (ix == 0 && !ft_isalpha(src[ix]) && src[ix] != '_')
+	if (ix == 0 && !is_start_charset_envkey(src[ix]))
 		return (TRUE);
 	if (!ft_isalnum(src[ix]) && src[ix] != '_')
 		return (TRUE);
@@ -106,6 +111,25 @@ char	*fetch_env_in_src(t_eb *eb)
 	return (ret);
 }
 
+char	*fetch_nbr_in_src(t_eb *eb)
+{
+	char 	*ret;
+	char	*remain_startp;
+	int		remain_l;
+
+	ret = (char *)ft_calloc(sizeof(char), eb->src_l + eb->nbr_l + 1);
+	if (!ret)
+		return (NULL);
+	ft_strncpy(ret, eb->srcp, eb->now_ix);
+	ft_strncpy(ret + eb->now_ix, eb->nbr_str, eb->nbr_l);
+	remain_startp = eb->srcp + eb->now_ix + 2;
+	remain_l = eb->src_l - eb->now_ix - 1;
+	ft_strncpy(ret + eb->now_ix + eb->nbr_l, remain_startp, remain_l);
+	ret[eb->src_l + eb->nbr_l] = '\0';
+	return (ret);
+}
+
+
 char	*append_env(char *src, int *now_ix, t_data *data)
 {
 	char	*ret;
@@ -130,23 +154,6 @@ int save_target(t_eb *eb, int target)
 	return (0);
 }
 
-char	*fetch_nbr_in_src(t_eb *eb)
-{
-	char 	*ret;
-	char	*remain_startp;
-	int		remain_l;
-
-	ret = (char *)ft_calloc(sizeof(char), eb->src_l + eb->nbr_l + 1);
-	if (!ret)
-		return (NULL);
-	ft_strncpy(ret, eb->srcp, eb->now_ix);
-	ft_strncpy(ret + eb->now_ix, eb->nbr_str, eb->nbr_l);
-	remain_startp = eb->srcp + eb->now_ix + 2;
-	remain_l = eb->src_l - eb->now_ix - 1;
-	ft_strncpy(ret + eb->now_ix + eb->nbr_l, remain_startp, remain_l);
-	ret[eb->src_l + eb->nbr_l] = '\0';
-	return (ret);
-}
 
 char	*append_nbr(char *src, int *now_ix, int target)
 {
@@ -224,10 +231,12 @@ int setup_and_check_env(const char *str, t_data *data)
 				dst = append_nbr(dst, &ix, g_dq);
 			else if (is_env_print_process(dst, ix, quote_flag))
 				dst = append_nbr(dst, &ix, getpid());
-			else if (is_envflag(dst, ix, quote_flag))
+			else if (is_envflag(dst, ix, quote_flag)
+				&& is_start_charset_envkey(dst[ix + 1]))
 				dst = append_env(dst, &ix, data);
 		}
 	}
+	trs(dst);
 	data->ip->scenv_ret = dst;
 	return (0);
 }

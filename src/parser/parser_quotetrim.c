@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:06:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/08 11:53:48 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/09 13:06:45 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ char *strdup_as_checked(char *str, t_data *data)
 	ix = 0;
 	jx = 0;
 	len = get_ret_buf_length(data);
+	tri(len);
 	ret = (char *)malloc(sizeof(char) * (len + 1));
 	if (!ret)
 		return (NULL);
@@ -171,7 +172,7 @@ char *quote_trim(char *str, t_data *data)
 	char *ret;
 
 	if (is_quoted_input(str) == FALSE)
-		return (str);
+		return (ft_strdup(str));
 	if (set_int_checker(data, ft_strlen(str)))
 		return (NULL);
 	check_unprint_char(str, data);
