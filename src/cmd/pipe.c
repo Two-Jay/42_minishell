@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/10 18:47:05 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/10 18:48:29 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	pipe_makepipe(t_data *data, t_token *input, t_pipe *struct_pipe)
 	return (struct_pipe->last_pid);
 }
 
-static void	pipe_wait(t_data *data, t_pipe *struct_pipe)
+static void	pipe_wait(t_pipe *struct_pipe)
 {
 	int	status;
 	int	status_save;
