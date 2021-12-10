@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/07 21:34:09 by jekim            ###   ########.fr        #
+#    Updated: 2021/12/10 18:34:57 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	minishell
 
 CC			=	gcc
 CCFLAG		=	-Wall -Wextra -Werror
-LIBFLAG		=	-L$(LIBFT_DIR) -L$(READLINE_L_DIR) -lft -lreadline 
+LIBFLAG		=	-L$(LIBFT_DIR) -L$(READLINE_L_DIR) -lft -lreadline
 G			=	-g3
 INCLUDE		=	-I$(INC_DIR) -I$(LIBFT_DIR) -I$(READLINE_I_DIR)
 
@@ -34,7 +34,7 @@ READLINE_I_DIR	= /opt/homebrew/opt/readline/include
 SRC_FILE		=	minishell.c \
 					environ.c
 
-SIGNAL_FILE		=	signal.c 
+SIGNAL_FILE		=	signal.c
 
 PARSER_FILE 	=	parser.c \
 					parser_isbs.c \
@@ -74,6 +74,7 @@ CMD_FILE		=	cd.c \
 
 EXEC_FILE		=	executor_utils1.c \
 					executor_utils2.c \
+					executor_utils3.c \
 					executor.c
 
 MAIN_OBJ_FILE	=	$(SRC_FILE:.c=.o)
