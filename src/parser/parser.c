@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/09 13:42:29 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/10 18:39:06 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,5 @@ int	parse_input_string(const char *str, t_data *data)
 		|| guard_syntax_error(data->input->next))
 		return (free_ip(data, ERROR_OCCURED));
 	print_token(data);
-	system("leaks minishell");
 	return (free_ip(data, 0));
 }
