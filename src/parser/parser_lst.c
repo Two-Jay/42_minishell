@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 17:12:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/09 12:20:05 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/12 04:24:29 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int build_input_token_lst(char **split_ret, t_data *data)
 	while (split_ret[++ix])
 	{
 		token_value = quote_trim(split_ret[ix], data);
-		trs(token_value);
 		if (token_value != NULL && ft_strlen(token_value) != 0)
 		{
 			tmp = create_input_token(token_value, ix + 1);

@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/11 01:11:14 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/12 04:34:26 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,82 +17,29 @@
 */
 void signal_handler_SIGINT(int signo)
 {
-    pid_t pid;
-    int state;
-    
     (void)signo;
-    pid = waitpid(-1, &state, WNOHANG);
-    if (pid == -1)
-    {
-        ft_putstr_fd(PROMPT, STDOUT_FILENO);
-        ft_putstr_fd("\n", STDOUT_FILENO);
-        g_dq = DQ_SIGINT;
-    }
-    else
-    {
-        ft_putstr_fd(PROMPT, STDOUT_FILENO);
-        ft_putstr_fd("\n", STDOUT_FILENO);
-        g_dq = DQ_SIGINT;
-    }
-
+    ft_putchar_fd('\n', STDOUT_FILENO);
+    rl_replace_line("", 0);
+    rl_on_new_line();
+    rl_redisplay();
 }
-
-/*
-** ctrl + \
-*/
-// void signal_handler_SIGQUIT(int signo)
-// {
-//     pid_t pid;
-//     int state;
-    
-//     (void)signo;
-//     pid = waitpid(-1, &state, WNOHANG);
-//     if (pid == -1)
-//     {
-//         ft_putstr_fd(PROMPT, 1);
-//     }
-//     else
-//     {
-//         ft_putstr_fd(MSG_SIGQUIT, 1);
-//         g_dq = DQ_SIGQUIT;
-//     }
-// }
 
 /*
 ** ctrl + d
 */
-void signal_handler_SIGTERM(int signo)
-{
-    (void)signo;
-    printf("\b\bSIGTERM catched\n");
-}
 
-/*
-** please leave the 'rl_catch_signals' even undefined.
-** it will keep the readline from handling the signal.
-** if it was undefined, it was referenced by readline library built in MacOS.
-** the readline which we use in minishell will be referenced by realine lib installed in Homebrew.
-*/
-int set_signal_attr(void)
+void *signal_handler_blocked_cmd(int signo)
 {
-    struct termios attributes;
-	struct termios saved;
-
-    rl_catch_signals =0;
-    tcgetattr(STDIN_FILENO, &saved);
-    tcgetattr(STDIN_FILENO, &attributes);
-    attributes.c_lflag &= (~ECHOCTL);
-    tcsetattr(STDIN_FILENO, TCSANOW, &attributes);
+    if (signo == SIGQUIT)
+        ft_putstr_fd("^\\Quit : 3\n", STDOUT_FILENO);
+    else if (signo == SIGINT)
+        ft_putstr_fd("^C\n", STDOUT_FILENO);
     return (0);
 }
 
 int set_signal_handler(void)
 {
-    struct termios tty_setting;
-
-    // set_signal_attr();
     signal(SIGINT, signal_handler_SIGINT);
-    // signal(SIGQUIT, signal_handler_SIGQUIT);
-    signal(SIGTERM, signal_handler_SIGTERM);
+    signal(SIGQUIT, SIG_IGN);
     return (0);
 }

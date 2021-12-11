@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/10 23:52:32 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/12 04:04:51 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 ** root setting functions
 */
 int			init_env(char **envp, t_data *data);
+
+/*
+** readline;
+*/
+char        *readinput(char *prompt);
 
 /*
 ** util functions

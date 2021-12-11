@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/11 00:10:19 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/12 04:24:04 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int empty_input_checker(t_data *data)
 {
 	if (data->input->next == NULL)
 		free(data->input);
-	system("leaks minishell");
 	return (0);
 }
 
@@ -98,6 +97,5 @@ int	parse_input_string(const char *str, t_data *data)
 		|| assign_type_input_token_lst(data->input->next)
 		|| guard_syntax_error(data->input->next))
 		return (free_ip(data, ERROR_OCCURED));
-	print_token(data);
 	return (free_ip(data, 0));
 }
