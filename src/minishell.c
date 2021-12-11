@@ -6,13 +6,11 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/12 04:26:50 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/12 04:35:57 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-
 
 int	main(int argc, char **argv, char **envp)
 {
