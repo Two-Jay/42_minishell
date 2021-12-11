@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/07 19:01:01 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/12 04:55:42 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 # include "structure.h"
 # include "headers.h"
 
-# define MSG_SIGQUIT "Quit: 3"
-
-int set_signal_handler(void);
-int set_signal_attr(void);
+int set_signal_handler_default(void);
+void signal_handler_blocked_cmd(int signo);
+void signal_interrupt_heredoc(int signo);
 
 #endif
