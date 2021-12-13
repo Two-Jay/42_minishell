@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/13 22:27:52 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 01:42:08 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void handle_STDIN_input(char *input, t_data *data)
 {
-	parse_input_string(input, data);
+	int err_checker;
+
+	err_checker = parse_input_string(input, data);
 	add_history(input);
-	if (data->input && data->input->next)
+	if (data->input && data->input->next && err_checker != ERROR_OCCURED)
 	{
 		minishell_executor(data);
 		free_token(data->input);
@@ -25,7 +27,7 @@ void handle_STDIN_input(char *input, t_data *data)
 
 void handle_EOF_NO_STDIN(void)
 {
-	write(0, "\bexit\n", 6);
+	write(0, "exit\n", 5);
 	exit(0);
 }
 
