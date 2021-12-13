@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:02:25 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/12 03:16:20 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/13 22:17:34 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct s_data
 	t_envlst		*envlst;
 	t_token			*input;
 	t_input_process	*ip;
-	char 			*readbuffer;
 	char			*homedir;
 }	t_data;
 

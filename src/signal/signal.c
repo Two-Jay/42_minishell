@@ -6,16 +6,13 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/12 09:34:02 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/13 22:38:15 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-** ctrl + c
-*/
-void signal_handler_SIGINT(int signo)
+void signal_handler_default_SIGINT(int signo)
 {
     (void)signo;
     ft_putchar_fd('\n', STDOUT_FILENO);
@@ -25,33 +22,47 @@ void signal_handler_SIGINT(int signo)
     g_dq = 1;
 }
 
-/*
-** ctrl + d
-*/
-int set_signal_handler_default(void)
+void set_signal_handler_default(void)
 {
-    signal(SIGINT, signal_handler_SIGINT);
-    signal(SIGQUIT, SIG_IGN);
-    return (0);
-}
+    pid_t pid;
+    int status;
 
-/*
-** cmd 실행 이전에 넣을 것
-*/
-void signal_handler_blocked_cmd(int signo)
-{
-    if (signo == SIGQUIT)
+    rl_catch_signals = 0;
+    pid = waitpid(-1, &status, WNOHANG);
+    if (pid == -1)
     {
-        ft_putstr_fd("Quit : (__Core_dump_number)\n", STDOUT_FILENO);
-        g_dq = DQ_SIGQUIT;
+        signal(SIGINT, signal_handler_default_SIGINT);
+        signal(SIGQUIT, SIG_IGN);
     }
-    else if (signo == SIGINT)
+    else
     {
-        ft_putchar_fd('\n', STDOUT_FILENO);
-        g_dq = DQ_SIGINT;
+        signal(SIGINT, SIG_IGN);
+        signal(SIGQUIT, SIG_IGN);
     }
 }
 
+void signal_handler_blocked_cmd_SIGINT(int signo)
+{
+    (void)signo;
+    ft_putstr_fd("\n", STDOUT_FILENO);
+    g_dq = DQ_SIGINT;
+}
+
+void signal_handler_blocked_cmd_SIGQUIT(int signo)
+{
+    (void)signo;
+    ft_putstr_fd("Quit : (__Core_dump_number)\n", STDOUT_FILENO);
+    g_dq = DQ_SIGQUIT;
+}
+
+void set_signal_handler_blocked_cmd(t_token *token)
+{
+    if (!ft_strequel(token->content, "./minishell"))
+    {
+        signal(SIGINT, signal_handler_blocked_cmd_SIGINT);
+        signal(SIGQUIT, signal_handler_blocked_cmd_SIGQUIT);
+    }
+}
 
 void signal_handler_interrupt_heredoc(int signo)
 {
@@ -60,10 +71,7 @@ void signal_handler_interrupt_heredoc(int signo)
     g_dq = DQ_SIGINT;
 }
 
-/*
-** heredoc 실행시 이전에 넣을 것
-*/
-int set_signal_handler_heredoc(void)
+void set_signal_handler_heredoc(void)
 {
     signal(SIGINT, signal_handler_interrupt_heredoc);
 }
