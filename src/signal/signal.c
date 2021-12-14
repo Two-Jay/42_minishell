@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/14 15:59:58 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 16:08:23 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void set_signal_handler_blocked_cmd(t_token *token)
 void signal_handler_interrupt_heredoc(int signo)
 {
     (void)signo;
-    ft_putchar_fd('\n', STDOUT_FILENO);
+    ft_putchar_fd(EOF, STDIN_FILENO);
     g_dq = DQ_SIGINT;
 }
 

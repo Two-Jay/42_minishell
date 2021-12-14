@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/12 04:24:04 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 16:26:50 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ int	parse_input_string(const char *str, t_data *data)
 		|| assign_type_input_token_lst(data->input->next)
 		|| guard_syntax_error(data->input->next))
 		return (free_ip(data, ERROR_OCCURED));
+	print_token(data);
 	return (free_ip(data, 0));
 }
