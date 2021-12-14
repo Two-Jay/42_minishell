@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/14 16:08:23 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 20:35:38 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,29 @@ void set_signal_handler_default(void)
     signal(SIGQUIT, SIG_IGN);
 }
 
-void signal_handler_blocked_cmd_SIGINT(int signo)
+void signal_handler_blocked_cmd(int signo)
 {
-    (void)signo;
-    ft_putstr_fd("\n", STDOUT_FILENO);
-    g_dq = DQ_SIGINT;
-}
-
-void signal_handler_blocked_cmd_SIGQUIT(int signo)
-{
-    (void)signo;
-    ft_putstr_fd("Quit : (__Core_dump_number)\n", STDOUT_FILENO);
-    g_dq = DQ_SIGQUIT;
-}
-
-void set_signal_handler_blocked_cmd(t_token *token)
-{
-    pid_t pid;
-    int status;
-
-    pid = waitpid(-1, &status, WNOHANG);
-    if (pid == -1 && !ft_strequel("./minishell", token->content))
+    if (signo == SIGINT)
     {
-        signal(SIGINT, signal_handler_blocked_cmd_SIGINT);
-        signal(SIGQUIT, signal_handler_blocked_cmd_SIGQUIT);
+        ft_putstr_fd("sigint checked\n", STDOUT_FILENO);
+        g_dq = DQ_SIGINT;
     }
-    else
+    else if (signo == SIGQUIT)
+    {
+        ft_putstr_fd("Quit : (__Core_dump_number)\n", STDOUT_FILENO);
+        g_dq = DQ_SIGQUIT;
+    }
+}
+
+void set_signal_handler_blocked_cmd(void)
+{
+    signal(SIGINT, signal_handler_blocked_cmd);
+    signal(SIGQUIT, signal_handler_blocked_cmd);
+}
+
+void    set_signal_handler_ignore(int signo)
+{
+    if (signo == SIGUSR1)
     {
         signal(SIGINT, SIG_IGN);
         signal(SIGQUIT, SIG_IGN);

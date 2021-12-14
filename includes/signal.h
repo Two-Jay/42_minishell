@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/13 22:38:38 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 20:33:21 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include "headers.h"
 
 void set_signal_handler_default(void);
-void set_signal_handler_blocked_cmd(t_token *token);
+void set_signal_handler_blocked_cmd(void);
 void set_signal_handler_heredoc(void);
+void    set_signal_handler_ignore(int signo);
 
 #endif

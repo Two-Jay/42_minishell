@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/14 01:42:08 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 20:57:42 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ int	main(int argc, char **argv, char **envp)
 		|| init_env(envp, &data))
 		exit(EXIT_FAILURE);
 	add_shlvl(&data);
+	kill(0, SIGUSR1);
 	while (1)
 	{
 		set_signal_handler_default();
+		signal(SIGUSR1, set_signal_handler_ignore);
 		input = readline(PROMPT);
 		if (input)
 			handle_STDIN_input(input, &data);
