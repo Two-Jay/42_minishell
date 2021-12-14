@@ -3,23 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   get_redir_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/14 16:00:53 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 16:37:32 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	here_doc_readline(char *limiter)
+static int	here_doc_child(char *limiter, int fd[2])
 {
 	char	*input;
-	int		fd[2];
 
-	if (pipe(fd) < 0)
-		return (builtin_error("heredoc", ft_strdup(PIPE_ERR), 1));
-	set_signal_handler_heredoc();
+	close(fd[PIPE_READ]);
 	while (1)
 	{
 		input = readline("> ");
@@ -34,7 +31,24 @@ static int	here_doc_readline(char *limiter)
 		ft_putstr_fd("\n", fd[PIPE_WRITE]);
 		free(input);
 	}
+	exit(0);
+}
+
+static int	here_doc_readline(char *limiter)
+{
+	int		fd[2];
+	int		pipe_pid;
+	int		temp_status;
+
+	if (pipe(fd) < 0)
+		return (builtin_error("heredoc", ft_strdup(PIPE_ERR), 1));
+	pipe_pid = fork();
+	if (!pipe_pid)
+		here_doc_child(limiter, fd);
+	else if (pipe_pid < 0)
+		return (builtin_error("heredoc", ft_strdup(PIPE_ERR), 1));
 	close(fd[PIPE_WRITE]);
+	waitpid(pipe_pid, &temp_status, 0);
 	return (fd[PIPE_READ]);
 }
 
