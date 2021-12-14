@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.h                                           :+:      :+:    :+:   */
+/*   signalref.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/14 20:33:21 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 21:24:26 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-# define SIGNAL_H
+#ifndef SIGNALREF_H
+# define SIGNALREF_H
 
 # include "structure.h"
 # include "headers.h"

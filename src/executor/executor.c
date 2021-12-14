@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/13 22:36:37 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 21:25:07 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	minishell_executor(t_data *data)
 	builtin_return = exec_dup_builtin(data, input_start);
 	if (builtin_return != EXEC_NOTBUILTIN)
 		return (builtin_return);
-	set_signal_handler_blocked_cmd(input_start);
+	set_signal_handler_blocked_cmd();
 	exec_pid = fork();
 	if (!exec_pid)
 	{
