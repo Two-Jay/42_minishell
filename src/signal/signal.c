@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/14 20:35:38 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 21:28:50 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,10 @@ void signal_handler_interrupt_heredoc(int signo)
 void set_signal_handler_heredoc(void)
 {
     signal(SIGINT, signal_handler_interrupt_heredoc);
+}
+
+void    init_signal(int signo)
+{
+    if (signo == SIGUSR1)
+        return ;
 }
