@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redir_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/14 14:33:17 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/14 16:00:53 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	here_doc_readline(char *limiter)
 
 	if (pipe(fd) < 0)
 		return (builtin_error("heredoc", ft_strdup(PIPE_ERR), 1));
+	set_signal_handler_heredoc();
 	while (1)
 	{
 		input = readline("> ");

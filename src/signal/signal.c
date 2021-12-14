@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/13 23:36:28 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/14 15:59:58 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ void signal_handler_interrupt_heredoc(int signo)
 {
     (void)signo;
     ft_putchar_fd('\n', STDOUT_FILENO);
-    rl_replace_line("", 0);
-    rl_on_new_line();
-    rl_redisplay();
     g_dq = DQ_SIGINT;
 }
 
