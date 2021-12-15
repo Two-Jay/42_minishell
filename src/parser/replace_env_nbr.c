@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:02:22 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 17:11:49 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 18:17:16 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*fetch_nbr_in_src(t_eb *eb)
 	return (ret);
 }
 
-static char	*return_append_env(t_eb	*eb, char *ret)
+char	*return_append_env(t_eb	*eb, char *ret)
 {
 	if (eb->srcp)
 		free(eb->srcp);

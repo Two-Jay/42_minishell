@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_redir_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
 /*   Updated: 2021/12/15 21:26:57 by jiychoi          ###   ########.fr       */

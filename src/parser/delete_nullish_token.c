@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:22:20 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 16:17:18 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 18:14:21 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	delete_nullish_token(t_token *token)
 		lst = get_last_token(token);
 		while (lst->content == NULL && lst->ix > 1)
 		{
-			trs(lst->content);
 			tmp = lst->prev;
 			free(lst->content);
 			free(lst);

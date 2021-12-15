@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trim_quote.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:06:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 16:27:08 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 23:24:31 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ int	get_ret_buf_length(t_data *data, int length)
 	return (ret);
 }
 
+void print_checker(int *checker, int len)
+{
+	int ix = -1;
+	while (++ix < len - 1)
+		printf("%d ", checker[ix]);
+	printf("%d\n", checker[ix]);	
+}
+
 char	*strdup_as_checked(char *str, t_data *data, int length)
 {
 	char	*ret;
@@ -89,6 +97,7 @@ char	*quote_trim(char *str, t_data *data)
 		return (ft_strdup(str));
 	if (set_int_checker(data, ft_strlen(str)))
 		return (NULL);
+	print_checker(data->ip->qtrim_checker, ft_strlen(str));
 	check_unprint_char(str, data);
 	ret = strdup_as_checked(str, data, ft_strlen(str));
 	if (!ret)
