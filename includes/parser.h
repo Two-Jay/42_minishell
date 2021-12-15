@@ -6,7 +6,7 @@
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 17:52:55 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 18:17:06 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char		*append_nbr(char *src, int *now_ix, int target);
 char		*append_env(char *src, int *now_ix, t_data *data);
 int			save_target(t_eb *eb, int target);
 t_eb		*set_envbucket(char *src, int now_ix);
+char		*return_append_env(t_eb	*eb, char *ret);
 
 /*
 **		trim-quote sub-functions

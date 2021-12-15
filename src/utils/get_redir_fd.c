@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redir_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/15 11:58:55 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/15 19:26:30 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	here_doc_child(char *limiter, int fd[2])
 	while (1)
 	{
 		input = readline("> ");
-		else if (ft_strequel(input, limiter))
+		if (ft_strequel(input, limiter))
 		{
 			free(input);
 			break ;
