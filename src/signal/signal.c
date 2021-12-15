@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 17:50:09 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 21:30:53 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	signal_handler_default_SIGINT(int signo)
 
 void	set_signal_handler_default(void)
 {
-	rl_catch_signals = 0;
 	signal(SIGINT, signal_handler_default_SIGINT);
 	signal(SIGQUIT, SIG_IGN);
 }
