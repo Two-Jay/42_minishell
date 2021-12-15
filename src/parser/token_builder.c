@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_lst.c                                       :+:      :+:    :+:   */
+/*   token_builder.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 17:12:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/12 04:24:29 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 17:41:34 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_token *create_input_token(char *str, int ix)
+t_token	*create_input_token(char *str, int ix)
 {
-	t_token *ret;
+	t_token	*ret;
 
 	ret = (t_token *)malloc(sizeof(t_token));
 	if (!ret)
@@ -26,10 +26,10 @@ t_token *create_input_token(char *str, int ix)
 	return (ret);
 }
 
-int set_dummy_head_lst(t_data *data)
+int	set_dummy_head_lst(t_data *data)
 {
-	t_token *tmp;
-	
+	t_token	*tmp;
+
 	tmp = create_input_token(NULL, 0);
 	if (!tmp)
 		return (ERROR_OCCURED);
@@ -37,7 +37,7 @@ int set_dummy_head_lst(t_data *data)
 	return (0);
 }
 
-int build_input_token_lst(char **split_ret, t_data *data)
+int	build_input_token_lst(char **split_ret, t_data *data)
 {
 	int		ix;
 	char	*token_value;
@@ -46,7 +46,7 @@ int build_input_token_lst(char **split_ret, t_data *data)
 	int		token_l;
 
 	ix = -1;
-	token_l= 0;
+	token_l = 0;
 	token_value = NULL;
 	if (set_dummy_head_lst(data))
 		return (ERROR_OCCURED);

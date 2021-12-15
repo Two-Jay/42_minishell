@@ -6,7 +6,7 @@
 #    By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/12 04:24:40 by jekim            ###   ########.fr        #
+#    Updated: 2021/12/15 23:23:44 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME		=	minishell
 
 CC			=	gcc
 CCFLAG		=	-Wall -Wextra -Werror
-LIBFLAG		=	-L$(LIBFT_DIR) -L$(READLINE_L_DIR) -lft -lreadline
+LIBFLAG		=	-L$(LIBFT_DIR) $(LDFLAGS) -lft -lreadline
 G			=	-g3
-INCLUDE		=	-I$(INC_DIR) -I$(LIBFT_DIR) -I$(READLINE_I_DIR)
+INCLUDE		=	-I$(INC_DIR) -I$(LIBFT_DIR) $(CPPFLAGS)
 
 OBJ_DIR		=	./obj/
 SRC_DIR		=	./src/
@@ -28,24 +28,30 @@ EXEC_DIR	=	./src/executor/
 INC_DIR		=	./includes/
 LIBFT_DIR	=	./libft/
 
-READLINE_L_DIR	= /opt/homebrew/opt/readline/lib
-READLINE_I_DIR	= /opt/homebrew/opt/readline/include
-
 SRC_FILE		=	minishell.c \
 					environ.c
 
-SIGNAL_FILE		=	signal.c
+SIGNAL_FILE		=	signal.c \
+					signal_heredoc.c 
 
-PARSER_FILE 	=	parser.c \
-					parser_isbs.c \
-					parser_split.c	\
-					parser_lst.c \
-					parser_quotetrim.c \
-					parser_guard_syntax.c \
-					parser_del_nullish_token.c \
-					parser_replace_env.c \
-					parser_type.c \
-					parser_util.c
+PARSER_FILE 	=	main.c \
+					condition_0.c \
+					condition_1.c \
+					condition_2.c \
+					condition_3.c \
+					condition_4.c \
+					delete_nullish_token.c \
+					input_split.c \
+					insert_space_spclcmd.c \
+					qoute_close_checker.c \
+					replace_env.c \
+					replace_env_nbr.c \
+					replace_env_str.c \
+					syntax_error_guard.c \
+					token_builder.c \
+					token_type_checker.c \
+					trim_quote.c \
+					trim_quote1.c 
 
 UTILS_FILE		=	utils.c \
 					ft_strncpy.c \

@@ -1,49 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_split.c                                     :+:      :+:    :+:   */
+/*   input_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:54:24 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/08 18:39:58 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 16:15:22 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int is_end_quotation(const char *str, int ix, int flag)
- {
-	return (is_quotation(str, ix) && flag == 0);
-}
-
-int check_split_condition(const char *str, int ix, int flag)
+int	get_word_l(const char *str)
 {
-	if (is_end_quotation(str, ix, flag))
-		return (TRUE);
-	if (!ft_isspace(str[ix]) && ft_isspace(str[ix + 1]) && !flag)
-		return (TRUE);
-	if (!ft_isspace(str[ix]) && !str[ix + 1] && !flag)
-		return (TRUE);
-	return (FALSE);
-}
+	int	l;
+	int	quote_flag;
 
-int check_word_condition(const char *str, int ix, int flag)
-{
-	return (!flag && ft_isspace(str[ix]));
-}
-
-int get_word_l(const char *str)
-{
-	int l;
-	int quote_flag;
-	
 	l = 0;
 	quote_flag = 0;
 	while (str[l])
 	{
 		is_inquoted(str, l, &quote_flag);
-		if (check_word_condition(str, l, quote_flag))
+		if (is_word_condition(str, l, quote_flag))
 			break ;
 		l++;
 	}
@@ -52,9 +31,9 @@ int get_word_l(const char *str)
 
 int	get_ret_l(const char *str)
 {
-	int ix;
-	int ret;
-	int quote_flag;
+	int	ix;
+	int	ret;
+	int	quote_flag;
 
 	ix = 0;
 	ret = 0;
@@ -69,10 +48,10 @@ int	get_ret_l(const char *str)
 	return (ret);
 }
 
-char **handle_error_free_ret(char **ret)
+char	**handle_error_free_ret(char **ret)
 {
-	int ix;
-	
+	int	ix;
+
 	ix = 0;
 	while (ret[ix])
 		free(ret[ix++]);
@@ -81,10 +60,10 @@ char **handle_error_free_ret(char **ret)
 	return (NULL);
 }
 
-char **fill_split_ret(const char *str, int word_cnt, char **ret)
+char	**fill_split_ret(const char *str, int word_cnt, char **ret)
 {
-	int ix;
-	int len;
+	int	ix;
+	int	len;
 
 	ix = 0;
 	while (ix < word_cnt)
@@ -101,10 +80,10 @@ char **fill_split_ret(const char *str, int word_cnt, char **ret)
 	return (ret);
 }
 
-int split_by_chunk(const char *str, t_data *data)
+int	split_by_chunk(const char *str, t_data *data)
 {
-	int		ix;
-	int		ret_l;
+	int	ix;
+	int	ret_l;
 
 	ix = 0;
 	ret_l = get_ret_l(str);
