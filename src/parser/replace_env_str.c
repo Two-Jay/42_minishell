@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env_str.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:07:15 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 17:40:53 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 00:04:02 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ char	*append_env(char *src, int *now_ix, t_data *data)
 	char	*ret;
 	t_eb	*envbucket;
 
-	printf("check\n");
 	envbucket = set_envbucket(src, *now_ix);
 	if (!envbucket
 		|| search_and_copy_envval(src, envbucket, data))
