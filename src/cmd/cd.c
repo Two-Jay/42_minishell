@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:50:41 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 01:04:45 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/15 23:43:37 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ static int	cd_add_pwd(t_data *data)
 		free(env_old_value);
 		return (-1);
 	}
-	if (!env_old_value)
-		save_env(data, ft_strdup("PWD"), env_value, ENV);
-	free(env_old_value);
-	env_old_value = get_env("PWD", data);
-	save_env(data, ft_strdup("OLDPWD"), env_old_value, ENV);
+	if (env_old_value)
+	{
+		free(env_old_value);
+		env_old_value = get_env("PWD", data);
+		save_env(data, ft_strdup("OLDPWD"), env_old_value, ENV);
+	}
 	return (save_env(data, ft_strdup("PWD"), env_value, ENV));
 }
 
