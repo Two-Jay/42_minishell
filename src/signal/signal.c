@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 21:30:53 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/16 04:50:45 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	signal_handler_default_SIGINT(int signo)
 {
-	(void)signo;
-	ft_putchar_fd('\n', STDOUT_FILENO);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	if (signo == SIGINT)
+	{
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 	g_dq = 1;
 }
 
@@ -40,6 +42,9 @@ void	signal_handler_blocked_cmd(int signo)
 		ft_putstr_fd("Quit : (__Core_dump_number)\n", STDOUT_FILENO);
 		g_dq = DQ_SIGQUIT;
 	}
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	set_signal_handler_blocked_cmd(void)
