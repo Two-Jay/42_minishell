@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:02:25 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/13 22:17:34 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 02:53:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ typedef struct s_pipe
 	int		index;
 	int		max_index;
 	int		fd_tmp;
+	int		fd_redir_in;
+	int		fd_redir_out;
 	int		last_pid;
 }	t_pipe;
 
