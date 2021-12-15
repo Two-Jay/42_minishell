@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/14 21:28:50 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/15 11:15:01 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void signal_handler_blocked_cmd(int signo)
 {
     if (signo == SIGINT)
     {
-        ft_putstr_fd("sigint checked\n", STDOUT_FILENO);
+        ft_putstr_fd("\n", STDOUT_FILENO);
         g_dq = DQ_SIGINT;
     }
     else if (signo == SIGQUIT)
@@ -61,7 +61,7 @@ void    set_signal_handler_ignore(int signo)
 void signal_handler_interrupt_heredoc(int signo)
 {
     (void)signo;
-    ft_putchar_fd(EOF, STDIN_FILENO);
+    exit(DQ_SIGINT);
     g_dq = DQ_SIGINT;
 }
 
