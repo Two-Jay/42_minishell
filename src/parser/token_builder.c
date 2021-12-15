@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_builder.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 17:12:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 17:41:34 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 02:53:24 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,34 @@ int	set_dummy_head_lst(t_data *data)
 	return (0);
 }
 
+char *quote_checker(char **split_ret, int ix, t_data *data)
+{
+	char	*token_value;
+
+	token_value = quote_trim(split_ret[ix], data);
+	if (token_value == NULL && ft_strlen(token_value) == 0)
+		free(token_value);
+	return (token_value);
+}
+
 int	build_input_token_lst(char **split_ret, t_data *data)
 {
 	int		ix;
-	char	*token_value;
 	t_token	*lst;
 	t_token	*tmp;
 	int		token_l;
 
 	ix = -1;
 	token_l = 0;
-	token_value = NULL;
 	if (set_dummy_head_lst(data))
 		return (ERROR_OCCURED);
 	lst = data->input;
 	while (split_ret[++ix])
 	{
-		token_value = quote_trim(split_ret[ix], data);
-		if (token_value != NULL && ft_strlen(token_value) != 0)
-		{
-			tmp = create_input_token(token_value, ix + 1);
-			tmp->prev = lst;
-			lst->next = tmp;
-			lst = tmp;
-		}
+		tmp = create_input_token(quote_checker(split_ret, ix, data), ix + 1);
+		tmp->prev = lst;
+		lst->next = tmp;
+		lst = tmp;
 		token_l++;
 	}
 	return (0);
