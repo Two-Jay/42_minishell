@@ -15,7 +15,7 @@
 
 # include "cmd.h"
 # include "parser.h"
-# include "signalref.h"
+# include "signals.h"
 
 # define INTRO "||Nyamnyam_shell||"
 # define PROMPT ">> :"
