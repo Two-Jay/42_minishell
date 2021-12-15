@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
+#    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/15 17:48:01 by jekim            ###   ########.fr        #
+#    Updated: 2021/12/15 21:33:55 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC_FILE		=	minishell.c \
 					environ.c
 
 SIGNAL_FILE		=	signal.c \
-					signal_handler.c 
+					signal_heredoc.c
 
 PARSER_FILE 	=	main.c \
 					condition_0.c \
@@ -54,7 +54,7 @@ PARSER_FILE 	=	main.c \
 					token_builder.c \
 					token_type_checker.c \
 					trim_quote.c \
-					trim_quote1.c 
+					trim_quote1.c
 
 UTILS_FILE		=	utils.c \
 					ft_strncpy.c \
