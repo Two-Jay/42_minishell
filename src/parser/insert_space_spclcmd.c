@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_isbs.c                                      :+:      :+:    :+:   */
+/*   insert_space_special_cmd.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 14:21:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/12 04:29:17 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 16:21:28 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int count_spclcmd_input(const char *str)
+static int	count_spclcmd_input(const char *str)
 {
-	int ix;
-	int ret;
-	int check;
-	int quote_flag;
+	int	ix;
+	int	ret;
+	int	check;
+	int	quote_flag;
 
 	ret = 0;
 	ix = 0;
@@ -38,14 +38,14 @@ static int count_spclcmd_input(const char *str)
 	return (ret);
 }
 
-static void cp_inserted_cmd1(char *dst, const char *str, int *ix, int *jx)
+static void	cp_inserted_cmd1(char *dst, const char *str, int *ix, int *jx)
 {
 	dst[(*ix)++] = ' ';
 	dst[(*ix)++] = str[(*jx)++];
 	dst[(*ix)++] = ' ';
 }
 
-static void cp_inserted_cmd2(char *dst, const char *str, int *ix, int *jx)
+static void	cp_inserted_cmd2(char *dst, const char *str, int *ix, int *jx)
 {
 	dst[(*ix)++] = ' ';
 	dst[(*ix)++] = str[(*jx)++];
@@ -53,13 +53,13 @@ static void cp_inserted_cmd2(char *dst, const char *str, int *ix, int *jx)
 	dst[(*ix)++] = ' ';
 }
 
-static int do_insert_space(const char *str, t_data *data)
+static int	do_insert_space(const char *str, t_data *data)
 {
-	int ix;
-	int jx;
-	int check;
-	int quote_flag;
-	
+	int	ix;
+	int	jx;
+	int	check;
+	int	quote_flag;
+
 	ix = 0;
 	jx = 0;
 	check = 0;
@@ -78,10 +78,10 @@ static int do_insert_space(const char *str, t_data *data)
 	return (0);
 }
 
-int insert_space_beside_spclcmd(const char *str, t_data *data)
+int	insert_space_beside_spclcmd(const char *str, t_data *data)
 {
-	int count_spclcmd;
-	int str_l;
+	int	count_spclcmd;
+	int	str_l;
 
 	str_l = ft_strlen(str);
 	count_spclcmd = count_spclcmd_input(str);
@@ -89,7 +89,8 @@ int insert_space_beside_spclcmd(const char *str, t_data *data)
 		data->ip->isbs_ret = ft_strdup(str);
 	else if (count_spclcmd)
 	{
-		data->ip->isbs_ret = (char *)malloc(sizeof(char) * (str_l + (count_spclcmd * 2) + 1));
+		data->ip->isbs_ret = (char *)malloc(
+				sizeof(char) * (str_l + (count_spclcmd * 2) + 1));
 		if (!data->ip->isbs_ret)
 			return (ERROR_OCCURED);
 		do_insert_space(str, data);

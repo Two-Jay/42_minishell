@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/12 04:04:51 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 17:52:55 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			init_env(char **envp, t_data *data);
 /*
 ** readline;
 */
-char        *readinput(char *prompt);
+char		*readinput(char *prompt);
 
 /*
 ** util functions
@@ -52,20 +52,52 @@ int			insert_space_beside_spclcmd(const char *str, t_data *data);
 int			split_by_chunk(const char *str, t_data *data);
 int			build_input_token_lst(char **split_ret, t_data *data);
 int			assign_type_input_token_lst(t_token *token);
-int         guard_syntax_error(t_token *token);
+int			guard_syntax_error(t_token *token);
 
 /*
-**		parsing util functions
+**		replace_env sub-functions
 */
-int         print_syntax_error(char *cmd, char *error_str);
-void		is_inquoted(const char *str, int ix, int *flag);
-int			is_double_quote(const char *str, int ix);
-int			is_single_quote(const char *str, int ix);
-int			is_quotation(const char *str, int ix);
+char		*append_nbr(char *src, int *now_ix, int target);
+char		*append_env(char *src, int *now_ix, t_data *data);
+int			save_target(t_eb *eb, int target);
+t_eb		*set_envbucket(char *src, int now_ix);
+
+/*
+**		trim-quote sub-functions
+*/
+int			check_opener_quote(char *ret, int ix, int *qf);
+int			check_closer_quote(char *ret, int ix, int *qf);
+char		*free_int_checker(t_data *data);
+void		check_into_checker_arr(int *arr, int startp, int endp);
+int			set_int_checker(t_data *data, int length);
+
+/*
+**		condition checker
+*/
 int			is_redirection(const char *str, int ix);
 int			is_pipe(const char *str, int ix);
-int         is_pipe_middle_str(const char *str, int ix);
-int         is_redirection_middle_str(const char *str, int ix);
-int         is_pipe_redirection_middle_str(const char *str, int ix);
+int			is_pipe_redirection_middle_str(const char *str, int ix);
+int			is_pipe_middle_str(const char *str, int ix);
+int			is_redirection_middle_str(const char *str, int ix);
+int			is_pipe_redirection(const char *str, int ix);
+int			is_quotation(const char *str, int ix);
+int			is_double_quote(const char *str, int ix);
+int			is_single_quote(const char *str, int ix);
+void		is_inquoted(const char *str, int ix, int *flag);
+int			is_start_charset_envkey(char c);
+int			is_end_envkey(const char *src, int ix);
+int			is_CMD(int cmd_flag);
+int			is_contain_space_or_dash(t_token *token);
+int			is_flag(t_token *token);
+int			is_filepath(t_token *token);
+int			is_quoted_input(char *str);
+int			is_end_quotation(const char *str, int ix, int flag);
+int			is_word_condition(const char *str, int ix, int flag);
+int			check_split_condition(const char *str, int ix, int flag);
+int			is_envflag(const char *str, int ix, int flag);
+int			is_dq(const char *str, int ix, int flag);
+int			is_env_print_process(const char *str, int ix, int flag);
+int			is_start_charset_envkey(char c);
+int			is_end_envkey(const char *src, int ix);
 
 #endif

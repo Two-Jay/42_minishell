@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environ.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 17:30:17 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/06 15:46:59 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/15 17:26:07 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static t_envlst	*create_node_envlst(char *env_line)
 
 static int	get_envlen(char **envp)
 {
-	int ix;
+	int	ix;
 
 	ix = -1;
 	while (envp[++ix])

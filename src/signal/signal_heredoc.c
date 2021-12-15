@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 13:34:52 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 17:14:35 by jekim            ###   ########.fr       */
+/*   Created: 2021/12/15 17:17:53 by jekim             #+#    #+#             */
+/*   Updated: 2021/12/15 17:50:45 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static size_t	ft_strnlen(const char *str, size_t n)
+void	signal_handler_interrupt_heredoc(int signo)
 {
-	size_t	ix;
-
-	ix = 0;
-	while (str[ix])
-	{
-		if (ix == n)
-			break ;
-		ix++;
-	}
-	return (ix);
+	(void)signo;
+	exit(DQ_SIGINT);
+	g_dq = DQ_SIGINT;
 }
 
-char	*ft_strncpy(char *dst, const char *src, size_t n)
+void	set_signal_handler_ignore(int signo)
 {
-	size_t	size;
+	if (signo == SIGUSR1)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+}
 
-	size = ft_strnlen(src, n);
-	if (size != n)
-		ft_memset(dst + size, '\0', n - size);
-	return (ft_memcpy(dst, src, size));
+void	init_signal(int signo)
+{
+	if (signo == SIGUSR1)
+		return ;
+}
+
+void	set_signal_handler_heredoc(void)
+{
+	signal(SIGINT, signal_handler_interrupt_heredoc);
 }

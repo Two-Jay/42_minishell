@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:22:59 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/14 16:26:50 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 15:01:42 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int empty_input_checker(t_data *data)
+int	empty_input_checker(t_data *data)
 {
 	if (data->input->next == NULL)
 		free(data->input);

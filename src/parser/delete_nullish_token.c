@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_del_nullish_token.c                         :+:      :+:    :+:   */
+/*   delete_nullish_token.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:22:20 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/08 17:50:12 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/15 16:17:18 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int get_token_l(t_token *token)
+int	get_token_l(t_token *token)
 {
 	t_token	*lst;
 	int		ret;
@@ -27,7 +27,7 @@ int get_token_l(t_token *token)
 	return (ret);
 }
 
-t_token *get_last_token(t_token *token)
+t_token	*get_last_token(t_token *token)
 {
 	t_token	*lst;
 
@@ -37,11 +37,11 @@ t_token *get_last_token(t_token *token)
 	return (lst);
 }
 
-int delete_nullish_token(t_token *token)
+int	delete_nullish_token(t_token *token)
 {
 	int		token_l;
 	t_token	*lst;
-	t_token *tmp;
+	t_token	*tmp;
 
 	token_l = get_token_l(token);
 	if (token_l == 0)
