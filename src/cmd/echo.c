@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/07 18:34:27 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/16 16:05:43 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static int	echo_noflag(t_token *input, int ofd)
 
 static int	echo_nflag(t_token *input, int ofd)
 {
+	while (input && echo_if_nnn(input->content))
+		input = input->next;
 	while (input && input->type != PIPE)
 	{
 		if (input->type != REDIRECT && input->type != FILEPATH)

@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/16 04:30:05 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/16 16:27:03 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ static int	here_doc_readline(char *limiter)
 		close(fd[PIPE_READ]);
 		if (pipe(fd) < 0)
 			return (builtin_error("heredoc", ft_strdup(PIPE_ERR), 1));
+		g_dq = 1;
 		close(fd[PIPE_WRITE]);
+		return (-1);
 	}
 	return (fd[PIPE_READ]);
 }
@@ -80,7 +82,7 @@ int	ifd_condition(t_token *input, char *str)
 	{
 		fd = open(str, O_RDONLY);
 		if (fd < 0)
-			return (builtin_error("shell", ft_strjoin(str, EXEC_ERRNODIR), -1));
+			return (builtin_error("shell", ft_strjoin(str, EXEC_ERRNODIR), 1));
 		if (input->next->next && input->next->next->type == REDIRECT)
 			close(fd);
 	}
