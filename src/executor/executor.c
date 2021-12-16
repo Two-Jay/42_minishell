@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/16 01:37:20 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/16 16:28:11 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ static int	exec_dup_builtin(t_data *data, t_token *input)
 		return (EXEC_NOTBUILTIN);
 	ofd = get_redir_ofd(input);
 	if (ofd < 0)
-		return (builtin_error("shell", ft_strdup(PIPE_ERR), 1));
+		return (1);
 	ifd = get_redir_ifd(input);
 	if (ifd < 0)
-		return (builtin_error("shell", ft_strdup(PIPE_ERR), 1));
+		return (1);
 	if (ifd != STDIN_FILENO)
 		close(ifd);
 	return (exec_builtin(data, input, ofd));
