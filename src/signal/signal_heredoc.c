@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:17:53 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/16 02:35:28 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 12:59:47 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	signal_handler_interrupt_heredoc(int signo)
 {
-	(void)signo;
-	exit(DQ_SIGINT);
-	g_dq = DQ_SIGINT;
+	if (signo == SIGINT)
+		exit(1);
 }
 
 void	set_signal_handler_ignore(int signo)
@@ -37,4 +36,5 @@ void	init_signal(int signo)
 void	set_signal_handler_heredoc(void)
 {
 	signal(SIGINT, signal_handler_interrupt_heredoc);
+	signal(SIGQUIT, SIG_IGN);
 }

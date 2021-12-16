@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redir_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/15 19:26:30 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 04:30:05 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@ static int	here_doc_child(char *limiter, int fd[2])
 
 	close(fd[PIPE_READ]);
 	set_signal_handler_heredoc();
+	signal(SIGUSR1, init_signal);
+	kill(0, SIGUSR1);
 	while (1)
 	{
 		input = readline("> ");
+		if (!input)
+			break ;
 		if (ft_strequel(input, limiter))
 		{
 			free(input);
@@ -48,6 +52,13 @@ static int	here_doc_readline(char *limiter)
 		return (builtin_error("heredoc", ft_strdup(PIPE_ERR), 1));
 	close(fd[PIPE_WRITE]);
 	waitpid(pipe_pid, &temp_status, 0);
+	if (WEXITSTATUS(temp_status))
+	{
+		close(fd[PIPE_READ]);
+		if (pipe(fd) < 0)
+			return (builtin_error("heredoc", ft_strdup(PIPE_ERR), 1));
+		close(fd[PIPE_WRITE]);
+	}
 	return (fd[PIPE_READ]);
 }
 
@@ -62,7 +73,8 @@ int	ifd_condition(t_token *input, char *str)
 		if (fd < 0)
 			return (-1);
 		if (input->next->next && input->next->next->type == REDIRECT)
-			close(fd);
+			if (fd != STDIN_FILENO)
+				close(fd);
 	}
 	else if (ft_strequel(input->content, "<"))
 	{

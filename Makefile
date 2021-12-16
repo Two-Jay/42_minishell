@@ -52,7 +52,7 @@ PARSER_FILE 	=	main.c \
 					token_builder.c \
 					token_type_checker.c \
 					trim_quote.c \
-					trim_quote1.c 
+					trim_quote1.c
 
 UTILS_FILE		=	utils.c \
 					ft_strncpy.c \
