@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 17:26:35 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 02:32:14 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_STDIN_input(char *input, t_data *data)
+void handle_STDIN_input(char *input, t_data *data)
 {
-	int	err_checker;
+	int err_checker;
 
 	err_checker = parse_input_string(input, data);
 	add_history(input);
@@ -25,7 +25,7 @@ void	handle_STDIN_input(char *input, t_data *data)
 	}
 }
 
-void	handle_EOF_NO_STDIN(void)
+void handle_EOF_NO_STDIN(void)
 {
 	write(0, "exit\n", 5);
 	exit(0);

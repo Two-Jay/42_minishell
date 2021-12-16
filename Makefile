@@ -6,7 +6,7 @@
 #    By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/15 23:23:44 by jekim            ###   ########.fr        #
+#    Updated: 2021/12/16 01:07:03 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SIGNAL_FILE		=	signal.c \
 					signal_heredoc.c 
 
 PARSER_FILE 	=	main.c \
+					debug_function.c \
 					condition_0.c \
 					condition_1.c \
 					condition_2.c \

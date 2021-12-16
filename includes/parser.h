@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 23:08:41 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 12:54:29 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,5 @@ int			is_dq(const char *str, int ix, int flag);
 int			is_env_print_process(const char *str, int ix, int flag);
 int			is_start_charset_envkey(char c);
 int			is_end_envkey(const char *src, int ix);
-
-void		print_token(t_data *data);
 
 #endif
