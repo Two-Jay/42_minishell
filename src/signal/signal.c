@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/16 14:31:51 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 19:34:57 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ void	signal_handler_default_SIGINT(int signo)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+        g_dq = 1;
 	}
-	g_dq = 1;
 }
 
 void	set_signal_handler_default(void)
 {
+    rl_done = 0;
+    rl_catch_signals = 0;
 	signal(SIGINT, signal_handler_default_SIGINT);
 	signal(SIGQUIT, SIG_IGN);
 }
