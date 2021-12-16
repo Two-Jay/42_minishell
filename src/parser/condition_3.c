@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 14:56:33 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/16 12:56:05 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 13:57:52 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_end_quotation(const char *str, int ix, int flag)
 
 int	is_word_condition(const char *str, int ix, int flag)
 {
-	return (!flag && !ft_isspace(str[ix]));
+	return (!flag && ft_isspace(str[ix]));
 }
 
 int	check_split_condition(const char *str, int ix, int flag)
