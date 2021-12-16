@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trim_quote1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 16:25:12 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 16:27:54 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 12:56:07 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ char	*free_int_checker(t_data *data)
 
 void	check_into_checker_arr(int *arr, int startp, int endp)
 {
-	arr[startp] = 1;
-	arr[endp] = 1;
+	arr[startp] = 2;
+	arr[endp] = 2;
 }
 
 int	set_int_checker(t_data *data, int length)
@@ -74,8 +74,11 @@ int	set_int_checker(t_data *data, int length)
 	ix = -1;
 	if (!length)
 		data->ip->qtrim_checker = NULL;
-	data->ip->qtrim_checker = (int *)ft_calloc((length + 1), sizeof(int));
+	data->ip->qtrim_checker = (int *)malloc((length + 1) * sizeof(int));
 	if (!data->ip->qtrim_checker)
 		return (ERROR_OCCURED);
+	while (++ix < length)
+		data->ip->qtrim_checker[ix] = 1;
+	data->ip->qtrim_checker[length] = '\0';
 	return (0);
 }

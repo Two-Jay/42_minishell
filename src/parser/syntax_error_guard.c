@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error_guard.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:56:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 17:41:32 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 12:56:06 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,11 @@ int	check_consecutive_pipes(t_token *token)
 	cnt_pipe = 0;
 	while (tknp)
 	{
-		if (ft_strequel(tknp->content, "|"))
+		if (cnt_pipe >= 2)
+			return (print_syntax_error(
+					"Shell ",
+					ft_strjoin(PSR_ERRSYNTAX, tmp->content)));	
+		if (tknp->type == PIPE)
 		{
 			cnt_pipe++;
 			tmp = tknp;
@@ -87,10 +91,6 @@ int	check_consecutive_pipes(t_token *token)
 			cnt_pipe = 0;
 		tknp = tknp->next;
 	}
-	if (cnt_pipe > 3)
-		return (print_syntax_error(
-				"Shell ",
-				ft_strjoin(PSR_ERRSYNTAX, tmp->content)));
 	return (0);
 }
 

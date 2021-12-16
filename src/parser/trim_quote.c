@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:06:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 23:26:52 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 12:56:07 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	get_ret_buf_length(t_data *data, int length)
 	ix = -1;
 	while (++ix < length)
 	{
-		if (data->ip->qtrim_checker[ix] == 0)
+		if (data->ip->qtrim_checker[ix] == 1)
 			ret++;
 	}
 	return (ret);
@@ -72,7 +72,7 @@ char	*strdup_as_checked(char *str, t_data *data, int length)
 	ret[len] = '\0';
 	while (str[ix])
 	{
-		if (data->ip->qtrim_checker[ix] == 0)
+		if (data->ip->qtrim_checker[ix] == 1)
 			ret[jx++] = str[ix];
 		if (jx == len)
 			break ;

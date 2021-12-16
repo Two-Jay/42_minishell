@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 16:54:24 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 16:15:22 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 12:56:04 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_word_l(const char *str)
 	while (str[l])
 	{
 		is_inquoted(str, l, &quote_flag);
-		if (is_word_condition(str, l, quote_flag))
+		if (!is_word_condition(str, l, quote_flag))
 			break ;
 		l++;
 	}

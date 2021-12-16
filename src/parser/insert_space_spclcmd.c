@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   insert_space_special_cmd.c                         :+:      :+:    :+:   */
+/*   insert_space_spclcmd.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 14:21:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/15 16:21:28 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/16 12:56:04 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	count_spclcmd_input(const char *str)
 		check = is_pipe_redirection_middle_str(str, ix);
 		if (!quote_flag && check)
 		{
-			if (check != 0)
+			if (check == 1)
 				ret++;
 			if (check == 2)
 				ix++;
@@ -53,7 +53,7 @@ static void	cp_inserted_cmd2(char *dst, const char *str, int *ix, int *jx)
 	dst[(*ix)++] = ' ';
 }
 
-static int	do_insert_space(const char *str, t_data *data)
+static int	do_insert_space(const char *str, t_data *data, int str_l)
 {
 	int	ix;
 	int	jx;
@@ -64,7 +64,7 @@ static int	do_insert_space(const char *str, t_data *data)
 	jx = 0;
 	check = 0;
 	quote_flag = 0;
-	while (str[jx])
+	while (jx < str_l)
 	{
 		is_inquoted(str, jx, &quote_flag);
 		check = is_pipe_redirection_middle_str(str, jx);
@@ -75,6 +75,7 @@ static int	do_insert_space(const char *str, t_data *data)
 		else if (check == 2)
 			cp_inserted_cmd2(data->ip->isbs_ret, str, &ix, &jx);
 	}
+	data->ip->isbs_ret[ix] = '\0';
 	return (0);
 }
 
@@ -93,7 +94,7 @@ int	insert_space_beside_spclcmd(const char *str, t_data *data)
 				sizeof(char) * (str_l + (count_spclcmd * 2) + 1));
 		if (!data->ip->isbs_ret)
 			return (ERROR_OCCURED);
-		do_insert_space(str, data);
+		do_insert_space(str, data, str_l);
 	}
 	return (0);
 }
