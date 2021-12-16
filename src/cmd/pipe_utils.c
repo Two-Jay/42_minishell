@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:39:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/06 01:25:58 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/16 03:10:59 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,33 +60,27 @@ char	**pipe_insert_arr(t_token *input, char *cmd_path)
 	return (arr_return);
 }
 
-void	pipe_dup_ifd(t_token *input, t_pipe *struct_pipe)
+void	pipe_dup_ifd(t_pipe *struct_pipe)
 {
-	int	ifd;
-
-	ifd = get_redir_ifd(input->next);
 	if (dup2(struct_pipe->fd_tmp, STDIN_FILENO) < 0)
 		exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
-	if (ifd != STDIN_FILENO)
+	if (struct_pipe->fd_redir_in != STDIN_FILENO)
 	{
-		if (dup2(ifd, STDIN_FILENO) < 0)
-			exit(builtin_error("shell", ft_strdup(PIPE_ERR), 1));
-		close(ifd);
+		if (dup2(struct_pipe->fd_redir_in, STDIN_FILENO) < 0)
+			exit(1);
+		close(struct_pipe->fd_redir_in);
 	}
 }
 
-void	pipe_dup_ofd(t_token *input, t_pipe *struct_pipe, int fd[2])
+void	pipe_dup_ofd(t_pipe *struct_pipe, int fd[2])
 {
-	int	ofd;
-
-	ofd = get_redir_ofd(input->next);
 	if (struct_pipe->index + 1 < struct_pipe->max_index)
 		if (dup2(fd[PIPE_WRITE], STDOUT_FILENO) < 0)
 			exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
-	if (ofd != STDOUT_FILENO)
+	if (struct_pipe->fd_redir_out != STDOUT_FILENO)
 	{
-		if (dup2(ofd, STDOUT_FILENO) < 0)
-			exit(builtin_error("shell", ft_strdup(PIPE_ERR), 1));
-		close(ofd);
+		if (dup2(struct_pipe->fd_redir_out, STDOUT_FILENO) < 0)
+			exit(1);
+		close(struct_pipe->fd_redir_out);
 	}
 }
