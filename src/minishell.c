@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/17 13:29:06 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/18 01:02:55 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void handle_EOF_NO_STDIN(void)
 
 void signal_setting(void)
 {
+	struct termios	termattr;
+
+	tcgetattr(STDOUT_FILENO, &termattr);
+	termattr.c_lflag = ~(ECHOCTL);
+	tcsetattr(STDOUT_FILENO, TCSANOW, &termattr);
 	set_signal_handler_default();
 	signal(SIGUSR1, init_signal);
 	kill(0, SIGUSR1);

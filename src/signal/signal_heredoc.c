@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:17:53 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/17 13:56:22 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/18 01:00:27 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	signal_handler_interrupt_heredoc(int signo)
 	if (signo == SIGINT)
 	{
 		g_dq = DQ_SIGINT;
-		ft_putstr_fd("\b\b  \b\b", STDOUT_FILENO);
-		rl_redisplay();
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		exit(1);
 	}
 }
@@ -39,7 +38,7 @@ void	init_signal(int signo)
 }
 
 void	set_signal_handler_heredoc(void)
-{
+{	
 	kill(0, SIGUSR1);
 	rl_catch_signals = 1;
 	signal(SIGINT, signal_handler_interrupt_heredoc);
