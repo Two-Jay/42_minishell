@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/18 06:52:28 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/18 07:25:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void	pipe_child(
 	close(fd[PIPE_READ]);
 	if (!if_builtin(input))
 		exec_program(data, input);
+	if (ft_strequel(input->content, "exit"))
+		minishell_exit(input, 1);
 	builtin_return = exec_builtin(data, input, STDOUT_FILENO);
 	exit(builtin_return);
 }

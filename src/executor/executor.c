@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/16 16:28:11 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/18 07:25:02 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	exec_builtin(t_data *data, t_token *input, int ofd)
 	else if (ft_strequel(input->content, "env"))
 		builtin_return = minishell_env(data, input, ofd);
 	else if (ft_strequel(input->content, "exit"))
-		builtin_return = minishell_exit(input);
+		builtin_return = minishell_exit(input, 0);
 	else if (ft_strequel(input->content, "export"))
 		builtin_return = minishell_export(data, input, ofd);
 	else if (ft_strequel(input->content, "unset"))
