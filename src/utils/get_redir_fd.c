@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/18 05:49:01 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/18 05:50:01 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	here_doc_child(char *limiter, int fd[2])
 	char	*input;
 
 	close(fd[PIPE_READ]);
+	kill(0, SIGUSR1);
 	while (1)
 	{
 		set_signal_handler_heredoc();
