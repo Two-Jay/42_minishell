@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:17:53 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/18 01:00:27 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/18 01:20:46 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	init_signal(int signo)
 
 void	set_signal_handler_heredoc(void)
 {	
-	kill(0, SIGUSR1);
 	rl_catch_signals = 1;
 	signal(SIGINT, signal_handler_interrupt_heredoc);
 	signal(SIGQUIT, SIG_IGN);
