@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/16 02:32:14 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/17 13:29:06 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ void handle_EOF_NO_STDIN(void)
 	exit(0);
 }
 
+void signal_setting(void)
+{
+	set_signal_handler_default();
+	signal(SIGUSR1, init_signal);
+	kill(0, SIGUSR1);
+	signal(SIGUSR1, set_signal_handler_ignore);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
@@ -40,12 +48,9 @@ int	main(int argc, char **argv, char **envp)
 		|| init_env(envp, &data))
 		exit(EXIT_FAILURE);
 	add_shlvl(&data);
-	signal(SIGUSR1, init_signal);
-	kill(0, SIGUSR1);
 	while (1)
 	{
-		set_signal_handler_default();
-		signal(SIGUSR1, set_signal_handler_ignore);
+		signal_setting();
 		input = readline(PROMPT);
 		if (input)
 			handle_STDIN_input(input, &data);
