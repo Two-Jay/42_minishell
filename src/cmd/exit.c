@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/08 22:51:49 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/18 07:48:26 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	exit_with_param(t_token *input)
 		input = input->next;
 	str = input->content;
 	errno_converted = 0;
-	write(1, "exit\n", 5);
 	if (!is_num(str) || (ft_strlen(str) > 20)
 		|| (ft_strlen(str) > 19 && *str != '-') || is_overflow_ll(str) < 0)
 	{
@@ -76,20 +75,16 @@ static int	exit_with_param(t_token *input)
 	return (0);
 }
 
-static void	exit_no_param(void)
-{
-	write(1, "exit\n", 5);
-	exit(0);
-}
-
-int	minishell_exit(t_token *input)
+int	minishell_exit(t_token *input, int if_pipe)
 {
 	int		argument_check;
 
+	if (!if_pipe)
+		write(2, "exit\n", 5);
 	argument_check = check_argument(input);
 	if (argument_check == ARGUMENT_O || argument_check == FLAG_O)
 		return (exit_with_param(input));
 	else
-		exit_no_param();
+		exit(0);
 	return (0);
 }
