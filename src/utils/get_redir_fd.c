@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/18 05:50:01 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 19:41:06 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ifd_condition(t_token *input, char *str)
 		if (fd < 0)
 			return (-1);
 		if (input->next->next && input->next->next->type == REDIRECT)
-			if (fd != STDIN_FILENO)
+			if (fd != STDOUT_FILENO && fd != STDIN_FILENO)
 				close(fd);
 	}
 	else if (ft_strequel(input->content, "<"))
@@ -83,7 +83,8 @@ int	ifd_condition(t_token *input, char *str)
 		if (fd < 0)
 			return (builtin_error("shell", ft_strjoin(str, EXEC_ERRNODIR), 1));
 		if (input->next->next && input->next->next->type == REDIRECT)
-			close(fd);
+			if (fd != STDOUT_FILENO && fd != STDIN_FILENO)
+				close(fd);
 	}
 	return (fd);
 }
@@ -124,7 +125,8 @@ int	get_redir_ofd(t_token *input)
 			if (fd < 0)
 				return (builtin_error("shell", ft_strdup(PIPE_ERR), -1));
 			if (input->next->next && input->next->next->type == REDIRECT)
-				close(fd);
+				if (fd != STDOUT_FILENO && fd != STDIN_FILENO)
+					close(fd);
 		}
 		input = input->next;
 	}
