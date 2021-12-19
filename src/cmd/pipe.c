@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:04:53 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/16 03:02:36 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/18 07:37:44 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static t_pipe	*pipe_struct(t_token *input)
 static void	pipe_child(
 		t_data *data, t_token *input, t_pipe *struct_pipe, int fd[2])
 {
+	int	builtin_return;
+
 	pipe_dup_ifd(struct_pipe);
 	pipe_dup_ofd(struct_pipe, fd);
 	if (struct_pipe->fd_tmp != STDIN_FILENO)
@@ -39,7 +41,10 @@ static void	pipe_child(
 	close(fd[PIPE_READ]);
 	if (!if_builtin(input))
 		exec_program(data, input);
-	exit(exec_builtin(data, input, STDOUT_FILENO));
+	if (ft_strequel(input->content, "exit"))
+		minishell_exit(input, 1);
+	builtin_return = exec_builtin(data, input, STDOUT_FILENO);
+	exit(builtin_return);
 }
 
 static int	pipe_makepipe(t_data *data, t_token *input, t_pipe *struct_pipe)
@@ -80,7 +85,7 @@ static void	pipe_wait(t_pipe *struct_pipe)
 		if (wait_return_pid == struct_pipe->last_pid)
 			status_save = status;
 		if (wait_return_pid < 0)
-			return ;
+			break ;
 	}
 	g_dq = WEXITSTATUS(status_save);
 	return ;

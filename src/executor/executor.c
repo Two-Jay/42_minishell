@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/16 16:28:11 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 16:17:43 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	exec_builtin(t_data *data, t_token *input, int ofd)
 	else if (ft_strequel(input->content, "env"))
 		builtin_return = minishell_env(data, input, ofd);
 	else if (ft_strequel(input->content, "exit"))
-		builtin_return = minishell_exit(input);
+		builtin_return = minishell_exit(input, 0);
 	else if (ft_strequel(input->content, "export"))
 		builtin_return = minishell_export(data, input, ofd);
 	else if (ft_strequel(input->content, "unset"))
@@ -99,25 +99,25 @@ int	minishell_executor(t_data *data)
 	int		builtin_return;
 	int		exec_pid;
 	int		status;
-	t_token	*input_start;
 
-	input_start = data->input->next;
+	g_dq = 0;
 	if (exec_if_pipe(data))
 		return (minishell_pipe(data));
-	builtin_return = exec_dup_builtin(data, input_start);
+	builtin_return = exec_dup_builtin(data, data->input->next);
 	if (builtin_return != EXEC_NOTBUILTIN)
 		return (builtin_return);
 	set_signal_handler_blocked_cmd();
 	exec_pid = fork();
 	if (!exec_pid)
 	{
-		exec_dup_ifd(input_start);
-		exec_dup_ofd(input_start);
-		exec_program(data, input_start);
+		exec_dup_ifd(data->input->next);
+		exec_dup_ofd(data->input->next);
+		exec_program(data, data->input->next);
 	}
 	else if (exec_pid < 0)
 		return (builtin_error("shell", ft_strdup(EXEC_ERRFORK), 1));
 	waitpid(exec_pid, &status, 0);
-	g_dq = WEXITSTATUS(status);
+	if (g_dq != DQ_SIGINT && g_dq != DQ_SIGQUIT)
+		g_dq = WEXITSTATUS(status);
 	return (0);
 }

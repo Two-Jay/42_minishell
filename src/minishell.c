@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:08:41 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/18 01:02:55 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/19 17:33:54 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void handle_STDIN_input(char *input, t_data *data)
+void	handle_STDIN_input(char *input, t_data *data)
 {
-	int err_checker;
+	int	err_checker;
 
 	err_checker = parse_input_string(input, data);
 	add_history(input);
@@ -25,19 +25,15 @@ void handle_STDIN_input(char *input, t_data *data)
 	}
 }
 
-void handle_EOF_NO_STDIN(void)
+void	handle_EOF_NO_STDIN(void)
 {
 	write(0, "exit\n", 5);
 	exit(0);
 }
 
-void signal_setting(void)
+void	signal_setting(void)
 {
-	struct termios	termattr;
-
-	tcgetattr(STDOUT_FILENO, &termattr);
-	termattr.c_lflag = ~(ECHOCTL);
-	tcsetattr(STDOUT_FILENO, TCSANOW, &termattr);
+	turnoff_echoctl_termattr();
 	set_signal_handler_default();
 	signal(SIGUSR1, init_signal);
 	kill(0, SIGUSR1);
@@ -61,6 +57,7 @@ int	main(int argc, char **argv, char **envp)
 			handle_STDIN_input(input, &data);
 		else
 			handle_EOF_NO_STDIN();
+		turnon_echoctl_termattr();
 		free(input);
 	}
 	return (0);

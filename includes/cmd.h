@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/16 03:02:28 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 15:09:11 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int			minishell_export(t_data *data, t_token *input, int ofd);
 	* Env
 */
 # define	ENV_ERROPT ": illegal option\nusage: env"
+# define	ENV_ERRNODIR ": No such file or directory"
 int			minishell_env(t_data *data, t_token *input, int ofd);
 
 /*
@@ -99,7 +100,7 @@ int			minishell_unset(t_data *data, t_token *input);
 */
 # define	EXIT_ERRNUM ": numeric argument required"
 # define	EXIT_ERRMANY "too many arguments"
-int			minishell_exit(t_token *input);
+int			minishell_exit(t_token *input, int if_pipe);
 
 /*
 	* Redirection
@@ -129,6 +130,7 @@ int			builtin_error(char *cmd, char *error_str, int dollar_q);
 int			if_builtin(t_token *input);
 int			check_flag(t_token *input);
 t_token		*find_flag(t_token *input);
+t_token		*find_arg(t_token *input);
 int			check_argument(t_token *input);
 int			check_arg_num(t_token *input);
 int			free_token(t_token *input);

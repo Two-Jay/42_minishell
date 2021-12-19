@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/16 13:09:12 by jekim            ###   ########.fr        #
+#    Updated: 2021/12/19 17:38:44 by jekim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRC_FILE		=	minishell.c \
 					environ.c
 
 SIGNAL_FILE		=	signal.c \
-					signal_heredoc.c 
+					signal_heredoc.c \
+					termattr.c
 
 PARSER_FILE 	=	main.c \
 					condition_0.c \
