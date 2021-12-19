@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
+#    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/19 20:14:09 by jiychoi          ###   ########.fr        #
+#    Updated: 2021/12/19 22:17:18 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ PARSER_FILE 	=	main.c \
 					replace_env_nbr.c \
 					replace_env_str.c \
 					syntax_error_guard.c \
+					syntax_error_guard1.c \
 					token_builder.c \
 					token_type_checker.c \
 					trim_quote.c \
