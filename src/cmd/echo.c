@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 15:54:11 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/18 06:43:34 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 22:53:58 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	echo_if_nnn(char *flag)
 	if (*flag != '-')
 		return (0);
 	flag++;
+	if (!*flag)
+		return (0);
 	while (*flag)
 	{
 		if (*flag != 'n')
