@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error_guard.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
+/*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 18:56:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/19 20:14:06 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/19 22:42:35 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ int	check_no_cmd_between_pipes(t_token *token)
 	cnt_cmd = 0;
 	err_flag = 0;
 	tknp = token;
-	while (tknp)
+	while (tknp->next)
 	{
+		printf("token: %s\n", tknp->content);
 		if (cnt_cmd == 0 && tknp->type == PIPE)
 		{
 			err_flag = 1;
@@ -82,8 +83,7 @@ int	check_no_cmd_between_pipes(t_token *token)
 			cnt_cmd = 0;
 		if (tknp->type == CMD)
 			cnt_cmd++;
-		if (tknp->next)
-			tknp = tknp->next;
+		tknp = tknp->next;
 	}
 	if (tknp->type == PIPE || err_flag)
 		return (print_syntax_error(PSR_ERRHEAD,
