@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 19:59:33 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/19 14:55:05 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 15:13:49 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int	minishell_pwd(t_token *input, int ofd)
 	argument_check = check_argument(input);
 	if (argument_check == FLAG_O)
 		return (builtin_error("shell: pwd",
-				ft_strjoin(input->next->content, PWD_ERROPT), 1));
+				ft_strjoin(find_flag(input)->content, PWD_ERROPT), 1));
 	return (pwd_getpwd(ofd));
 }
