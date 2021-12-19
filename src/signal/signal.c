@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/18 01:02:22 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/19 15:21:21 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,19 @@ void	signal_handler_blocked_cmd(int signo)
 {
 	if (signo == SIGINT)
 	{
-		ft_putstr_fd("^C\n", STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		g_dq = DQ_SIGINT;
 	}
 	else if (signo == SIGQUIT)
 	{
-		ft_putstr_fd("^\\Quit : (__Core_dump_number)\n", STDOUT_FILENO);
+		ft_putstr_fd("Quit : (__Core_dump_number)\n", STDOUT_FILENO);
 		g_dq = DQ_SIGQUIT;
 	}
 }
 
 void	set_signal_handler_blocked_cmd(void)
 {
+	turnon_echoctl_termattr();
 	signal(SIGINT, signal_handler_blocked_cmd);
 	signal(SIGQUIT, signal_handler_blocked_cmd);
 }

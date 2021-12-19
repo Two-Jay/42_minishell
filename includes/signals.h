@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:36 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/17 12:04:01 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/19 14:35:14 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ void	signal_handler_default_SIGINT(int signo);
 void	signal_handler_blocked_cmd(int signo);
 void	signal_handler_interrupt_heredoc(int signo);
 void	init_signal(int signo);
+
+void turnon_echoctl_termattr(void);
+void turnoff_echoctl_termattr(void);
 
 #endif
