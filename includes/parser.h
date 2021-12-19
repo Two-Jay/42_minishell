@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 14:09:01 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/16 12:54:29 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/19 20:13:27 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "structure.h"
 # include "headers.h"
 
+# define PSR_ERRHEAD "shell "
 # define PSR_ERRSYNTAX "syntax error near unexpected token "
 
 /*
@@ -53,6 +54,12 @@ int			split_by_chunk(const char *str, t_data *data);
 int			build_input_token_lst(char **split_ret, t_data *data);
 int			assign_type_input_token_lst(t_token *token);
 int			guard_syntax_error(t_token *token);
+
+/*
+**		syntax error sub-functions
+*/
+int			check_isclosed(const char *input);
+int			print_syntax_error(char *cmd, char *error_str);
 
 /*
 **		replace_env sub-functions
