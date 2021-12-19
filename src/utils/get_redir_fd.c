@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/19 19:51:09 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 20:18:47 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,16 @@ int	ifd_condition(t_token *input, char *str)
 		fd = here_doc_readline(str);
 		if (fd < 0)
 			return (-1);
-		if (input->next->next && input->next->next->type == REDIRECT)
-			if (fd != STDOUT_FILENO && fd != STDIN_FILENO)
-				close(fd);
+		if (ifd_if_condition(input, fd))
+			close(fd);
 	}
 	else if (ft_strequel(input->content, "<"))
 	{
 		fd = open(str, O_RDONLY);
 		if (fd < 0)
 			return (builtin_error("shell", ft_strjoin(str, EXEC_ERRNODIR), -1));
-		if (input->next->next && input->next->next->type == REDIRECT)
-			if (fd != STDOUT_FILENO && fd != STDIN_FILENO)
-				close(fd);
+		if (ifd_if_condition(input, fd))
+			close(fd);
 	}
 	return (fd);
 }
@@ -98,7 +96,7 @@ int	get_redir_ifd(t_token *input)
 		input = input->next;
 	while (input && input->type != CMD && input->type != PIPE)
 	{
-		if (input->type == REDIRECT)
+		if (input->type == REDIRECT && ifd_equal_str(input->content))
 		{
 			fd = ifd_condition(input, input->next->content);
 			if (fd < 0)
@@ -119,7 +117,7 @@ int	get_redir_ofd(t_token *input)
 		input = input->next;
 	while (input && input->type != CMD && input->type != PIPE)
 	{
-		if (input->type == REDIRECT)
+		if (input->type == REDIRECT && ofd_equal_str(input->content))
 		{
 			filename = input->next->content;
 			if (ft_strequel(input->content, ">"))
@@ -128,9 +126,8 @@ int	get_redir_ofd(t_token *input)
 				fd = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0777);
 			if (fd < 0)
 				return (builtin_error("shell", ft_strdup(PIPE_ERR), -1));
-			if (input->next->next && input->next->next->type == REDIRECT)
-				if (fd != STDOUT_FILENO && fd != STDIN_FILENO)
-					close(fd);
+			if (ofd_if_condition(input, fd))
+				close(fd);
 		}
 		input = input->next;
 	}
