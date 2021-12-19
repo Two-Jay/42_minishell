@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/19 15:00:50 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 15:09:11 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int			builtin_error(char *cmd, char *error_str, int dollar_q);
 int			if_builtin(t_token *input);
 int			check_flag(t_token *input);
 t_token		*find_flag(t_token *input);
+t_token		*find_arg(t_token *input);
 int			check_argument(t_token *input);
 int			check_arg_num(t_token *input);
 int			free_token(t_token *input);
