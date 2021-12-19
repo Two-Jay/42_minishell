@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 23:37:57 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/19 19:41:06 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 19:51:09 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ifd_condition(t_token *input, char *str)
 	{
 		fd = open(str, O_RDONLY);
 		if (fd < 0)
-			return (builtin_error("shell", ft_strjoin(str, EXEC_ERRNODIR), 1));
+			return (builtin_error("shell", ft_strjoin(str, EXEC_ERRNODIR), -1));
 		if (input->next->next && input->next->next->type == REDIRECT)
 			if (fd != STDOUT_FILENO && fd != STDIN_FILENO)
 				close(fd);
@@ -99,7 +99,11 @@ int	get_redir_ifd(t_token *input)
 	while (input && input->type != CMD && input->type != PIPE)
 	{
 		if (input->type == REDIRECT)
+		{
 			fd = ifd_condition(input, input->next->content);
+			if (fd < 0)
+				break ;
+		}
 		input = input->next;
 	}
 	return (fd);
