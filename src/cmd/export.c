@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 13:34:23 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/19 14:48:11 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 14:51:51 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	minishell_export(t_data *data, t_token *input, int ofd)
 	int		argument_check;
 
 	argument_check = check_argument(input);
+	return_value = 0;
 	if (argument_check == FLAG_O)
 		return (builtin_error("shell: export",
 				ft_strjoin(input->next->content, EXPORT_ERROPT), 2));
