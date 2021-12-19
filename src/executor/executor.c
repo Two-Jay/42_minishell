@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/18 07:25:02 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 13:36:35 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	minishell_executor(t_data *data)
 	else if (exec_pid < 0)
 		return (builtin_error("shell", ft_strdup(EXEC_ERRFORK), 1));
 	waitpid(exec_pid, &status, 0);
-	g_dq = WEXITSTATUS(status);
+	if (g_dq != DQ_SIGINT && g_dq != DQ_SIGQUIT)
+		g_dq = WEXITSTATUS(status);
 	return (0);
 }
