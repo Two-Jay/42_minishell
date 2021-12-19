@@ -6,7 +6,7 @@
 /*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 14:21:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/16 13:37:07 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/19 13:27:56 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	count_spclcmd_input(const char *str)
 		check = is_pipe_redirection_middle_str(str, ix);
 		if (!quote_flag && check)
 		{
-			if (check == 1)
+			if (check != 0)
 				ret++;
 			if (check == 2)
 				ix++;
@@ -96,5 +96,6 @@ int	insert_space_beside_spclcmd(const char *str, t_data *data)
 			return (ERROR_OCCURED);
 		do_insert_space(str, data, str_l);
 	}
+	trs(data->ip->isbs_ret);
 	return (0);
 }
