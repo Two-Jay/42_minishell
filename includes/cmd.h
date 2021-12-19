@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:40:00 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/19 15:09:11 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 20:17:39 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ int			minishell_exit(t_token *input, int if_pipe);
 */
 int			get_redir_ofd(t_token *input);
 int			get_redir_ifd(t_token *input);
+int			ifd_if_condition(t_token *input, int fd);
+int			ofd_if_condition(t_token *input, int fd);
+int			ifd_equal_str(char *str);
+int			ofd_equal_str(char *str);
 
 /*
 	* Environment Variables

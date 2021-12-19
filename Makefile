@@ -6,7 +6,7 @@
 #    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
-#    Updated: 2021/12/19 17:38:44 by jekim            ###   ########.fr        #
+#    Updated: 2021/12/19 20:14:09 by jiychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ UTILS_FILE		=	utils.c \
 					free_token.c \
 					ft_free_char2d.c \
 					get_redir_fd.c \
+					get_redir_fd_utils.c \
 					if_builtin.c \
 
 CMD_FILE		=	cd.c \
