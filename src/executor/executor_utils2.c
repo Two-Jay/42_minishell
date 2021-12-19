@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 18:58:39 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/16 03:10:40 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 19:48:01 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	exec_dup_ifd(t_token *input)
 	int		ifd;
 
 	ifd = get_redir_ifd(input);
+	if (ifd < 0)
+		exit(1);
 	if (ifd != STDIN_FILENO)
 	{
 		if (dup2(ifd, STDIN_FILENO) < 0)
@@ -68,6 +70,8 @@ void	exec_dup_ofd(t_token *input)
 	int		ofd;
 
 	ofd = get_redir_ofd(input);
+	if (ofd < 0)
+		exit(1);
 	if (ofd != STDOUT_FILENO)
 	{
 		if (dup2(ofd, STDOUT_FILENO) < 0)
