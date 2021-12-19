@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:00:00 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/19 15:30:16 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/19 17:35:29 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	signal_handler_default_SIGINT(int signo)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-        g_dq = 1;
+		g_dq = 1;
 	}
 }
 
 void	set_signal_handler_default(void)
 {
-    rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	turnon_echoctl_termattr();
 	signal(SIGINT, signal_handler_default_SIGINT);
 	signal(SIGQUIT, SIG_IGN);

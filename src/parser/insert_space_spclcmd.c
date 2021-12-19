@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insert_space_spclcmd.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 14:21:16 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/19 13:27:56 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/19 17:39:42 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,5 @@ int	insert_space_beside_spclcmd(const char *str, t_data *data)
 			return (ERROR_OCCURED);
 		do_insert_space(str, data, str_l);
 	}
-	trs(data->ip->isbs_ret);
 	return (0);
 }

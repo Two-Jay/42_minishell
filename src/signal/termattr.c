@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   termattr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 15:42:20 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/19 14:43:27 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/19 17:35:43 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void turnon_echoctl_termattr(void)
+void	turnon_echoctl_termattr(void)
 {
 	struct termios	termattr;
 
@@ -21,7 +21,7 @@ void turnon_echoctl_termattr(void)
 	tcsetattr(STDOUT_FILENO, TCSANOW, &termattr);
 }
 
-void turnoff_echoctl_termattr(void)
+void	turnoff_echoctl_termattr(void)
 {
 	struct termios	termattr;
 

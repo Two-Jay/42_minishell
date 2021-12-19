@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: jekim <arabi1549@naver.com>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/29 16:43:27 by jekim             #+#    #+#              #
 #    Updated: 2021/12/19 20:14:09 by jiychoi          ###   ########.fr        #

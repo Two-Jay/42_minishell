@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_builder.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jekim <jekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jekim <arabi1549@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 17:12:08 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/16 13:59:19 by jekim            ###   ########.fr       */
+/*   Updated: 2021/12/19 17:35:00 by jekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	set_dummy_head_lst(t_data *data)
 	return (0);
 }
 
-char *quote_checker(char **split_ret, int ix, t_data *data)
+char	*quote_checker(char **split_ret, int ix, t_data *data)
 {
 	char	*token_value;
 
