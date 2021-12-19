@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 21:24:06 by jekim             #+#    #+#             */
-/*   Updated: 2021/12/18 07:48:26 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 15:26:05 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	minishell_exit(t_token *input, int if_pipe)
 {
 	int		argument_check;
 
+	turnon_echoctl_termattr();
 	if (!if_pipe)
 		write(2, "exit\n", 5);
 	argument_check = check_argument(input);
