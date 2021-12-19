@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 11:39:45 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/16 03:10:59 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 19:51:38 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	pipe_dup_ifd(t_pipe *struct_pipe)
 		exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 	if (struct_pipe->fd_redir_in != STDIN_FILENO)
 	{
-		if (dup2(struct_pipe->fd_redir_in, STDIN_FILENO) < 0)
+		if (struct_pipe->fd_redir_in < 0
+			|| dup2(struct_pipe->fd_redir_in, STDIN_FILENO) < 0)
 			exit(1);
 		close(struct_pipe->fd_redir_in);
 	}
@@ -79,7 +80,8 @@ void	pipe_dup_ofd(t_pipe *struct_pipe, int fd[2])
 			exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 	if (struct_pipe->fd_redir_out != STDOUT_FILENO)
 	{
-		if (dup2(struct_pipe->fd_redir_out, STDOUT_FILENO) < 0)
+		if (struct_pipe->fd_redir_out < 0
+			|| dup2(struct_pipe->fd_redir_out, STDOUT_FILENO) < 0)
 			exit(1);
 		close(struct_pipe->fd_redir_out);
 	}
