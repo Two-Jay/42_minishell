@@ -6,7 +6,7 @@
 /*   By: jiychoi <jiychoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:39:47 by jiychoi           #+#    #+#             */
-/*   Updated: 2021/12/19 16:17:43 by jiychoi          ###   ########.fr       */
+/*   Updated: 2021/12/19 20:28:59 by jiychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	exec_program(t_data *data, t_token *input)
 	execve(cmd_path, exec_argv, exec_envp);
 	ft_free_char2d(exec_argv);
 	ft_free_char2d(exec_envp);
-	free(cmd_path);
 	exit(builtin_error("pipe", ft_strdup(PIPE_ERR), 1));
 }
 
